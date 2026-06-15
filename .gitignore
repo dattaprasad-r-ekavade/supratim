@@ -1,4 +1,6 @@
 node_modules/
+THIRD_PARTY_LICENSES.json
+agent-tools/
 dist/
 *.log
 .env

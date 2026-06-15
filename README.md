@@ -106,6 +106,7 @@ supratim/
 │   └── settings.json
 ├── docs/phase0-friction-log.md
 ├── index.html
+├── THIRD_PARTY_NOTICES.md
 └── README.md
 ```
 
@@ -119,6 +120,18 @@ supratim/
 | `@earendil-works/pi-tui` | Terminal UI |
 | `keytar` | OS-native secure credential storage |
 
-## License
+## Licenses
 
-MIT — Copyright (c) 2026 Dattaprasad Ekavade
+**Supratim** is [MIT licensed](LICENSE) — Copyright (c) 2026 Dattaprasad Ekavade.
+
+It is built on the [Pi](https://github.com/earendil-works/pi) toolkit (MIT) by Earendil Works.
+Runtime dependencies (`pi-coding-agent`, `pi-ai`, `pi-agent-core`, `pi-tui`, `chalk`, `keytar`) are
+all permissive (MIT and similar). Transitive deps include Apache-2.0 packages (mostly AWS SDK via `pi-ai`).
+
+- Full attribution and distribution notes: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
+- Regenerate dependency license report: `npm run licenses:report`
+
+**Sarvam AI** is an external API service — users need their own API key and must follow [Sarvam's terms](https://www.sarvam.ai).
+
+The [project overview page](index.html) uses [Google Fonts](https://fonts.google.com) (SIL OFL) and
+[Font Awesome](https://fontawesome.com) (free license) via CDN.

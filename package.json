@@ -20,6 +20,8 @@
     "verify-key": "tsx src/cli.ts --verify-key",
     "setup-key": "tsx src/cli.ts --setup-key",
     "spike": "tsx scripts/phase0-spike.ts",
+    "licenses": "license-checker --production --summary",
+    "licenses:report": "license-checker --production --json --out THIRD_PARTY_LICENSES.json",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -43,6 +45,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.3.0",
+    "license-checker": "^25.0.1",
     "tsx": "^4.20.3",
     "typescript": "^5.7.3"
   }
