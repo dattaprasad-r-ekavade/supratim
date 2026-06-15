@@ -279,61 +279,150 @@
       color: var(--text-muted);
     }
 
-    /* Timeline */
+    /* Timeline / Roadmap */
     .timeline {
       position: relative;
-      padding-left: 40px;
       margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .timeline::before {
       content: "";
       position: absolute;
-      left: 19px;
-      top: 12px;
-      bottom: 12px;
-      width: 3px;
-      background: linear-gradient(to bottom, var(--accent), var(--teal));
+      left: 23px;
+      top: 28px;
+      bottom: 28px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--green), var(--accent), var(--teal));
+      border-radius: 2px;
     }
 
     .phase {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 20px;
+      align-items: start;
       position: relative;
-      margin-bottom: 48px;
-      padding: 24px;
+    }
+
+    .phase-marker {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      color: var(--text-muted);
+      font-size: 1rem;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .phase-body {
+      padding: 20px 24px;
       background: var(--bg-card);
       border-radius: var(--radius);
       border: 1px solid var(--border);
       transition: all 0.3s ease;
     }
 
-    .phase:hover { border-color: var(--accent); }
-
-    .phase::before {
-      content: "";
-      position: absolute;
-      left: -11px;
-      top: 32px;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 3px solid var(--accent);
-      box-shadow: 0 0 0 6px rgba(255, 107, 53, 0.15);
-    }
-
-    .phase.done::before {
-      background: var(--green);
-      border-color: var(--green);
-    }
-
-    .phase.current::before {
-      background: var(--accent);
+    .phase:hover .phase-body {
       border-color: var(--accent);
-      animation: ping 2s infinite;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     }
 
-    @keyframes ping {
-      75%, 100% { transform: scale(2); opacity: 0; }
+    .phase-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .phase-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      margin: 0;
+    }
+
+    .phase-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .phase-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .phase-status i {
+      font-size: 0.7rem;
+      line-height: 1;
+    }
+
+    .phase-status.shipped {
+      color: var(--green);
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+    }
+
+    .phase-status.current {
+      color: var(--accent);
+      background: rgba(255, 107, 53, 0.12);
+      border: 1px solid rgba(255, 107, 53, 0.35);
+    }
+
+    .phase-status.planned {
+      color: var(--text-muted);
+      background: rgba(148, 163, 184, 0.08);
+      border: 1px solid var(--border);
+    }
+
+    .phase.done .phase-marker {
+      background: rgba(74, 222, 128, 0.15);
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .phase.current .phase-marker {
+      background: rgba(255, 107, 53, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 0 6px rgba(255, 107, 53, 0.12);
+    }
+
+    .phase.planned .phase-marker {
+      background: var(--bg-elevated);
+      border-color: var(--border);
+      color: var(--text-muted);
+    }
+
+    @keyframes roadmap-pulse {
+      0%, 100% { box-shadow: 0 0 0 6px rgba(255, 107, 53, 0.12); }
+      50% { box-shadow: 0 0 0 10px rgba(255, 107, 53, 0.06); }
+    }
+
+    .phase.current .phase-marker {
+      animation: roadmap-pulse 2s ease-in-out infinite;
     }
 
     /* Buttons */
@@ -421,6 +510,22 @@
       .card-grid { grid-template-columns: 1fr; }
       header { padding-top: 80px; }
       nav ul { justify-content: flex-start; }
+      .phase {
+        grid-template-columns: 40px 1fr;
+        gap: 14px;
+      }
+      .phase-marker {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+      }
+      .timeline::before { left: 19px; }
+      .phase-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .phase-body { padding: 16px 18px; }
     }
   </style>
 </head>
@@ -521,20 +626,54 @@
       <h2>Build Roadmap</h2>
       <div class="timeline">
         <div class="phase done">
-          <strong>Phase 0 — Spike &amp; Foundation</strong><br>
-          <span style="color:var(--text-muted);">Week 0–1 • Shipped</span>
+          <div class="phase-marker" aria-hidden="true"><i class="fas fa-check"></i></div>
+          <div class="phase-body">
+            <div class="phase-header">
+              <h3 class="phase-title">Phase 0 — Spike &amp; Foundation</h3>
+              <span class="phase-status shipped"><i class="fas fa-check"></i> Shipped</span>
+            </div>
+            <p class="phase-meta">Week 0–1 · Pi + Sarvam spike, friction log, depend-vs-fork</p>
+          </div>
         </div>
         <div class="phase done">
-          <strong>Phase 1 — CLI + Provider + Usage</strong><br>
-          <span style="color:var(--text-muted);">Week 1–3 • Shipped</span>
+          <div class="phase-marker" aria-hidden="true"><i class="fas fa-check"></i></div>
+          <div class="phase-body">
+            <div class="phase-header">
+              <h3 class="phase-title">Phase 1 — CLI + Provider + Usage</h3>
+              <span class="phase-status shipped"><i class="fas fa-check"></i> Shipped</span>
+            </div>
+            <p class="phase-meta">Week 1–3 · Secure key onboarding, INR usage HUD, MIT CLI</p>
+          </div>
         </div>
         <div class="phase current">
-          <strong>Phase 2 — MCP &amp; Agentic Depth</strong><br>
-          <span style="color:var(--accent);">In Progress</span>
+          <div class="phase-marker" aria-hidden="true"><i class="fas fa-code-branch"></i></div>
+          <div class="phase-body">
+            <div class="phase-header">
+              <h3 class="phase-title">Phase 2 — MCP &amp; Agentic Depth</h3>
+              <span class="phase-status current"><i class="fas fa-spinner fa-spin"></i> In progress</span>
+            </div>
+            <p class="phase-meta">Week 3–7 · MCP client layer, hooks, project-folder polish</p>
+          </div>
         </div>
-        <div class="phase">
-          <strong>Phase 3–6 — GUI &amp; v1.0</strong><br>
-          <span style="color:var(--text-muted);">Planned</span>
+        <div class="phase planned">
+          <div class="phase-marker" aria-hidden="true"><i class="fas fa-flag"></i></div>
+          <div class="phase-body">
+            <div class="phase-header">
+              <h3 class="phase-title">Phase 3 — Compaction + CLI v1</h3>
+              <span class="phase-status planned"><i class="fas fa-clock"></i> Planned</span>
+            </div>
+            <p class="phase-meta">Week 7–10 · Context compaction, feature parity, OSS launch</p>
+          </div>
+        </div>
+        <div class="phase planned">
+          <div class="phase-marker" aria-hidden="true"><i class="fas fa-desktop"></i></div>
+          <div class="phase-body">
+            <div class="phase-header">
+              <h3 class="phase-title">Phase 4–6 — GUI &amp; v1.0</h3>
+              <span class="phase-status planned"><i class="fas fa-clock"></i> Planned</span>
+            </div>
+            <p class="phase-meta">Week 10–22 · Tauri GUI, dual modes, packaging, docs site</p>
+          </div>
         </div>
       </div>
     </section>
