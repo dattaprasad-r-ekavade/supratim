@@ -1,0 +1,49 @@
+{
+  "name": "supratim",
+  "version": "0.1.0",
+  "description": "Supratim — model-agnostic coding agent with Sarvam showcased by default, built on Pi",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "supratim": "./dist/cli.js"
+  },
+  "main": "./dist/cli.js",
+  "types": "./dist/cli.d.ts",
+  "files": [
+    "dist",
+    "config"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js",
+    "verify-key": "tsx src/cli.ts --verify-key",
+    "setup-key": "tsx src/cli.ts --setup-key",
+    "spike": "tsx scripts/phase0-spike.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "sarvam",
+    "coding-agent",
+    "ai",
+    "cli",
+    "tui",
+    "pi"
+  ],
+  "engines": {
+    "node": ">=20.6.0"
+  },
+  "dependencies": {
+    "@earendil-works/pi-agent-core": "^0.74.2",
+    "@earendil-works/pi-ai": "^0.74.2",
+    "@earendil-works/pi-coding-agent": "^0.74.2",
+    "@earendil-works/pi-tui": "^0.74.2",
+    "chalk": "^5.5.0",
+    "keytar": "^7.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.7.3"
+  }
+}

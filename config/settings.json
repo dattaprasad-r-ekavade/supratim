@@ -1,0 +1,7 @@
+{
+  "defaultProvider": "sarvam",
+  "defaultModel": "sarvam-30b",
+  "thinkingLevel": "medium",
+  "theme": "dark",
+  "enableInstallTelemetry": false
+}

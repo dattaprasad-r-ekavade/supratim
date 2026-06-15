@@ -1,0 +1,64 @@
+{
+  "providers": {
+    "sarvam": {
+      "baseUrl": "https://api.sarvam.ai/v1",
+      "api": "openai-completions",
+      "apiKey": "$SARVAM_API_KEY",
+      "authHeader": true,
+      "headers": {
+        "api-subscription-key": "$SARVAM_API_KEY"
+      },
+      "compat": {
+        "supportsDeveloperRole": false,
+        "supportsReasoningEffort": true,
+        "maxTokensField": "max_tokens"
+      },
+      "models": [
+        {
+          "id": "sarvam-30b",
+          "name": "Sarvam 30B (default)",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 65536,
+          "maxTokens": 4096,
+          "cost": {
+            "input": 2.5,
+            "output": 10,
+            "cacheRead": 1.5,
+            "cacheWrite": 0
+          },
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": null
+          }
+        },
+        {
+          "id": "sarvam-105b",
+          "name": "Sarvam 105B",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 131072,
+          "maxTokens": 4096,
+          "cost": {
+            "input": 4,
+            "output": 16,
+            "cacheRead": 2.5,
+            "cacheWrite": 0
+          },
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": null
+          }
+        }
+      ]
+    }
+  }
+}
