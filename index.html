@@ -401,11 +401,13 @@
         Built on the <strong>Pi</strong> toolkit • Showcasing <span style="color: var(--accent);">Sarvam AI</span> by default.
       </p>
       
-      <div style="margin: 40px 0;">
-        <a href="#usage" class="btn"><i class="fas fa-terminal"></i> Try Now with npx</a>
+      <div style="margin: 40px 0; display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+        <a href="#usage" class="btn"><i class="fas fa-terminal"></i> Get Started</a>
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" class="btn" style="background: transparent; border: 1px solid var(--border); box-shadow: none;"><i class="fab fa-github"></i> View on GitHub</a>
       </div>
 
       <div class="meta-row">
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" class="meta-chip" style="text-decoration: none; color: inherit;"><i class="fab fa-github"></i> dattaprasad-r-ekavade/supratim</a>
         <span class="meta-chip"><i class="fas fa-code"></i> v0.1.0</span>
         <span class="meta-chip"><i class="fas fa-bolt"></i> Node ≥ 20.6</span>
         <span class="meta-chip"><i class="fas fa-palette"></i> TypeScript</span>
@@ -530,14 +532,17 @@
 
     <section id="usage">
       <h2>Get Started</h2>
-      <pre><span style="color:#64748b;"># Clone &amp; run</span>
+      <pre><span style="color:#64748b;"># Clone from GitHub</span>
+git clone https://github.com/dattaprasad-r-ekavade/supratim.git
+cd supratim
 npm install
 npm run build
 
 <span style="color:#ff6b35;">$</span> npm run dev
 
-<span style="color:#64748b;"># Or one-liner</span>
-npx . "Summarize this repo"</pre>
+<span style="color:#64748b;"># Verify API key · one-shot task</span>
+<span style="color:#ff6b35;">$</span> npm run verify-key
+<span style="color:#ff6b35;">$</span> node dist/cli.js -p "Summarize this repo"</pre>
 
       <p style="margin-top: 24px;">
         Need a Sarvam API key? <a href="https://dashboard.sarvam.ai" target="_blank" style="color:var(--accent);">Get it here →</a>
@@ -559,10 +564,11 @@ npx . "Summarize this repo"</pre>
 
     <footer>
       <div>
-        Supratim • MIT License • Built on <a href="https://pi.dev" target="_blank" style="color:var(--accent);">Pi</a> + <a href="https://www.sarvam.ai" target="_blank" style="color:var(--accent);">Sarvam AI</a>
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">github.com/dattaprasad-r-ekavade/supratim</a>
+        · MIT License · Built on <a href="https://pi.dev" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Pi</a> + <a href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Sarvam AI</a>
       </div>
       <div>
-        <a href="https://github.com" target="_blank" style="color:var(--text-muted); margin-left:20px;"><i class="fab fa-github"></i></a>
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" style="color:var(--text-muted); margin-left:20px;"><i class="fab fa-github"></i></a>
       </div>
     </footer>
   </div>
