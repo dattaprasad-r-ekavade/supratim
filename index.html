@@ -3,773 +3,1047 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Supratim — Agentic Coding</title>
+  <title>Supratim — Agentic Coding Agent</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
   <style>
     :root {
-      --bg: #0a0d14;
-      --bg-elevated: #111827;
-      --bg-card: #1e2937;
-      --border: #334155;
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
+      --bg: #08090f;
+      --bg-elevated: #0e1117;
+      --bg-card: #13181f;
+      --bg-code: #0c1020;
+      --border: #1e2a3a;
+      --border-subtle: #161e2a;
+      --text: #e8edf5;
+      --text-muted: #6b7a90;
+      --text-dim: #4a5568;
       --accent: #ff6b35;
       --accent-2: #f59e0b;
       --teal: #14b8a6;
       --green: #4ade80;
-      --radius: 16px;
+      --blue: #60a5fa;
+      --radius: 14px;
       --radius-sm: 8px;
-      --shadow: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.4);
-      --glow: 0 0 25px rgba(255, 107, 53, 0.5);
+      --radius-xs: 6px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: 16px; }
 
     body {
       font-family: "DM Sans", system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.7;
-      font-size: 16px;
       overflow-x: hidden;
     }
 
+    /* Subtle background texture */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.18), transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(20, 184, 166, 0.12), transparent 50%),
-        linear-gradient(180deg, rgba(15, 23, 42, 0.7) 0%, transparent 100%);
+      background:
+        radial-gradient(ellipse 80% 50% at 10% 20%, rgba(255, 107, 53, 0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 90% 80%, rgba(20, 184, 166, 0.05) 0%, transparent 60%);
       pointer-events: none;
-      z-index: -2;
-    }
-
-    .grid-bg {
-      position: fixed;
-      inset: 0;
-      background-image: 
-        linear-gradient(rgba(51, 65, 85, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(51, 65, 85, 0.06) 1px, transparent 1px);
-      background-size: 40px 40px;
       z-index: -1;
-      pointer-events: none;
     }
 
     .wrap {
-      max-width: 1100px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 0 24px 120px;
-      position: relative;
+      padding: 0 28px 120px;
     }
 
-    /* Hero */
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 9, 15, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      margin: 0 -28px;
+      padding: 0 28px;
+    }
+
+    .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      height: 56px;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: var(--radius-xs);
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text);
+      background: var(--bg-card);
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      padding: 6px 14px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-cta:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Hero ── */
     header {
-      padding: 120px 0 80px;
+      padding: 96px 0 72px;
       text-align: center;
-      position: relative;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      font-size: 0.8rem;
+      gap: 8px;
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--teal);
-      background: rgba(20, 184, 166, 0.12);
-      border: 1px solid rgba(20, 184, 166, 0.35);
-      padding: 8px 18px;
+      background: rgba(20, 184, 166, 0.08);
+      border: 1px solid rgba(20, 184, 166, 0.25);
+      padding: 7px 16px;
       border-radius: 9999px;
-      margin-bottom: 24px;
-      backdrop-filter: blur(12px);
+      margin-bottom: 28px;
     }
 
     .badge-dot {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       background: var(--green);
       border-radius: 50%;
-      box-shadow: 0 0 12px var(--green);
-      animation: pulse 2s infinite;
+      animation: pulse 2.5s ease-in-out infinite;
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+      50% { opacity: 0.5; box-shadow: 0 0 0 4px rgba(74, 222, 128, 0); }
     }
 
     h1 {
-      font-size: clamp(3rem, 8vw, 5rem);
+      font-size: clamp(2.8rem, 7vw, 4.5rem);
       font-weight: 800;
       letter-spacing: -0.05em;
       line-height: 1.05;
-      margin-bottom: 20px;
-      background: linear-gradient(90deg, #f1f5f9, var(--accent), #f1f5f9);
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, #e8edf5 0%, var(--accent) 60%, #f59e0b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .tagline {
-      font-size: 1.35rem;
+      font-size: 1.2rem;
       color: var(--text-muted);
-      max-width: 720px;
-      margin: 0 auto 40px;
-      font-weight: 500;
+      max-width: 600px;
+      margin: 0 auto 36px;
+      font-weight: 400;
+      line-height: 1.7;
     }
 
-    .meta-row {
+    .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 12px;
+      justify-content: center;
+      margin-bottom: 40px;
     }
 
-    .meta-chip {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      padding: 8px 20px;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #08090f;
+      font-weight: 700;
+      padding: 12px 28px;
       border-radius: 9999px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
     }
 
-    .meta-chip:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+    .btn:hover { background: #ff7a4a; transform: translateY(-2px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 12px 28px;
+    }
+
+    .btn-ghost:hover {
+      background: var(--bg-card);
+      color: var(--text);
+      border-color: rgba(148, 163, 184, 0.4);
       transform: translateY(-2px);
     }
 
-    /* Navigation */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(10, 13, 20, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      margin: 0 -24px 60px;
-      padding: 0 24px;
+    /* npm install hero block */
+    .hero-install {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 20px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 32px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      position: relative;
     }
 
-    nav ul {
-      list-style: none;
+    .hero-install:hover { border-color: rgba(148, 163, 184, 0.4); }
+
+    .hero-install .cmd-prefix { color: var(--text-muted); user-select: none; }
+    .hero-install .cmd-text { color: var(--text); }
+    .hero-install .cmd-pkg { color: var(--accent); }
+
+    .copy-btn {
       display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.75rem;
+    }
+
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       gap: 8px;
-      overflow-x: auto;
-      padding: 16px 0;
-      scrollbar-width: none;
     }
 
-    nav a {
+    .chip {
+      font-size: 0.8rem;
       color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 600;
-      padding: 10px 22px;
-      border-radius: var(--radius-sm);
-      transition: all 0.3s ease;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 5px 14px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    nav a:hover, nav a.active {
-      color: var(--text);
-      background: var(--bg-card);
-      box-shadow: var(--glow);
-    }
+    .chip a { color: inherit; text-decoration: none; }
+    .chip a:hover { color: var(--text); }
 
-    /* Sections */
-    section {
-      margin-bottom: 100px;
-    }
+    /* ── Sections ── */
+    section { margin-bottom: 88px; }
 
     h2 {
-      font-size: 2.25rem;
+      font-size: 1.75rem;
       font-weight: 700;
-      letter-spacing: -0.04em;
-      margin-bottom: 24px;
-      position: relative;
-      display: inline-block;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+      color: var(--text);
     }
 
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(to right, var(--accent), transparent);
-      border-radius: 999px;
+    .section-lead {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 640px;
+      margin-bottom: 32px;
     }
 
+    /* ── Cards ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-      margin-top: 32px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
     }
 
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 32px;
-      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      opacity: 0;
-      transition: opacity 0.3s;
+      padding: 28px;
+      transition: border-color 0.25s, transform 0.25s;
     }
 
     .card:hover {
-      transform: translateY(-12px);
-      box-shadow: var(--shadow), var(--glow);
-      border-color: var(--accent);
+      border-color: rgba(255, 107, 53, 0.35);
+      transform: translateY(-4px);
     }
 
-    .card:hover::before { opacity: 1; }
-
     .card-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: var(--radius);
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
-      margin-bottom: 24px;
-      transition: transform 0.4s ease;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
     }
 
-    .card:hover .card-icon { transform: scale(1.15) rotate(8deg); }
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
 
-    .card-icon.orange { background: rgba(255, 107, 53, 0.15); color: var(--accent); }
-    .card-icon.teal { background: rgba(20, 184, 166, 0.15); color: var(--teal); }
-    .card-icon.cyan { background: rgba(103, 232, 249, 0.15); color: #67e8f9; }
+    .card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
 
-    /* Architecture */
-    .arch-diagram {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 40px;
-      margin-top: 32px;
-      font-family: "JetBrains Mono", monospace;
+    .icon-orange { background: rgba(255, 107, 53, 0.1); }
+    .icon-teal   { background: rgba(20, 184, 166, 0.1); }
+    .icon-blue   { background: rgba(96, 165, 250, 0.1); }
+    .icon-green  { background: rgba(74, 222, 128, 0.1); }
+
+    /* ── Architecture table ── */
+    .arch-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
       font-size: 0.9rem;
-      line-height: 2;
-      color: var(--text-muted);
     }
 
-    /* Timeline / Roadmap */
+    .arch-table th, .arch-table td {
+      text-align: left;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .arch-table th {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      background: var(--bg-elevated);
+    }
+
+    .arch-table th:first-child { border-radius: var(--radius-sm) 0 0 0; }
+    .arch-table th:last-child { border-radius: 0 var(--radius-sm) 0 0; }
+
+    .arch-table td { color: var(--text-muted); }
+
+    .arch-table td:first-child {
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .arch-table tr:last-child td { border-bottom: none; }
+
+    code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.85em;
+      color: var(--blue);
+      background: rgba(96, 165, 250, 0.08);
+      border: 1px solid rgba(96, 165, 250, 0.15);
+      border-radius: 4px;
+      padding: 1px 6px;
+    }
+
+    /* ── Roadmap timeline ── */
     .timeline {
-      position: relative;
-      margin-top: 40px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 12px;
+      margin-top: 24px;
+      position: relative;
     }
 
     .timeline::before {
       content: "";
       position: absolute;
-      left: 23px;
-      top: 28px;
-      bottom: 28px;
+      left: 21px;
+      top: 32px;
+      bottom: 32px;
       width: 2px;
       background: linear-gradient(
         to bottom,
-        rgba(148, 163, 184, 0.35) 0%,
-        rgba(148, 163, 184, 0.35) 45%,
-        rgba(255, 107, 53, 0.55) 55%,
-        rgba(20, 184, 166, 0.45) 100%
+        var(--green) 0%,
+        var(--green) 30%,
+        var(--accent) 44%,
+        var(--accent) 56%,
+        var(--border) 70%,
+        var(--border) 100%
       );
+      opacity: 0.5;
       border-radius: 2px;
     }
 
     .phase {
       display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 20px;
+      grid-template-columns: 44px 1fr;
+      gap: 16px;
       align-items: start;
-      position: relative;
     }
 
-    .phase-marker {
-      width: 48px;
-      height: 48px;
+    .phase-dot {
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 0.9rem;
       flex-shrink: 0;
-      background: var(--bg);
       border: 2px solid var(--border);
-      color: var(--text-muted);
-      font-size: 1rem;
-      z-index: 2;
-      box-shadow: 0 0 0 4px var(--bg);
-      transition: all 0.3s ease;
+      background: var(--bg-card);
+      color: var(--text-dim);
+      position: relative;
+      z-index: 1;
+    }
+
+    .phase.done .phase-dot   { border-color: var(--green); color: var(--green); background: rgba(74, 222, 128, 0.06); }
+    .phase.active .phase-dot { border-color: var(--accent); color: var(--accent); background: rgba(255, 107, 53, 0.06); animation: phase-pulse 2.5s ease-in-out infinite; }
+
+    @keyframes phase-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.3); }
+      50% { box-shadow: 0 0 0 6px rgba(255, 107, 53, 0); }
     }
 
     .phase-body {
-      padding: 20px 24px;
       background: var(--bg-card);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      transition: all 0.3s ease;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      transition: border-color 0.2s;
     }
 
-    .phase:hover .phase-body {
-      border-color: var(--accent);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    }
+    .phase:hover .phase-body { border-color: var(--border); }
 
     .phase-header {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
     }
 
-    .phase-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.3;
-      margin: 0;
-    }
+    .phase-title { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+    .phase-desc  { font-size: 0.85rem; color: var(--text-muted); }
 
-    .phase-meta {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin: 0;
-      line-height: 1.5;
-    }
-
-    .phase-status {
+    .tag {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .tag.shipped { color: var(--green); background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.2); }
+    .tag.active  { color: var(--accent); background: rgba(255, 107, 53, 0.1); border: 1px solid rgba(255, 107, 53, 0.2); }
+    .tag.planned { color: var(--text-dim); background: var(--bg-elevated); border: 1px solid var(--border-subtle); }
+
+    /* ── Install tabs ── */
+    .install-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: -1px;
+    }
+
+    .install-tab {
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: "DM Sans", system-ui, sans-serif;
+    }
+
+    .install-tab.active {
+      background: var(--bg-code);
+      border-color: var(--border);
+      border-bottom-color: var(--bg-code);
+      color: var(--text);
+    }
+
+    .install-tab:hover:not(.active) { color: var(--text); }
+
+    .install-block {
+      display: none;
+      background: var(--bg-code);
+      border: 1px solid var(--border);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) var(--radius-sm);
+      padding: 24px;
+      overflow-x: auto;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.88rem;
+      line-height: 1.9;
+      color: #c9d8e8;
+      position: relative;
+    }
+
+    .install-block.active { display: block; }
+
+    .install-block .cmt { color: var(--text-dim); }
+    .install-block .kw  { color: var(--accent); }
+    .install-block .pkg { color: var(--teal); }
+    .install-block .cmd { color: #e8edf5; }
+    .install-block .str { color: #86efac; }
+
+    .copy-block-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xs);
+      padding: 5px 10px;
+      cursor: pointer;
+      font-family: "DM Sans", system-ui, sans-serif;
+      transition: all 0.2s;
+    }
+
+    .copy-block-btn:hover { color: var(--text); border-color: var(--border); }
+
+    /* ── Models table ── */
+    .models-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 24px;
+    }
+
+    .models-table th, .models-table td {
+      text-align: left;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .models-table th {
       font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      background: var(--bg-elevated);
+    }
+
+    .models-table td { color: var(--text-muted); }
+    .models-table td:first-child { font-family: "JetBrains Mono", monospace; font-size: 0.82rem; color: var(--text); }
+    .models-table tr:last-child td { border-bottom: none; }
+
+    .default-badge {
+      font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      padding: 5px 10px;
+      color: var(--accent);
+      background: rgba(255, 107, 53, 0.1);
+      border: 1px solid rgba(255, 107, 53, 0.2);
+      padding: 2px 8px;
       border-radius: 999px;
-      white-space: nowrap;
-      line-height: 1;
+      margin-left: 8px;
     }
 
-    .phase-status i {
-      font-size: 0.7rem;
-      line-height: 1;
-    }
-
-    .phase-status.shipped {
-      color: var(--green);
-      background: rgba(74, 222, 128, 0.12);
-      border: 1px solid rgba(74, 222, 128, 0.3);
-    }
-
-    .phase-status.current {
-      color: var(--accent);
-      background: rgba(255, 107, 53, 0.12);
-      border: 1px solid rgba(255, 107, 53, 0.35);
-    }
-
-    .phase-status.planned {
-      color: var(--text-muted);
-      background: rgba(148, 163, 184, 0.08);
+    /* ── Project tree ── */
+    pre.tree {
+      background: var(--bg-code);
       border: 1px solid var(--border);
-    }
-
-    .phase.done .phase-marker {
-      background: var(--bg-card);
-      border-color: var(--green);
-      color: var(--green);
-      box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px rgba(74, 222, 128, 0.25);
-    }
-
-    .phase.current .phase-marker {
-      background: var(--bg-card);
-      border-color: var(--accent);
-      color: var(--accent);
-      box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px rgba(255, 107, 53, 0.15);
-    }
-
-    .phase.planned .phase-marker {
-      background: var(--bg-card);
-      border-color: var(--border);
-      color: var(--text-muted);
-      box-shadow: 0 0 0 4px var(--bg);
-    }
-
-    @keyframes roadmap-pulse {
-      0%, 100% { box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px rgba(255, 107, 53, 0.15); }
-      50% { box-shadow: 0 0 0 4px var(--bg), 0 0 0 10px rgba(255, 107, 53, 0.08); }
-    }
-
-    .phase.current .phase-marker {
-      animation: roadmap-pulse 2s ease-in-out infinite;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      color: #0a0d14;
-      font-weight: 700;
-      padding: 14px 32px;
-      border-radius: 9999px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-size: 1.05rem;
-      box-shadow: var(--glow);
-    }
-
-    .btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 30px rgba(255, 107, 53, 0.6);
-    }
-
-    .btn-outline {
-      background: rgba(30, 41, 55, 0.85);
-      color: var(--text);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-      backdrop-filter: blur(8px);
-    }
-
-    .btn-outline:hover {
-      background: #1e293b;
-      border-color: var(--text);
-      color: #fff;
-      box-shadow: 0 0 20px rgba(148, 163, 184, 0.2);
-    }
-
-    .btn-outline .fab,
-    .btn-outline .fas {
-      color: inherit;
-    }
-
-    .meta-chip-link {
-      text-decoration: none;
-      color: var(--text-muted);
-    }
-
-    .meta-chip-link:hover {
-      color: #fff;
-      border-color: rgba(148, 163, 184, 0.6);
-      background: #1e293b;
-    }
-
-    .meta-chip-link .fab {
-      color: var(--text);
-    }
-
-    pre, .tree {
-      background: #0f172a;
-      border: 1px solid #334155;
       border-radius: var(--radius-sm);
       padding: 24px;
       overflow-x: auto;
       font-family: "JetBrains Mono", monospace;
-      font-size: 0.9rem;
-      line-height: 1.7;
-      color: #e0f2fe;
+      font-size: 0.88rem;
+      line-height: 1.9;
+      color: #c9d8e8;
+      margin-top: 24px;
     }
 
+    pre.tree .tr-dir  { color: var(--blue); }
+    pre.tree .tr-file { color: #c9d8e8; }
+    pre.tree .tr-dim  { color: var(--text-dim); }
+
+    /* ── Footer ── */
     footer {
-      margin-top: 120px;
-      padding: 40px 0;
-      border-top: 1px solid var(--border);
+      margin-top: 100px;
+      padding: 32px 0;
+      border-top: 1px solid var(--border-subtle);
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
       align-items: center;
-      gap: 20px;
+      justify-content: space-between;
+      gap: 16px;
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.85rem;
     }
 
-    @media (max-width: 768px) {
+    footer a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--text); }
+
+    .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
+    .footer-right { display: flex; align-items: center; gap: 16px; }
+
+    .footer-icon {
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+
+    .footer-icon:hover { color: var(--text); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      h1 { font-size: 2.4rem; }
       .card-grid { grid-template-columns: 1fr; }
-      header { padding-top: 80px; }
-      nav ul { justify-content: flex-start; }
-      .phase {
-        grid-template-columns: 40px 1fr;
-        gap: 14px;
-      }
-      .phase-marker {
-        width: 40px;
-        height: 40px;
-        font-size: 0.9rem;
-      }
+      .nav-links { display: none; }
+      header { padding: 64px 0 48px; }
+      .phase { grid-template-columns: 40px 1fr; gap: 12px; }
+      .phase-dot { width: 40px; height: 40px; font-size: 0.8rem; }
       .timeline::before { left: 19px; }
-      .phase-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-      }
-      .phase-body { padding: 16px 18px; }
     }
   </style>
 </head>
 <body>
-  <div class="grid-bg"></div>
-  
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">⬡ <span>supratim</span></a>
+      <ul class="nav-links">
+        <li><a href="#overview" class="active">Overview</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#structure">Structure</a></li>
+      </ul>
+      <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="nav-cta">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+  </nav>
+
   <div class="wrap">
     <header>
-      <div class="badge"><span class="badge-dot"></span> PHASES 0 &amp; 1 SHIPPED</div>
+      <div class="badge"><span class="badge-dot"></span> Phases 0 &amp; 1 Shipped</div>
       <h1>Supratim</h1>
       <p class="tagline">
-        Open-source, model-agnostic <strong>agentic coding agent</strong>.<br>
-        Built on the <strong>Pi</strong> toolkit • Showcasing <span style="color: var(--accent);">Sarvam AI</span> by default.
+        Open-source, model-agnostic agentic coding agent.<br>
+        Built on <strong>Pi</strong> · Showcasing <strong style="color:var(--accent)">Sarvam AI</strong> by default.
       </p>
-      
-      <div style="margin: 40px 0; display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
-        <a href="#usage" class="btn"><i class="fas fa-terminal"></i> Get Started</a>
-        <a href="https://github.com/dattaprasad-r-ekavade/supratim" class="btn btn-outline" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View on GitHub</a>
+
+      <div style="margin-bottom: 28px;">
+        <div class="hero-install" onclick="copyHeroCmd(this)" title="Click to copy">
+          <span class="cmd-prefix">$</span>
+          <span class="cmd-text">npx <span class="cmd-pkg">supratim</span></span>
+          <button class="copy-btn" aria-label="Copy command"><i class="far fa-copy"></i></button>
+        </div>
       </div>
 
-      <div class="meta-row">
-        <a href="https://github.com/dattaprasad-r-ekavade/supratim" class="meta-chip meta-chip-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> dattaprasad-r-ekavade/supratim</a>
-        <span class="meta-chip"><i class="fas fa-code"></i> v0.1.0</span>
-        <span class="meta-chip"><i class="fas fa-bolt"></i> Node ≥ 20.6</span>
-        <span class="meta-chip"><i class="fas fa-palette"></i> TypeScript</span>
-        <span class="meta-chip"><i class="fas fa-shield-alt"></i> MIT License</span>
-        <span class="meta-chip"><i class="fas fa-globe"></i> Cross-platform</span>
+      <div class="hero-actions">
+        <a href="#install" class="btn"><i class="fas fa-terminal"></i> Get Started</a>
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+          <i class="fab fa-github"></i> View on GitHub
+        </a>
+      </div>
+
+      <div class="chips">
+        <span class="chip"><i class="fas fa-code-branch"></i> v0.1.0</span>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" class="chip">
+          <i class="fab fa-npm"></i> npm
+        </a>
+        <span class="chip"><i class="fab fa-node-js"></i> Node ≥ 20.6</span>
+        <span class="chip"><i class="fab fa-js"></i> TypeScript</span>
+        <span class="chip"><i class="fas fa-shield-alt"></i> MIT</span>
+        <span class="chip"><i class="fas fa-globe"></i> Windows · macOS · Linux</span>
       </div>
     </header>
 
-    <nav>
-      <ul>
-        <li><a href="#overview" class="active">Overview</a></li>
-        <li><a href="#architecture">Architecture</a></li>
-        <li><a href="#phases">Roadmap</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#usage">Get Started</a></li>
-        <li><a href="#structure">Structure</a></li>
-      </ul>
-    </nav>
-
+    <!-- Overview -->
     <section id="overview">
       <h2>What is Supratim?</h2>
-      <p style="font-size: 1.2rem; max-width: 720px;">
-        A terminal-first coding agent that helps you read, write, edit, and run commands in your project — 
-        powered by Sarvam AI models out of the box.
-      </p>
-      <p>
-        Built on the excellent open-source <strong>Pi</strong> toolkit. We focus on what matters: seamless Sarvam integration, secure key onboarding, usage tracking in ₹, and production-ready workflows.
+      <p class="section-lead">
+        A terminal-first coding agent: read, write, edit, and run commands in your project — powered by Sarvam AI out of the box. Built on the open-source <strong>Pi</strong> toolkit so we can focus on what's unique: Sarvam integration, secure key onboarding, cost tracking in ₹.
       </p>
 
       <div class="card-grid">
         <div class="card">
-          <div class="card-icon orange">🎯</div>
+          <div class="card-icon icon-orange">🎯</div>
           <h3>Dogfood-First</h3>
-          <p>Daily use in real repos is the only benchmark. Every phase ships something you’ll actually use.</p>
+          <p>Daily use in real repos is the only benchmark. Every phase ships something you'll actually use.</p>
         </div>
         <div class="card">
-          <div class="card-icon teal">🔌</div>
+          <div class="card-icon icon-teal">🔌</div>
           <h3>Model-Agnostic</h3>
-          <p>Sarvam showcased by default. Swap to any provider or local model via Pi’s architecture.</p>
+          <p>Sarvam showcased by default. Swap to any provider or local model — Pi is already BYOK.</p>
         </div>
         <div class="card">
-          <div class="card-icon cyan">🧩</div>
-          <h3>Depend, Don’t Fork</h3>
-          <p>We build on top of Pi packages and stay aligned with upstream updates.</p>
+          <div class="card-icon icon-blue">🧩</div>
+          <h3>Depend, Don't Fork</h3>
+          <p>Built on Pi packages. Stays aligned with upstream — we extend, not duplicate.</p>
         </div>
       </div>
     </section>
 
+    <!-- Architecture -->
     <section id="architecture">
       <h2>Architecture</h2>
-      <p>Layers map cleanly onto Pi’s package structure with a thin custom layer on top.</p>
+      <p class="section-lead">Each layer maps onto a Pi package. Our custom code lives in the thin extension layer on top.</p>
 
-      <div class="arch-diagram">
-        <div style="display:flex; flex-direction:column; gap:20px;">
-          <div style="display:flex; align-items:center; gap:16px; padding:12px 0; border-bottom:1px dashed #475569;">
-            <span style="min-width:160px; color:var(--accent); font-weight:600;">CLI Surface</span>
-            <span><strong style="color:#ff6b35;">supratim CLI</strong> + <span style="color:#67e8f9;">pi-tui</span></span>
-          </div>
-          <div style="display:flex; align-items:center; gap:16px; padding:12px 0; border-bottom:1px dashed #475569;">
-            <span style="min-width:160px; color:var(--accent); font-weight:600;">Core Engine</span>
-            <span style="color:#67e8f9;">pi-agent-core</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:16px; padding:12px 0; border-bottom:1px dashed #475569;">
-            <span style="min-width:160px; color:var(--accent); font-weight:600;">Provider Layer</span>
-            <span>Sarvam via <span style="color:#67e8f9;">pi-ai</span> (OpenAI compatible)</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:16px;">
-            <span style="min-width:160px; color:var(--accent); font-weight:600;">Extensions</span>
-            <span style="color:#ff6b35;">sarvam-compat • usage-hud • secure-keytar</span>
-          </div>
-        </div>
-      </div>
+      <table class="arch-table">
+        <thead>
+          <tr>
+            <th>Layer</th>
+            <th>Stack</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>CLI surface</td>
+            <td><code>supratim</code> CLI + <code>pi-tui</code> (InteractiveMode)</td>
+          </tr>
+          <tr>
+            <td>Core engine</td>
+            <td><code>pi-agent-core</code> — tool loop, state, sessions</td>
+          </tr>
+          <tr>
+            <td>Provider layer</td>
+            <td><code>pi-ai</code> + Sarvam via <code>models.json</code> (OpenAI-compatible)</td>
+          </tr>
+          <tr>
+            <td>Extensions</td>
+            <td><code>sarvam-compat</code> · <code>usage-hud</code> · onboarding · <code>keytar</code></td>
+          </tr>
+          <tr>
+            <td>Security</td>
+            <td>API keys in OS credential manager — never plaintext on disk</td>
+          </tr>
+          <tr>
+            <td>Config dir</td>
+            <td><code>~/.supratim/</code> &nbsp;(override with <code>SUPRATIM_AGENT_DIR</code>)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="models-table" style="margin-top: 36px;">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Context</th>
+            <th>Input / 1M tokens</th>
+            <th>Output / 1M tokens</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>sarvam-30b <span class="default-badge">Default</span></td>
+            <td>64K</td>
+            <td>₹2.5</td>
+            <td>₹10</td>
+          </tr>
+          <tr>
+            <td>sarvam-105b</td>
+            <td>128K</td>
+            <td>₹4</td>
+            <td>₹16</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
-    <section id="phases">
+    <!-- Roadmap -->
+    <section id="roadmap">
       <h2>Build Roadmap</h2>
+      <p class="section-lead">One shippable increment per phase. The sequence is the deliverable.</p>
+
       <div class="timeline">
         <div class="phase done">
-          <div class="phase-marker" aria-hidden="true"><i class="fas fa-check"></i></div>
+          <div class="phase-dot"><i class="fas fa-check"></i></div>
           <div class="phase-body">
             <div class="phase-header">
-              <h3 class="phase-title">Phase 0 — Spike &amp; Foundation</h3>
-              <span class="phase-status shipped"><i class="fas fa-check"></i> Shipped</span>
+              <span class="phase-title">Phase 0 — Spike &amp; Foundation</span>
+              <span class="tag shipped"><i class="fas fa-check"></i> Shipped</span>
             </div>
-            <p class="phase-meta">Pi + Sarvam spike, friction log, depend-vs-fork</p>
+            <p class="phase-desc">Pi + Sarvam spike, friction log, depend-vs-fork decision</p>
           </div>
         </div>
+
         <div class="phase done">
-          <div class="phase-marker" aria-hidden="true"><i class="fas fa-check"></i></div>
+          <div class="phase-dot"><i class="fas fa-check"></i></div>
           <div class="phase-body">
             <div class="phase-header">
-              <h3 class="phase-title">Phase 1 — CLI + Provider + Usage</h3>
-              <span class="phase-status shipped"><i class="fas fa-check"></i> Shipped</span>
+              <span class="phase-title">Phase 1 — CLI + Provider + Usage + npm publish</span>
+              <span class="tag shipped"><i class="fas fa-check"></i> Shipped</span>
             </div>
-            <p class="phase-meta">Secure key onboarding, INR usage HUD, MIT CLI</p>
+            <p class="phase-desc">Secure key onboarding, live INR usage HUD, MIT CLI — published to npm</p>
           </div>
         </div>
-        <div class="phase current">
-          <div class="phase-marker" aria-hidden="true"><i class="fas fa-code-branch"></i></div>
+
+        <div class="phase active">
+          <div class="phase-dot"><i class="fas fa-code-branch"></i></div>
           <div class="phase-body">
             <div class="phase-header">
-              <h3 class="phase-title">Phase 2 — MCP &amp; Agentic Depth</h3>
-              <span class="phase-status current"><i class="fas fa-spinner fa-spin"></i> In progress</span>
+              <span class="phase-title">Phase 2 — MCP &amp; Agentic Depth</span>
+              <span class="tag active"><i class="fas fa-circle" style="font-size:0.5em"></i> In progress</span>
             </div>
-            <p class="phase-meta">MCP client layer, hooks, project-folder polish</p>
+            <p class="phase-desc">MCP client layer, hooks, project-folder polish</p>
           </div>
         </div>
-        <div class="phase planned">
-          <div class="phase-marker" aria-hidden="true"><i class="fas fa-flag"></i></div>
+
+        <div class="phase">
+          <div class="phase-dot"><i class="fas fa-layer-group"></i></div>
           <div class="phase-body">
             <div class="phase-header">
-              <h3 class="phase-title">Phase 3 — Compaction + CLI v1</h3>
-              <span class="phase-status planned"><i class="fas fa-clock"></i> Planned</span>
+              <span class="phase-title">Phase 3 — Compaction + CLI v1</span>
+              <span class="tag planned">Planned</span>
             </div>
-            <p class="phase-meta">Context compaction, feature parity, OSS launch</p>
+            <p class="phase-desc">Context compaction, feature parity, OSS launch</p>
           </div>
         </div>
-        <div class="phase planned">
-          <div class="phase-marker" aria-hidden="true"><i class="fas fa-desktop"></i></div>
+
+        <div class="phase">
+          <div class="phase-dot"><i class="fas fa-desktop"></i></div>
           <div class="phase-body">
             <div class="phase-header">
-              <h3 class="phase-title">Phase 4–6 — GUI &amp; v1.0</h3>
-              <span class="phase-status planned"><i class="fas fa-clock"></i> Planned</span>
+              <span class="phase-title">Phase 4–6 — GUI &amp; v1.0</span>
+              <span class="tag planned">Planned</span>
             </div>
-            <p class="phase-meta">Tauri GUI, dual modes, packaging, docs site</p>
+            <p class="phase-desc">Tauri GUI, dual modes (Agent + Developer), packaging, docs site</p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- What's ready -->
     <section id="features">
       <h2>What's Ready Today</h2>
+      <p class="section-lead">Phases 0 &amp; 1 are fully shipped and published.</p>
+
       <div class="card-grid">
         <div class="card">
-          <div class="card-icon teal">🔑</div>
+          <div class="card-icon icon-teal">🔑</div>
           <h3>Secure Key Onboarding</h3>
-          <p>Beautiful TUI wizard. Keys stored safely in OS credential manager via keytar.</p>
+          <p>TUI wizard on first run. Keys stored in Windows Credential Manager / macOS Keychain via <code>keytar</code> — never written to disk.</p>
         </div>
         <div class="card">
-          <div class="card-icon orange">📊</div>
+          <div class="card-icon icon-orange">📊</div>
           <h3>Live Usage HUD</h3>
-          <p>Real-time tokens, cost in ₹, context usage, and model info.</p>
+          <p>Real-time token counts, running cost in ₹, context window %, current model — always visible in the footer.</p>
         </div>
         <div class="card">
-          <div class="card-icon cyan">🛠️</div>
-          <h3>Powerful Tools</h3>
-          <p>read, write, edit, bash — all scoped to your project directory.</p>
+          <div class="card-icon icon-blue">🛠️</div>
+          <h3>Core Tools</h3>
+          <p><code>read</code>, <code>write</code>, <code>edit</code>, <code>bash</code> — all scoped to your project directory via Pi.</p>
         </div>
         <div class="card">
-          <div class="card-icon teal">⚡</div>
-          <h3>Sarvam Optimized</h3>
-          <p>Full compatibility layer for content blocks and model limits.</p>
+          <div class="card-icon icon-green">⚡</div>
+          <h3>Sarvam Optimised</h3>
+          <p>Compat extension flattens Pi content blocks; handles Sarvam tier <code>max_tokens</code> limits automatically.</p>
         </div>
       </div>
     </section>
 
-    <section id="usage">
+    <!-- Install -->
+    <section id="install">
       <h2>Get Started</h2>
-      <pre><span style="color:#64748b;"># Clone from GitHub</span>
-git clone https://github.com/dattaprasad-r-ekavade/supratim.git
-cd supratim
-npm install
-npm run build
+      <p class="section-lead">You need a <a href="https://dashboard.sarvam.ai" target="_blank" style="color:var(--accent)">Sarvam API key</a> (<code>sk_…</code>) and Node.js ≥ 20.6.</p>
 
-<span style="color:#ff6b35;">$</span> npm run dev
+      <div class="install-tabs">
+        <button class="install-tab active" onclick="switchTab(this, 'tab-npx')">npx</button>
+        <button class="install-tab" onclick="switchTab(this, 'tab-global')">Global install</button>
+        <button class="install-tab" onclick="switchTab(this, 'tab-source')">From source</button>
+      </div>
 
-<span style="color:#64748b;"># Verify API key · one-shot task</span>
-<span style="color:#ff6b35;">$</span> npm run verify-key
-<span style="color:#ff6b35;">$</span> node dist/cli.js -p "Summarize this repo"</pre>
+      <div id="tab-npx" class="install-block active">
+        <button class="copy-block-btn" onclick="copyBlock('tab-npx')"><i class="far fa-copy"></i> Copy</button>
+        <div class="cmt"># Run instantly — no install step needed</div>
+        <div><span class="kw">$</span> <span class="cmd">npx <span class="pkg">supratim</span></span></div>
+        <br>
+        <div class="cmt"># One-shot print mode</div>
+        <div><span class="kw">$</span> <span class="cmd">npx supratim -p <span class="str">"Summarise this repo"</span></span></div>
+        <br>
+        <div class="cmt"># Validate your API key</div>
+        <div><span class="kw">$</span> <span class="cmd">npx supratim --verify-key</span></div>
+      </div>
 
-      <p style="margin-top: 24px;">
-        Need a Sarvam API key? <a href="https://dashboard.sarvam.ai" target="_blank" style="color:var(--accent);">Get it here →</a>
-      </p>
+      <div id="tab-global" class="install-block">
+        <button class="copy-block-btn" onclick="copyBlock('tab-global')"><i class="far fa-copy"></i> Copy</button>
+        <div class="cmt"># Install once, run anywhere</div>
+        <div><span class="kw">$</span> <span class="cmd">npm install -g <span class="pkg">supratim</span></span></div>
+        <br>
+        <div class="cmt"># Then just</div>
+        <div><span class="kw">$</span> <span class="cmd">supratim</span>                 <span class="cmt"># interactive TUI</span></div>
+        <div><span class="kw">$</span> <span class="cmd">supratim --verify-key</span>    <span class="cmt"># validate key</span></div>
+        <div><span class="kw">$</span> <span class="cmd">supratim --setup-key</span>     <span class="cmt"># re-run wizard</span></div>
+        <div><span class="kw">$</span> <span class="cmd">supratim --help</span>          <span class="cmt"># all options</span></div>
+      </div>
+
+      <div id="tab-source" class="install-block">
+        <button class="copy-block-btn" onclick="copyBlock('tab-source')"><i class="far fa-copy"></i> Copy</button>
+        <div class="cmt"># Clone and build</div>
+        <div><span class="kw">$</span> <span class="cmd">git clone https://github.com/dattaprasad-r-ekavade/supratim.git</span></div>
+        <div><span class="kw">$</span> <span class="cmd">cd supratim</span></div>
+        <div><span class="kw">$</span> <span class="cmd">npm install</span></div>
+        <div><span class="kw">$</span> <span class="cmd">npm run build</span></div>
+        <br>
+        <div class="cmt"># Run</div>
+        <div><span class="kw">$</span> <span class="cmd">npm run dev</span>              <span class="cmt"># interactive TUI</span></div>
+        <div><span class="kw">$</span> <span class="cmd">npm run verify-key</span>       <span class="cmt"># validate key</span></div>
+      </div>
     </section>
 
+    <!-- Structure -->
     <section id="structure">
       <h2>Project Structure</h2>
-      <pre class="tree">Supratim/
-├── src/
-│   ├── cli.ts
-│   ├── onboarding.ts
-│   ├── secure-storage.ts
-│   └── extensions/
-├── config/models.json
-├── docs/phase0-friction-log.md
-└── index.html</pre>
+      <p class="section-lead">Thin on custom code — we stand on Pi and extend cleanly.</p>
+
+      <pre class="tree"><span class="tr-dir">supratim/</span>
+├── <span class="tr-dir">src/</span>
+│   ├── <span class="tr-file">cli.ts</span>             <span class="tr-dim">Entry point, argument parsing, interactive + print modes</span>
+│   ├── <span class="tr-file">config.ts</span>          <span class="tr-dim">Agent dir, version, model constants</span>
+│   ├── <span class="tr-file">onboarding.ts</span>      <span class="tr-dim">TUI key wizard (first-run)</span>
+│   ├── <span class="tr-file">secure-storage.ts</span>  <span class="tr-dim">OS credential manager via keytar</span>
+│   ├── <span class="tr-file">sarvam-verify.ts</span>   <span class="tr-dim">Live API key validation</span>
+│   └── <span class="tr-dir">extensions/</span>
+│       ├── <span class="tr-file">sarvam-compat.ts</span>  <span class="tr-dim">Content block flattening for Sarvam</span>
+│       └── <span class="tr-file">usage-hud.ts</span>      <span class="tr-dim">Live token / cost footer</span>
+├── <span class="tr-dir">config/</span>
+│   ├── <span class="tr-file">models.json</span>        <span class="tr-dim">Sarvam provider + model definitions</span>
+│   └── <span class="tr-file">settings.json</span>      <span class="tr-dim">Default theme, thinking level</span>
+├── <span class="tr-dir">docs/</span>
+│   └── <span class="tr-file">phase0-friction-log.md</span>
+└── <span class="tr-file">index.html</span>          <span class="tr-dim">This page</span></pre>
     </section>
 
     <footer>
-      <div>
-        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">github.com/dattaprasad-r-ekavade/supratim</a>
-        · <a href="LICENSE" style="color:var(--accent);">MIT License</a>
-        · <a href="THIRD_PARTY_NOTICES.md" style="color:var(--accent);">Third-party notices</a>
-        · Built on <a href="https://pi.dev" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Pi</a> (MIT)
-        · Models via <a href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Sarvam AI</a>
+      <div class="footer-links">
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer">npm</a>
+        <a href="LICENSE">MIT License</a>
+        <a href="THIRD_PARTY_NOTICES.md">Third-party notices</a>
+        <a href="https://pi.dev" target="_blank" rel="noopener noreferrer">Built on Pi</a>
+        <a href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer">Sarvam AI</a>
       </div>
-      <div style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);">
-        Fonts: <a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer" style="color:var(--text-muted);">Google Fonts</a> (SIL OFL)
-        · Icons by <a href="https://fontawesome.com" target="_blank" rel="noopener noreferrer" style="color:var(--text-muted);">Font Awesome</a>
-      </div>
-      <div style="margin-top: 16px;">
-        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" style="color:var(--text-muted);"><i class="fab fa-github"></i></a>
+      <div class="footer-right">
+        <span style="color: var(--text-dim); font-size: 0.8rem;">© 2026 Dattaprasad Ekavade</span>
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-github"></i></a>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-npm"></i></a>
       </div>
     </footer>
   </div>
 
   <script>
-    document.querySelectorAll('nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
+    // Nav active state on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
       });
-    });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+
+    // Install tabs
+    function switchTab(btn, tabId) {
+      document.querySelectorAll('.install-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.install-block').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    // Copy hero command
+    function copyHeroCmd(el) {
+      navigator.clipboard.writeText('npx supratim').then(() => {
+        const btn = el.querySelector('.copy-btn i');
+        btn.className = 'fas fa-check';
+        setTimeout(() => { btn.className = 'far fa-copy'; }, 1800);
+      });
+    }
+
+    // Copy code block (text content only)
+    function copyBlock(tabId) {
+      const block = document.getElementById(tabId);
+      const lines = Array.from(block.querySelectorAll('div')).map(d => d.textContent.replace(/^\$\s+/, '').trim()).filter(Boolean);
+      const text = lines.join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = block.querySelector('.copy-block-btn');
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied';
+        setTimeout(() => { btn.innerHTML = '<i class="far fa-copy"></i> Copy'; }, 1800);
+      });
+    }
   </script>
 </body>
 </html>

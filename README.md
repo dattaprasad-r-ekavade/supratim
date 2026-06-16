@@ -1,8 +1,13 @@
 # Supratim
 
+[![npm](https://img.shields.io/npm/v/supratim?color=ff6b35&style=flat-square)](https://www.npmjs.com/package/supratim)
+[![License: MIT](https://img.shields.io/badge/License-MIT-teal.svg?style=flat-square)](LICENSE)
+[![Node ≥ 20.6](https://img.shields.io/badge/node-%E2%89%A520.6-blue?style=flat-square)](https://nodejs.org)
+
 Open-source, model-agnostic **agentic coding agent** — built on the [Pi](https://pi.dev) toolkit, showcasing [Sarvam AI](https://www.sarvam.ai) by default.
 
-**Repository:** https://github.com/dattaprasad-r-ekavade/supratim
+**Repository:** https://github.com/dattaprasad-r-ekavade/supratim  
+**npm:** https://www.npmjs.com/package/supratim
 
 Phases 0 & 1 are shipped: CLI, Sarvam provider, secure key onboarding, and live usage HUD in ₹.
 
@@ -54,28 +59,44 @@ Endpoint: `https://api.sarvam.ai/v1`
 - Node.js ≥ 20.6
 - A [Sarvam API key](https://dashboard.sarvam.ai) (`sk_…`)
 
-### Install
+### Install via npm (recommended)
+
+```bash
+# Try instantly — no install required
+npx supratim
+
+# Or install globally
+npm install -g supratim
+supratim
+```
+
+### Install from source
 
 ```bash
 git clone https://github.com/dattaprasad-r-ekavade/supratim.git
 cd supratim
 npm install
 npm run build
+node dist/cli.js
 ```
 
 ### Commands
 
 ```bash
-npm run dev              # Interactive TUI (onboarding on first run)
-npm run verify-key       # Validate API key (~20 tokens)
-npm run setup-key        # Re-run key wizard
-npm run spike            # Phase 0 integration test
-
-node dist/cli.js -p "Summarize this repo"   # One-shot print mode
-npx . --verify-key
+supratim                              # Interactive TUI (onboarding on first run)
+supratim --verify-key                 # Validate stored Sarvam API key
+supratim --setup-key                  # Re-run key wizard
+supratim -p "Summarize this repo"     # One-shot print mode
+supratim --help                       # Show all options
 ```
 
 Config directory: `~/.supratim/` (Windows: `%USERPROFILE%\.supratim\`).
+
+> **API key formats accepted in `sarvamapi.txt`:**
+> ```
+> sk_live_abc123...          # bare key on its own line
+> key = sk_live_abc123...    # key = value format
+> ```
 
 ## Roadmap
 
