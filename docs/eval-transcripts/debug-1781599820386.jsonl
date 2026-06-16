@@ -1,0 +1,93 @@
+{"event":"before_provider_request","ts":1781599820670,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":2,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599820803,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599826867,"turnIndex":0,"role":"assistant","usage":{"in":1576,"out":585,"cacheRead":0,"cost":0.015664},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599826869,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":4,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599827031,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599829036,"turnIndex":1,"role":"assistant","usage":{"in":1753,"out":55,"cacheRead":0,"cost":0.007892},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599829038,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":6,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599829213,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599829456,"turnIndex":2,"role":"assistant","usage":{"in":1929,"out":14,"cacheRead":0,"cost":0.00794},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599829459,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":8,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599829626,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599829987,"turnIndex":3,"role":"assistant","usage":{"in":4086,"out":14,"cacheRead":0,"cost":0.016568},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599829989,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":10,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599830134,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599830580,"turnIndex":4,"role":"assistant","usage":{"in":4959,"out":18,"cacheRead":0,"cost":0.020124},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599830582,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":12,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599830727,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599831504,"turnIndex":5,"role":"assistant","usage":{"in":6069,"out":19,"cacheRead":0,"cost":0.024579999999999998},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599831506,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":14,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599831672,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599832069,"turnIndex":6,"role":"assistant","usage":{"in":6528,"out":18,"cacheRead":0,"cost":0.0264},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599832070,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":16,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599832306,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599832717,"turnIndex":7,"role":"assistant","usage":{"in":7060,"out":18,"cacheRead":0,"cost":0.028527999999999998},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599832719,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":18,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599832911,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599833230,"turnIndex":8,"role":"assistant","usage":{"in":7467,"out":18,"cacheRead":0,"cost":0.030156},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599833233,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":20,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599833448,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599833830,"turnIndex":9,"role":"assistant","usage":{"in":9124,"out":15,"cacheRead":0,"cost":0.036736},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599833832,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":22,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599834028,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599834554,"turnIndex":10,"role":"assistant","usage":{"in":10163,"out":17,"cacheRead":0,"cost":0.040924},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599834559,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":24,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599834923,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599835346,"turnIndex":11,"role":"assistant","usage":{"in":10765,"out":16,"cacheRead":0,"cost":0.043316},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599835349,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":26,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599835527,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599837065,"turnIndex":12,"role":"assistant","usage":{"in":11024,"out":113,"cacheRead":0,"cost":0.04590399999999999},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599837069,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":28,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599837398,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599839170,"turnIndex":13,"role":"assistant","usage":{"in":11415,"out":106,"cacheRead":0,"cost":0.047356},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599839172,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":30,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599839385,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599842420,"turnIndex":14,"role":"assistant","usage":{"in":11616,"out":210,"cacheRead":0,"cost":0.049824},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599842422,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":32,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599842694,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599844732,"turnIndex":15,"role":"assistant","usage":{"in":11855,"out":109,"cacheRead":0,"cost":0.049164},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599844737,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":34,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599844966,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599846853,"turnIndex":16,"role":"assistant","usage":{"in":12000,"out":109,"cacheRead":0,"cost":0.049744000000000003},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599846862,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":36,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599847093,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599849447,"turnIndex":17,"role":"assistant","usage":{"in":12145,"out":109,"cacheRead":0,"cost":0.050324},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599849452,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":38,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599849694,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599851412,"turnIndex":18,"role":"assistant","usage":{"in":12290,"out":109,"cacheRead":0,"cost":0.050904},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599851418,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":40,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599851736,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599852968,"turnIndex":19,"role":"assistant","usage":{"in":12435,"out":109,"cacheRead":0,"cost":0.051484},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599852975,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":42,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599853281,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599854710,"turnIndex":20,"role":"assistant","usage":{"in":12580,"out":109,"cacheRead":0,"cost":0.052064},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599854712,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":44,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599854926,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599856638,"turnIndex":21,"role":"assistant","usage":{"in":12725,"out":109,"cacheRead":0,"cost":0.052644},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599856644,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":46,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599857025,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599858429,"turnIndex":22,"role":"assistant","usage":{"in":12870,"out":109,"cacheRead":0,"cost":0.053224},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599858432,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":48,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599858629,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599860003,"turnIndex":23,"role":"assistant","usage":{"in":13015,"out":109,"cacheRead":0,"cost":0.053804},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599860009,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":50,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599860436,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599861784,"turnIndex":24,"role":"assistant","usage":{"in":13160,"out":109,"cacheRead":0,"cost":0.054384},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599861786,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":52,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599862377,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599864009,"turnIndex":25,"role":"assistant","usage":{"in":13305,"out":109,"cacheRead":0,"cost":0.054964},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599864012,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":54,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599864262,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599865630,"turnIndex":26,"role":"assistant","usage":{"in":13450,"out":109,"cacheRead":0,"cost":0.055544},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599865632,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":56,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599865892,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599867109,"turnIndex":27,"role":"assistant","usage":{"in":13595,"out":109,"cacheRead":0,"cost":0.056124},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599867113,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":58,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599867450,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599868798,"turnIndex":28,"role":"assistant","usage":{"in":13740,"out":109,"cacheRead":0,"cost":0.056704},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599868801,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":60,"last_user_message_chars":224}
+{"event":"after_provider_response","ts":1781599869036,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781599870815,"turnIndex":29,"role":"assistant","usage":{"in":13885,"out":109,"cacheRead":0,"cost":0.057284},"tool_result_count":1,"model":"sarvam-105b"}
+{"event":"before_provider_request","ts":1781599870825,"model":"sarvam-105b","max_tokens":4096,"reasoning_effort":"medium","message_count":62,"last_user_message_chars":224}
+{"event":"turn_end","ts":1781599870828,"turnIndex":30,"role":"assistant","usage":{"in":0,"out":0,"cacheRead":0,"cost":0},"tool_result_count":0,"model":"sarvam-105b"}
+{"event":"agent_end","ts":1781599870831,"model":"sarvam-105b","requests":31,"totalIn":298584,"totalOut":2871,"totalCost":1.240272,"currency":"INR"}

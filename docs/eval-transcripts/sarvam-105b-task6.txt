@@ -1,2 +1,8 @@
 ﻿Sarvam API connected (sarvam-105b, 20 tokens in validation call)
-Sarvam models are not available. Check models.json and API key.
+[debug] logging to C:\Users\admin\Downloads\non-work\supratim\docs\eval-transcripts\debug-1781599820386.jsonl
+(node:10104) MaxListenersExceededWarning: Possible EventTarget memory leak detected. 11 abort listeners added to [AbortSignal]. MaxListeners is 10. Use events.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+[turn-limit] Reached 30 turns (index 29) ΓÇö aborting loop.
+[turn-limit] Reached 30 turns (index 30) ΓÇö aborting loop.
+[tokens] in=298584 out=2871 cacheRead=0 req=31 cost=Γé╣1.2403
+Request was aborted.

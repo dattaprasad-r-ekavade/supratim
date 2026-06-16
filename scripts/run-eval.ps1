@@ -41,7 +41,7 @@ if ($MaxTokens -gt 0 -and (Test-Path $modelsCfgPath)) {
             if ($m.id -eq $Model) { $m.maxTokens = $MaxTokens }
         }
     }
-    $cfg | ConvertTo-Json -Depth 10 | Set-Content $modelsCfgPath -Encoding UTF8
+    [System.IO.File]::WriteAllText($modelsCfgPath, ($cfg | ConvertTo-Json -Depth 10), [System.Text.UTF8Encoding]::new($false))
     Write-Host ("Patched ${modelsCfgPath}: $Model maxTokens -> $MaxTokens") -ForegroundColor Yellow
 }
 
@@ -106,7 +106,7 @@ foreach ($task in $runTasks) {
 
 # Restore models.json if patched
 if ($null -ne $origModelsCfg) {
-    Set-Content $modelsCfgPath -Value $origModelsCfg -Encoding UTF8
+    [System.IO.File]::WriteAllText($modelsCfgPath, $origModelsCfg, [System.Text.UTF8Encoding]::new($false))
     Write-Host "Restored $modelsCfgPath" -ForegroundColor Yellow
 }
 

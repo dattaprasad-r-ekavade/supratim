@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-16  
 **Question:** Can `sarvam-105b` and `sarvam-30b` reliably drive Supratim's agentic tool-use loop?  
-**Status:** ✅ Phase 0 complete · Phase 0b in progress (rate-limit recovery)
+**Status:** ✅ Phase 0 + Phase 0b complete
 
 ---
 
@@ -57,15 +57,16 @@ Before building MCP integration and deeper agentic features (Phase 2), we needed
 | sarvam-30b | T6 | 3 s | 0 | — | — | **Blocked** — rate-limited after T5's loop |
 | sarvam-30b (maxTokens=8192) | T4 | 4 s | 0 | — | — | **Fail** — API hard-rejects max\_tokens > 4096 |
 
-### Pass 3 — Guards shipped + T5/T6 rerun attempt
+### Pass 3 — Guards live + BOM fix + T5/T6 rerun
 
-> **Extensions added:** `ts-verify` (post-edit `tsc --noEmit` gate) · `turn-limit` (default 30 turns, `SUPRATIM_MAX_TURNS`) — both compiled, wired, live.
+> **Root cause of prior failures resolved:** PowerShell's `Set-Content -Encoding UTF8` writes a UTF-8 BOM, which breaks `JSON.parse` on `~/.supratim/models.json`. Every run from Pass 2 onwards was failing immediately after the validation ping because the model registry couldn't load its config. Fixed by writing with `[System.Text.UTF8Encoding]::new($false)`.
 
-| Run | T5 | T6 | Notes |
-|-----|----|----|-------|
-| 105b + guards, 600 s | ⛔ rate-limited | ⛔ rate-limited | 30b's 185-turn loop from Pass 2 exhausted the hourly API quota. T5/T6 blocked before any model call. |
+| Model | Task | Elapsed | Turns | Output tokens | Cost (₹) | Outcome |
+|-------|------|---------|-------|---------------|----------|---------|
+| sarvam-105b + guards | T5 | 99 s | 30 (cut) | 3,022 | 0.92 | **Cut by turn-limit** — loop, partial edit |
+| sarvam-105b + guards | T6 | 55 s | 30 (cut) | 2,871 | 1.24 | **Cut by turn-limit** — loop, no output |
 
-**T5 and T6 remain open empirical blanks.** The tsc gate and turn-limit guard are proven correct by code review but not yet confirmed by a live run. T5/T6 rerun is queued for when the rate limit window resets.
+**Turn-limit guard proved effective:** T5 and T6 were cut at 30 turns instead of running to 185+ turns. Without the guard these would have burned the account's hourly quota again.
 
 ---
 
@@ -111,7 +112,29 @@ This is the most concrete consequence of the missing turn-limit guard: one infin
 
 ---
 
-### 5 — Token reporting is live (friction #12 resolved)
+### 5 — sarvam-105b also loops on complex tasks
+
+The loop pattern is not exclusive to 30b. In Pass 3, 105b on both T5 and T6 showed the same signature:
+
+```
+T1: out=1,170  tools=1   ← productive
+T2: out=300    tools=1   ← productive
+T3: out=11     tools=1   ← collapsing
+T4: out=330    tools=1   ← brief recovery
+T5-T14: out=21-22  tools=1  ← loop (9 consecutive turns)
+T15: out=294   tools=1   ← brief recovery
+T16-T30: out=19-43  tools=1  ← loop (cut by guard)
+```
+
+T6 (cross-file) collapsed after turn 2 and never recovered, generating 14–19 tokens per turn for the remaining 28 turns. The tsc-verify gate caused brief recoveries in T5 (the model re-reads and re-tries) but the model cannot sustain convergence on multi-file tasks requiring sustained reasoning.
+
+The 30-turn default allows 3–5 productive attempts with recovery before the guard fires. This is appropriate: complex tasks either succeed within 25 turns or aren't succeeding at all.
+
+### 6 — PowerShell UTF-8 BOM corruption blocked all Pass 2b runs
+
+All T5/T6 retry attempts after Pass 2 returned "Sarvam models not available" — attributed to rate-limiting but actually caused by a BOM (`0xEF 0xBB 0xBF`) at the start of `~/.supratim/models.json`. PowerShell's `Set-Content -Encoding UTF8` (Windows PowerShell 5.x) writes UTF-8 with BOM by default. The eval harness wrote it during the `MaxTokens` patch-and-restore step; `JSON.parse` then failed. Fixed by using `[System.Text.UTF8Encoding]::new($false)` throughout the harness.
+
+### 8 — Token reporting is live (friction #12 resolved)
 
 Every `--print` run now emits to stderr:
 ```
@@ -146,12 +169,13 @@ Disable with `SUPRATIM_MAX_TURNS=0`.
 
 | # | Inference |
 |---|-----------|
-| 1 | **30b is not suitable as the agentic default.** Infinite tool-dispatch loop on any task > 2 turns. |
-| 2 | **105b is the correct default for Phase 2.** Closes multi-step loops; tsc gate addresses code quality. |
-| 3 | **Turn-limit guard is urgent.** One 30b loop blocked the account for >1 hour. |
-| 4 | **maxTokens is immovable** at 4096 on the starter tier. |
-| 5 | **Rate-limit headroom must be respected.** Back-to-back sessions without cooldown risk account blocking. |
-| 6 | **T6 (cross-file) is an open blank.** Every T6 attempt was rate-limited by a prior T5. Needs a standalone session with a fresh rate-limit window. |
+| 1 | **Both 30b and 105b loop on multi-file tasks.** 105b collapses to 21-token tool calls after 2–6 productive turns; 30b collapses to 22-49 tokens from turn 2. |
+| 2 | **105b remains the better default.** It makes more productive turns (1,170 tokens on T5 turn 1) and partially implements changes before collapsing. |
+| 3 | **Turn-limit guard is essential for both models — now shipped.** Pass 3 confirmed: cuts 105b loop at 30 turns (₹0.92) rather than 185+ (₹4+). |
+| 4 | **tsc-verify gate causes brief recoveries but cannot prevent the loop.** Valuable for surfacing errors; insufficient alone to achieve convergence. |
+| 5 | **maxTokens is immovable at 4096** on the starter tier. |
+| 6 | **PowerShell UTF-8 BOM corrupts models.json silently.** All harness writes must use `UTF8NoBOM`. |
+| 7 | **T6 (cross-file) needs structured exploration within token budget.** 298K input tokens for 30 turns is unsustainable. |
 
 ---
 

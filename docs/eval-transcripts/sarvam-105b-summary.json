@@ -2,17 +2,17 @@
     {
         "Model":  "sarvam-105b",
         "Task":  5,
-        "Elapsed":  33,
+        "Elapsed":  99,
         "State":  "Completed",
         "Completed":  "yes",
-        "Chars":  128
+        "Chars":  644
     },
     {
         "Model":  "sarvam-105b",
         "Task":  6,
-        "Elapsed":  9,
+        "Elapsed":  55,
         "State":  "Completed",
         "Completed":  "yes",
-        "Chars":  128
+        "Chars":  644
     }
 ]
