@@ -1,15 +1,12 @@
 #!/usr/bin/env node
-import { resolve } from "node:path";
 import {
 	AuthStorage,
 	createAgentSessionFromServices,
 	createAgentSessionRuntime,
 	createAgentSessionServices,
 	InteractiveMode,
-	ModelRegistry,
 	runPrintMode,
 	SessionManager,
-	SettingsManager,
 	type CreateAgentSessionRuntimeFactory,
 } from "@earendil-works/pi-coding-agent";
 import chalk from "chalk";
@@ -18,7 +15,6 @@ import {
 	ensureAgentDir,
 	ENV_AGENT_DIR,
 	getAgentDir,
-	getModelsPath,
 	readLocalApiKeyFile,
 	SARVAM_PROVIDER,
 	VERSION,
@@ -200,10 +196,8 @@ Config directory: ${getAgentDir()} (override with ${ENV_AGENT_DIR})
 		};
 	};
 
-	if (!verifyOnly) {
-		const ok = await verifyExistingKey(apiKey);
-		if (!ok) process.exit(1);
-	}
+	const ok = await verifyExistingKey(apiKey);
+	if (!ok) process.exit(1);
 
 	const runtime = await createAgentSessionRuntime(createRuntime, {
 		cwd,

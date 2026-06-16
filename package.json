@@ -4,8 +4,20 @@
   "description": "Supratim — model-agnostic coding agent with Sarvam showcased by default, built on Pi",
   "type": "module",
   "license": "MIT",
+  "author": "Dattaprasad Ekavade",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dattaprasad-r-ekavade/supratim.git"
+  },
+  "homepage": "https://github.com/dattaprasad-r-ekavade/supratim#readme",
+  "bugs": {
+    "url": "https://github.com/dattaprasad-r-ekavade/supratim/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
-    "supratim": "./dist/cli.js"
+    "supratim": "dist/cli.js"
   },
   "main": "./dist/cli.js",
   "types": "./dist/cli.d.ts",

@@ -3,14 +3,23 @@ import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const packageRoot = resolve(__dirname, "..");
+
+function readPackageVersion(): string {
+	try {
+		const pkg = JSON.parse(readFileSync(join(packageRoot, "package.json"), "utf8")) as { version: string };
+		return pkg.version;
+	} catch {
+		return "0.0.0";
+	}
+}
+
 export const APP_NAME = "supratim";
-export const VERSION = "0.1.0";
+export const VERSION = readPackageVersion();
 export const SARVAM_PROVIDER = "sarvam";
 export const DEFAULT_MODEL = "sarvam-30b";
 export const ENV_AGENT_DIR = "SUPRATIM_AGENT_DIR";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const packageRoot = resolve(__dirname, "..");
 
 export function expandTildePath(path: string): string {
 	if (path.startsWith("~/") || path === "~") {
@@ -64,8 +73,12 @@ export function readLocalApiKeyFile(): string | undefined {
 	for (const candidate of candidates) {
 		if (!existsSync(candidate)) continue;
 		const content = readFileSync(candidate, "utf8");
-		const match = content.match(/key\s*=\s*(sk_[^\s\r\n]+)/i);
-		if (match?.[1]) return match[1].trim();
+		// Support "key = sk_..." format
+		const kvMatch = content.match(/key\s*=\s*(sk_[^\s\r\n]+)/i);
+		if (kvMatch?.[1]) return kvMatch[1].trim();
+		// Support bare key on its own line
+		const bare = content.trim();
+		if (/^sk_\S+$/.test(bare)) return bare;
 	}
 	return undefined;
 }
