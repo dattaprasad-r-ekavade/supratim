@@ -23,6 +23,9 @@ import { runOnboardingWizard } from "./onboarding.js";
 import { getStoredApiKey, storeApiKey } from "./secure-storage.js";
 import sarvamCompatExtension from "./extensions/sarvam-compat.js";
 import usageHudExtension from "./extensions/usage-hud.js";
+import apiDebugExtension from "./extensions/api-debug.js";
+import tsVerifyExtension from "./extensions/ts-verify.js";
+import turnLimitExtension from "./extensions/turn-limit.js";
 import { verifySarvamApiKey } from "./sarvam-verify.js";
 
 function printBanner(): void {
@@ -161,7 +164,7 @@ Config directory: ${getAgentDir()} (override with ${ENV_AGENT_DIR})
 			agentDir: runtimeAgentDir,
 			authStorage,
 			resourceLoaderOptions: {
-				extensionFactories: [sarvamCompatExtension, usageHudExtension],
+				extensionFactories: [sarvamCompatExtension, usageHudExtension, apiDebugExtension, tsVerifyExtension, turnLimitExtension],
 			},
 		});
 

@@ -1,0 +1,7 @@
+﻿Sarvam API connected (sarvam-105b, 20 tokens in validation call)
+(node:1496) MaxListenersExceededWarning: Possible EventTarget memory leak detected. 11 abort listeners added to [AbortSignal]. MaxListeners is 10. Use events.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+**Result:** The `npm run build` command completed successfully (no output means no errors). The TypeScript compilation produced the expected files in the `dist/` directory.
+
+**Status:** Γ£à **Passed** ΓÇô the build succeeded.

@@ -18,7 +18,7 @@ function readPackageVersion(): string {
 export const APP_NAME = "supratim";
 export const VERSION = readPackageVersion();
 export const SARVAM_PROVIDER = "sarvam";
-export const DEFAULT_MODEL = "sarvam-30b";
+export const DEFAULT_MODEL = process.env.SUPRATIM_MODEL ?? "sarvam-105b";
 export const ENV_AGENT_DIR = "SUPRATIM_AGENT_DIR";
 
 export function expandTildePath(path: string): string {

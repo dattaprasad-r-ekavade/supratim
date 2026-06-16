@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "prompt": "Read the file src/cli.ts. Summarise: what it does, the main() flow, and the key functions. Be concise."
+  },
+  {
+    "id": 2,
+    "prompt": "Search every .ts file under src/ for lines containing TODO or FIXME. Output each match as: file:line  comment-text. If none found, say so explicitly."
+  },
+  {
+    "id": 3,
+    "prompt": "In src/secure-storage.ts the function storeApiKey has no error handling. Add a try/catch that rethrows as a descriptive Error if keytar.setPassword fails. Show only the final file content after the change."
+  },
+  {
+    "id": 4,
+    "prompt": "Run: npm run build. Report whether it passed or failed. If it failed, fix the problem and run again until it succeeds."
+  },
+  {
+    "id": 5,
+    "prompt": "Add a --dry-run flag to the CLI in src/cli.ts. When passed: print the message [DRY RUN] and exit 0. Wire it into the args parsing in main() and add it to the --help output. Show the final file."
+  },
+  {
+    "id": 6,
+    "prompt": "List every function or value that is exported from a src/ file but never imported by any other src/ file. Show: file, export name, and whether it looks intentionally public or is likely dead code."
+  }
+]

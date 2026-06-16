@@ -1,0 +1,1 @@
+﻿Sarvam API connected (sarvam-30b, 20 tokens in validation call)

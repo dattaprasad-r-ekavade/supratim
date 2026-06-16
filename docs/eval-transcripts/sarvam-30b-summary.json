@@ -1,0 +1,50 @@
+﻿[
+    {
+        "Model":  "sarvam-30b",
+        "Task":  1,
+        "Elapsed":  9,
+        "JobState":  "Completed",
+        "Completed":  "yes",
+        "Chars":  2616
+    },
+    {
+        "Model":  "sarvam-30b",
+        "Task":  2,
+        "Elapsed":  7,
+        "JobState":  "Completed",
+        "Completed":  "yes",
+        "Chars":  990
+    },
+    {
+        "Model":  "sarvam-30b",
+        "Task":  3,
+        "Elapsed":  11,
+        "JobState":  "Completed",
+        "Completed":  "yes",
+        "Chars":  898
+    },
+    {
+        "Model":  "sarvam-30b",
+        "Task":  4,
+        "Elapsed":  12,
+        "JobState":  "Completed",
+        "Completed":  "yes",
+        "Chars":  63
+    },
+    {
+        "Model":  "sarvam-30b",
+        "Task":  5,
+        "Elapsed":  4,
+        "JobState":  "Completed",
+        "Completed":  "empty",
+        "Chars":  0
+    },
+    {
+        "Model":  "sarvam-30b",
+        "Task":  6,
+        "Elapsed":  3,
+        "JobState":  "Completed",
+        "Completed":  "empty",
+        "Chars":  0
+    }
+]

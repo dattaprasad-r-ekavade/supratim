@@ -101,4 +101,24 @@ export default function usageHudExtension(pi: ExtensionAPI) {
 		if (!ctx.hasUI) return;
 		installUsageFooter(ctx);
 	});
+
+	pi.on("agent_end", (_event, ctx) => {
+		if (ctx.hasUI) return;
+		let totalIn = 0, totalOut = 0, totalCacheRead = 0, totalCost = 0, requests = 0;
+		for (const entry of ctx.sessionManager.getEntries()) {
+			if (entry.type === "message" && entry.message.role === "assistant") {
+				const msg = entry.message as AssistantMessage;
+				requests++;
+				totalIn        += msg.usage.input;
+				totalOut       += msg.usage.output;
+				totalCacheRead += msg.usage.cacheRead;
+				totalCost      += msg.usage.cost.total;
+			}
+		}
+		const isSarvam = ctx.model?.provider === SARVAM_PROVIDER;
+		const costStr  = isSarvam ? `₹${totalCost.toFixed(4)}` : `$${totalCost.toFixed(5)}`;
+		process.stderr.write(
+			`[tokens] in=${totalIn} out=${totalOut} cacheRead=${totalCacheRead} req=${requests} cost=${costStr}\n`,
+		);
+	});
 }

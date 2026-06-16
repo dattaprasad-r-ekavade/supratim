@@ -1,0 +1,2 @@
+﻿Sarvam API connected (sarvam-30b, 20 tokens in validation call)
+Sarvam models are not available. Check models.json and API key.

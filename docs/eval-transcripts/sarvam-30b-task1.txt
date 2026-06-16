@@ -1,0 +1,42 @@
+﻿Sarvam API connected (sarvam-30b, 20 tokens in validation call)
+
+**What the file does**  
+`src/cli.ts` is the entryΓÇæpoint for the **Supratim codingΓÇæagent CLI**. It:
+
+1. Prints a banner and resolves a Sarvam API key (from storage, env, or a local file).  
+2. Sets up the agentΓÇÖs runtime directory and environment variables.  
+3. Creates an **agent session** that loads the Sarvam model (or other scoped models) and builds the necessary services (auth, diagnostics, extensions).  
+4. Either runs a **printΓÇæmode** (nonΓÇæinteractive) or drops into an **interactive mode** where the user can issue coding requests.  
+
+**Main flow (highΓÇælevel)**  
+
+```text
+main(argv)
+ Γö£ΓöÇ parse args (dryΓÇærun, printΓÇæmode, ΓÇª)
+ Γö£ΓöÇ if dryΓÇærun ΓåÆ exit
+ Γö£ΓöÇ resolve & verify API key (interactive wizard if missing)
+ Γö£ΓöÇ setupAgentEnvironment()
+ Γö£ΓöÇ createAgentSessionRuntime(createRuntime)   ΓåÉ builds services, model, scoped models
+ Γö£ΓöÇ if --print ΓåÆ runPrintMode(runtime)
+ ΓööΓöÇ else ΓåÆ start InteractiveMode(runtime) ΓåÆ mode.run()
+```
+
+**Key functions / helpers**
+
+| Function | Purpose |
+|----------|---------|
+| `printBanner()` | Shows version and banner. |
+| `resolveApiKey()` | Looks for a stored key, then env, then a local `sarvamapi.txt`. |
+| `ensureApiKey(interactive)` | Guarantees a key exists; runs onboarding wizard if needed. |
+| `verifyExistingKey(apiKey)` | Calls `verifySarvamApiKey` to validate the key. |
+| `setupAgentEnvironment()` | Creates/ensures the agent directory and sets required env vars. |
+| `createRuntime` (factory) | Builds `agentServices`, selects the Sarvam model, creates scoped model list, and returns a session. |
+| `main(argv)` | Orchestrates the steps above and launches either printΓÇæmode or interactive mode. |
+| `runPrintMode(runtime)` | Executes a nonΓÇæinteractive, textΓÇæbased request/response flow. |
+| `InteractiveMode` | Handles the interactive REPLΓÇæstyle session. |
+
+**Concise summary**
+
+- **Purpose:** CLI for the Supratim coding agent; handles APIΓÇækey resolution, environment setup, session creation, and execution of either a printΓÇæmode or interactive coding session.  
+- **`main()` flow:** Parse args ΓåÆ (optional) dryΓÇærun ΓåÆ resolve/verify API key ΓåÆ set up agent directory ΓåÆ create session runtime (services, model, scoped models) ΓåÆ if `--print` ΓåÆ `runPrintMode`; else ΓåÆ start `InteractiveMode`.  
+- **Key functions:** `printBanner`, `resolveApiKey`, `ensureApiKey`, `verifyExistingKey`, `setupAgentEnvironment`, `createRuntime` (factory), `main`, plus the runtimeΓÇæcreation helpers `runPrintMode` and `InteractiveMode`.

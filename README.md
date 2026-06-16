@@ -9,7 +9,7 @@ Open-source, model-agnostic **agentic coding agent** — built on the [Pi](https
 **Repository:** https://github.com/dattaprasad-r-ekavade/supratim  
 **npm:** https://www.npmjs.com/package/supratim
 
-Phases 0 & 1 are shipped: CLI, Sarvam provider, secure key onboarding, and live usage HUD in ₹.
+Phases 0 & 1 are shipped: CLI, Sarvam provider, secure key onboarding, and live usage HUD in ₹. Phase 0 model reliability testing is complete — see [`docs/Testrun.md`](docs/Testrun.md).
 
 > Full visual overview: open [`index.html`](index.html) in your browser.
 
@@ -32,7 +32,7 @@ Instead of building an agent engine from scratch, Supratim stands on **Pi** (Ear
 | CLI surface | `supratim` CLI + `pi-tui` (InteractiveMode) |
 | Core engine | `pi-agent-core` — tool loop, state, sessions |
 | Provider layer | `pi-ai` + Sarvam via `models.json` (OpenAI-compatible) |
-| Extensions | `sarvam-compat` · `usage-hud` · onboarding · keytar |
+| Extensions | `sarvam-compat` · `usage-hud` · `ts-verify` · `turn-limit` · `api-debug` · onboarding · keytar |
 | Security | API keys in OS credential manager — not plaintext |
 | Config | `~/.supratim/` (override with `SUPRATIM_AGENT_DIR`) |
 
@@ -40,8 +40,10 @@ Instead of building an agent engine from scratch, Supratim stands on **Pi** (Ear
 
 | Model | Context | Pricing (per 1M tokens) | Default |
 |-------|---------|-------------------------|---------|
-| `sarvam-30b` | 64K | ₹2.5 input / ₹10 output | Yes |
-| `sarvam-105b` | 128K | ₹4 input / ₹16 output | — |
+| `sarvam-105b` | 128K | ₹4 input / ₹16 output | Yes |
+| `sarvam-30b` | 64K | ₹2.5 input / ₹10 output | — |
+
+> **Note:** Phase 0 testing showed `sarvam-30b` enters an infinite tool-call loop on multi-step tasks. `sarvam-105b` is the reliable default. See [`docs/Testrun.md`](docs/Testrun.md) for full findings.
 
 Endpoint: `https://api.sarvam.ai/v1`
 
@@ -51,6 +53,9 @@ Endpoint: `https://api.sarvam.ai/v1`
 - **Live usage HUD** — Session tokens, request count, running cost in ₹, context %, current model
 - **Core tools** — `read`, `write`, `edit`, `bash` (from Pi), scoped to your project directory
 - **Sarvam compatibility** — Extension flattens Pi content blocks; handles tier `max_tokens` limits
+- **`ts-verify`** — Post-edit `tsc --noEmit` gate; appends compiler errors to tool output so the model can self-correct
+- **`turn-limit`** — Aborts agent loop at `SUPRATIM_MAX_TURNS` turns (default 30) to prevent infinite dispatch loops
+- **`api-debug`** — `SUPRATIM_DEBUG=1` logs per-turn API request/response and token counts to `docs/eval-transcripts/`
 
 ## Getting started
 
@@ -102,13 +107,13 @@ Config directory: `~/.supratim/` (Windows: `%USERPROFILE%\.supratim\`).
 
 | Phase | Status | Focus |
 |-------|--------|-------|
-| 0 — Spike & foundation | Shipped | Pi + Sarvam validation, friction log |
-| 1 — CLI, provider, usage | Shipped | Key onboarding, INR usage HUD, MIT CLI |
-| 2 — MCP & agentic depth | Next | MCP client layer, hooks |
+| 0 — Spike & foundation | Shipped | Pi + Sarvam validation, model reliability test, `ts-verify` + `turn-limit` guards |
+| 1 — CLI, provider, usage | Shipped | Key onboarding, INR usage HUD, MIT CLI, npm publish |
+| 2 — MCP & agentic depth | Next | MCP client layer, turn-limit guard, post-edit verification |
 | 3 — Compaction + CLI v1 | Planned | Context compaction, feature parity |
 | 4–6 — GUI & v1.0 | Planned | Tauri + `pi-web-ui`, packaging |
 
-See [`sarvam-agent-build-plan.md`](sarvam-agent-build-plan.md) and [`docs/phase0-friction-log.md`](docs/phase0-friction-log.md) for details.
+See [`docs/Testrun.md`](docs/Testrun.md) for model reliability findings, [`docs/phase0-friction-log.md`](docs/phase0-friction-log.md) for friction points, and [`sarvam-agent-build-plan.md`](sarvam-agent-build-plan.md) for the full build plan.
 
 ## Project structure
 
@@ -121,11 +126,15 @@ supratim/
 │   ├── sarvam-verify.ts
 │   └── extensions/
 │       ├── sarvam-compat.ts
-│       └── usage-hud.ts
+│       ├── usage-hud.ts
+│       └── api-debug.ts
 ├── config/
 │   ├── models.json
 │   └── settings.json
-├── docs/phase0-friction-log.md
+├── docs/
+│   ├── phase0-friction-log.md
+│   ├── Testrun.md
+│   └── eval-transcripts/
 ├── index.html
 ├── THIRD_PARTY_NOTICES.md
 └── README.md

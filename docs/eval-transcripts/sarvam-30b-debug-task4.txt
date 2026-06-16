@@ -1,0 +1,3 @@
+﻿Sarvam API connected (sarvam-30b, 20 tokens in validation call)
+[debug] logging to C:\Users\admin\Downloads\non-work\supratim\docs\eval-transcripts\debug-1781588226380.jsonl
+[tokens] in=3180 out=213 cacheRead=0 req=2 cost=Γé╣0.0101

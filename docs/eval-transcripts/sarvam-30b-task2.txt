@@ -1,0 +1,17 @@
+﻿Sarvam API connected (sarvam-30b, 20 tokens in validation call)
+
+**Result:** No matches found.
+
+I searched every `*.ts` file under `src/` for lines that contain the strings **TODO** or **FIXME**. The command used was:
+
+```bash
+find src -type f -name "*.ts" -exec grep -n -E "(TODO|FIXME)" {} + |
+  sed 's|src/.*|src/|' |
+  sed 's|^\([^:]*\):.*|\1: |'
+```
+
+* `find src -type f -name "*.ts"` ΓÇô locates all TypeScript files in the `src` directory.  
+* `-exec grep -n -E "(TODO|FIXME)" {} +` ΓÇô prints each line that contains either `TODO` or `FIXME` together with its line number (`-n`).  
+* The `sed` pipelines strip the leading path, leaving only the file name, and format the output as `file:line comment-text`.
+
+Since the command produced no output, there are **no TODO or FIXME comments** in any of the TypeScript files under `src/`. If youΓÇÖd like to doubleΓÇæcheck, you can run the same command again or let me know if youΓÇÖd like to search additional directories or file patterns.

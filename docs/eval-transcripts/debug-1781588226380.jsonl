@@ -1,0 +1,7 @@
+{"event":"before_provider_request","ts":1781588226632,"model":"sarvam-30b","max_tokens":4096,"reasoning_effort":"medium","message_count":2,"last_user_message_chars":146}
+{"event":"after_provider_response","ts":1781588226779,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781588234116,"turnIndex":0,"role":"assistant","usage":{"in":1561,"out":183,"cacheRead":0,"cost":0.005732500000000001},"tool_result_count":1,"model":"sarvam-30b"}
+{"event":"before_provider_request","ts":1781588234118,"model":"sarvam-30b","max_tokens":4096,"reasoning_effort":"medium","message_count":4,"last_user_message_chars":146}
+{"event":"after_provider_response","ts":1781588234417,"status":200,"content_type":"text/event-stream; charset=utf-8"}
+{"event":"turn_end","ts":1781588234587,"turnIndex":1,"role":"assistant","usage":{"in":1619,"out":30,"cacheRead":0,"cost":0.004347500000000001},"tool_result_count":0,"model":"sarvam-30b"}
+{"event":"agent_end","ts":1781588234590,"model":"sarvam-30b","requests":2,"totalIn":3180,"totalOut":213,"totalCost":0.010080000000000002,"currency":"INR"}

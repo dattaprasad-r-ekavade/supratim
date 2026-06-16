@@ -1,0 +1,26 @@
+﻿Sarvam API connected (sarvam-105b, 20 tokens in validation call)
+
+**File:** `src/cli.ts`
+
+**What it does:**  
+Entry point for the Supratim coding agent CLI. Handles argument parsing, API key resolution/setup, environment setup, and launches either a singleΓÇæshot print mode or an interactive chat session with the Sarvam model.
+
+**Main flow (main()):**
+1. Parse CLI args (`-p/--print`, `--verify-key`, `--setup-key`, `-h/--help`).
+2. Set up the agent environment (`ensureAgentDir`, env vars).
+3. Resolve or set up the Sarvam API key (interactive wizard if needed).
+4. Verify the API key.
+5. Create an `AuthStorage` and configure the Sarvam provider.
+6. Build a runtime factory that creates an agent session using Sarvam models.
+7. If `--print`, run `runPrintMode` with the initial message.
+8. Otherwise, instantiate `InteractiveMode` and run it.
+
+**Key functions:**
+- `printBanner()` ΓÇô displays version banner.
+- `resolveApiKey()` ΓÇô loads stored key from env or file.
+- `ensureApiKey(interactive)` ΓÇô obtains a key, prompting via onboarding wizard if needed.
+- `verifyExistingKey(apiKey)` ΓÇô validates the key against Sarvam.
+- `setupAgentEnvironment()` ΓÇô prepares directories and env vars.
+- `createRuntime` ΓÇô factory that builds the agent session with Sarvam model and extensions.
+- `runPrintMode()` ΓÇô singleΓÇæshot nonΓÇæinteractive execution.
+- `InteractiveMode` class ΓÇô runs the interactive chat loop.

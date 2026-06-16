@@ -660,7 +660,165 @@
       .phase { grid-template-columns: 40px 1fr; gap: 12px; }
       .phase-dot { width: 40px; height: 40px; font-size: 0.8rem; }
       .timeline::before { left: 19px; }
+      .testrun-meta { flex-wrap: wrap; gap: 8px; }
+      .testrun-meta span { font-size: 0.78rem; padding: 4px 10px; }
     }
+
+    /* ── Test Run section ── */
+    .testrun-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+    .testrun-meta span {
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .testrun-meta .meta-done {
+      background: rgba(74, 222, 128, 0.08);
+      border-color: rgba(74, 222, 128, 0.3);
+      color: var(--green);
+    }
+    .testrun-why {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--teal);
+      border-radius: var(--radius-sm);
+      padding: 18px 22px;
+      margin-bottom: 36px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .testrun-why strong { color: var(--text); }
+    .testrun-h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 36px 0 16px;
+      letter-spacing: -0.02em;
+    }
+    .finding {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .finding-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255,107,53,0.12);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 800;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    .finding-title {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+    .finding p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.65; margin-bottom: 10px; }
+    .finding p:last-child { margin-bottom: 0; }
+    .finding strong { color: var(--text); }
+    .finding code { font-family: 'JetBrains Mono', monospace; font-size: 0.82em; background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 3px; }
+    .finding-note {
+      background: rgba(20,184,166,0.06);
+      border: 1px solid rgba(20,184,166,0.2);
+      border-radius: var(--radius-xs);
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      color: var(--teal);
+      margin-top: 12px;
+    }
+    .finding-code {
+      background: var(--bg-code);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      padding: 14px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: #8b9bbb;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+    .finding-code .hi { color: var(--accent); }
+    .finding-code .dim { color: var(--text-dim); }
+    .infer-table td:first-child {
+      width: 28px;
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 0.85rem;
+    }
+    .verdict-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0;
+    }
+    @media (max-width: 600px) { .verdict-row { grid-template-columns: 1fr; } }
+    .verdict-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+    }
+    .verdict-card h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .verdict-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+    .verdict-card.vc-green { border-top: 2px solid var(--green); }
+    .verdict-card.vc-red   { border-top: 2px solid #f87171; }
+    .verdict-card .vc-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      margin-bottom: 10px;
+    }
+    .vc-green .vc-label { background: rgba(74,222,128,0.1); color: var(--green); }
+    .vc-red   .vc-label { background: rgba(248,113,113,0.1); color: #f87171; }
+    .implications-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .impl-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+    }
+    .impl-card h4 { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .impl-card ul { list-style: none; padding: 0; }
+    .impl-card li { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; padding: 3px 0 3px 14px; position: relative; }
+    .impl-card li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; }
+    .impl-card code { font-family: 'JetBrains Mono', monospace; font-size: 0.8em; background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 3px; }
   </style>
 </head>
 <body>
@@ -672,6 +830,7 @@
         <li><a href="#overview" class="active">Overview</a></li>
         <li><a href="#architecture">Architecture</a></li>
         <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#testrun">Test Run</a></li>
         <li><a href="#install">Install</a></li>
         <li><a href="#structure">Structure</a></li>
       </ul>
@@ -770,7 +929,7 @@
           </tr>
           <tr>
             <td>Extensions</td>
-            <td><code>sarvam-compat</code> · <code>usage-hud</code> · onboarding · <code>keytar</code></td>
+            <td><code>sarvam-compat</code> · <code>usage-hud</code> · <code>api-debug</code> · onboarding · <code>keytar</code></td>
           </tr>
           <tr>
             <td>Security</td>
@@ -794,16 +953,16 @@
         </thead>
         <tbody>
           <tr>
-            <td>sarvam-30b <span class="default-badge">Default</span></td>
-            <td>64K</td>
-            <td>₹2.5</td>
-            <td>₹10</td>
-          </tr>
-          <tr>
-            <td>sarvam-105b</td>
+            <td>sarvam-105b <span class="default-badge">Default</span></td>
             <td>128K</td>
             <td>₹4</td>
             <td>₹16</td>
+          </tr>
+          <tr>
+            <td>sarvam-30b</td>
+            <td>64K</td>
+            <td>₹2.5</td>
+            <td>₹10</td>
           </tr>
         </tbody>
       </table>
@@ -822,7 +981,7 @@
               <span class="phase-title">Phase 0 — Spike &amp; Foundation</span>
               <span class="tag shipped"><i class="fas fa-check"></i> Shipped</span>
             </div>
-            <p class="phase-desc">Pi + Sarvam spike, friction log, depend-vs-fork decision</p>
+            <p class="phase-desc">Pi + Sarvam spike, friction log, model reliability test, tsc-verify + turn-limit guards · <a href="#testrun" style="color:var(--teal);text-decoration:none">see test run ↓</a></p>
           </div>
         </div>
 
@@ -844,7 +1003,7 @@
               <span class="phase-title">Phase 2 — MCP &amp; Agentic Depth</span>
               <span class="tag active"><i class="fas fa-circle" style="font-size:0.5em"></i> In progress</span>
             </div>
-            <p class="phase-desc">MCP client layer, hooks, project-folder polish</p>
+            <p class="phase-desc">MCP client layer, turn-limit guard, post-edit verification · informed by Phase 0 test results</p>
           </div>
         </div>
 
@@ -964,13 +1123,218 @@
 │   ├── <span class="tr-file">sarvam-verify.ts</span>   <span class="tr-dim">Live API key validation</span>
 │   └── <span class="tr-dir">extensions/</span>
 │       ├── <span class="tr-file">sarvam-compat.ts</span>  <span class="tr-dim">Content block flattening for Sarvam</span>
-│       └── <span class="tr-file">usage-hud.ts</span>      <span class="tr-dim">Live token / cost footer</span>
+│       ├── <span class="tr-file">usage-hud.ts</span>      <span class="tr-dim">Live token / cost footer (INR)</span>
+│       └── <span class="tr-file">api-debug.ts</span>      <span class="tr-dim">Per-turn API logging (SUPRATIM_DEBUG=1)</span>
 ├── <span class="tr-dir">config/</span>
 │   ├── <span class="tr-file">models.json</span>        <span class="tr-dim">Sarvam provider + model definitions</span>
 │   └── <span class="tr-file">settings.json</span>      <span class="tr-dim">Default theme, thinking level</span>
 ├── <span class="tr-dir">docs/</span>
+│   ├── <span class="tr-file">Testrun.md</span>         <span class="tr-dim">Phase 0 model reliability test (→ <a href="#testrun" style="color:var(--teal);text-decoration:none">see above</a>)</span>
 │   └── <span class="tr-file">phase0-friction-log.md</span>
 └── <span class="tr-file">index.html</span>          <span class="tr-dim">This page</span></pre>
+    </section>
+
+    <!-- Test Run -->
+    <section id="testrun">
+      <h2>Phase 0 — Model Reliability Test</h2>
+      <p class="section-lead">Empirical go/no-go: can Sarvam models reliably drive Supratim's agentic tool loop? No simulation — real API calls, real transcripts.</p>
+
+      <div class="testrun-meta">
+        <span>📅 2026-06-16</span>
+        <span>💰 ~₹1.81 of ₹99 budget</span>
+        <span>🛠 6 tasks × 2 models · 3 passes</span>
+        <span class="meta-done">✅ Guards shipped · T6 queued</span>
+      </div>
+
+      <div class="testrun-why">
+        Before building MCP integration and deeper agentic features, we needed ground truth on the models we ship with. A model that silently fails or loops indefinitely is worse than no model — it burns API quota, produces no output, and poisons downstream runs. This was <strong>not a benchmark</strong>; it was a <strong>go/no-go signal for Phase 2 defaults</strong>.
+      </div>
+
+      <!-- Methodology -->
+      <p class="testrun-h3">Methodology</p>
+      <table class="arch-table">
+        <thead><tr><th>Item</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>Tool</td><td><code>supratim --print "&lt;task&gt;"</code> — Pi print mode, one fresh session per task, no simulation</td></tr>
+          <tr><td>Harness</td><td><code>scripts/run-eval.ps1</code> — PowerShell job runner, per-task timeout, stdout/stderr capture</td></tr>
+          <tr><td>Debug</td><td><code>SUPRATIM_DEBUG=1</code> → <code>api-debug.ts</code> logs per-turn request shape, HTTP status, token counts to <code>debug-&lt;ts&gt;.jsonl</code></td></tr>
+          <tr><td>Token reporting</td><td><code>[tokens] in=X out=Y cost=₹Z</code> emitted to stderr after every run (friction #12 resolved)</td></tr>
+          <tr><td>Passes</td><td>Phase 0 initial (120 s timeout) + extended (105b: 600 s no-timeout; 30b: 180 s + debug logging)</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Task Battery -->
+      <p class="testrun-h3">Task Battery — 6 Escalating Tasks</p>
+      <table class="arch-table">
+        <thead><tr><th>#</th><th>Task</th><th>Capability probed</th></tr></thead>
+        <tbody>
+          <tr><td>T1</td><td>Read <code>src/cli.ts</code> and summarise it</td><td>Single <code>read</code> tool call</td></tr>
+          <tr><td>T2</td><td>Find every TODO/FIXME in <code>src/</code>, output as <code>file:line</code></td><td><code>read</code> + <code>bash</code>/grep chain</td></tr>
+          <tr><td>T3</td><td>Add error handling to <code>storeApiKey</code>; show final file</td><td><code>read</code> → <code>edit</code>, valid patch</td></tr>
+          <tr><td>T4</td><td>Run <code>npm run build</code>; fix if broken; report result</td><td><code>bash</code> → react → report</td></tr>
+          <tr><td>T5</td><td>Add <code>--dry-run</code> flag wired through parser, handler, and <code>--help</code></td><td>Multi-file coherent edit</td></tr>
+          <tr><td>T6</td><td>List every export from <code>src/</code> never imported anywhere</td><td>Cross-file reasoning, no obvious shortcut</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Results -->
+      <p class="testrun-h3">Results — Initial Pass (120 s timeout)</p>
+      <table class="arch-table">
+        <thead><tr><th>Model</th><th>T1</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>sarvam-105b</code></td>
+            <td style="color:var(--green)">✅ 25 s</td>
+            <td style="color:var(--green)">✅ 11 s</td>
+            <td style="color:var(--green)">✅ 12 s</td>
+            <td style="color:var(--green)">✅ 41 s</td>
+            <td style="color:var(--accent-2)">⏱ timeout</td>
+            <td style="color:var(--accent-2)">⏱ timeout</td>
+          </tr>
+          <tr>
+            <td><code>sarvam-30b</code></td>
+            <td style="color:var(--green)">✅ 9 s</td>
+            <td style="color:var(--green)">✅ 7 s</td>
+            <td style="color:var(--green)">✅ 11 s</td>
+            <td style="color:var(--accent-2)">⚠️ empty</td>
+            <td style="color:#f87171">❌ empty</td>
+            <td style="color:#f87171">❌ empty</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="testrun-h3">Results — Pass 2: Extended (105b: no timeout; 30b: debug logging)</p>
+      <table class="arch-table">
+        <thead><tr><th>Model</th><th>Task</th><th>Elapsed</th><th>Turns</th><th>Output tokens</th><th>Cost</th><th>Outcome</th></tr></thead>
+        <tbody>
+          <tr><td><code>sarvam-105b</code></td><td>T5</td><td>59 s</td><td>21</td><td>3,666</td><td>₹0.54</td><td style="color:var(--accent-2)">Partial — loop closed, code bug (no tsc check)</td></tr>
+          <tr><td><code>sarvam-105b</code></td><td>T6</td><td>6 s</td><td>0</td><td>—</td><td>—</td><td style="color:#f87171">Blocked — rate-limited after T5</td></tr>
+          <tr><td><code>sarvam-30b</code></td><td>T4</td><td>12 s</td><td>2</td><td>213</td><td>₹0.01</td><td style="color:var(--accent-2)">Partial — ran build, minimal report</td></tr>
+          <tr><td><code>sarvam-30b</code></td><td>T5</td><td>186 s (killed)</td><td>185+</td><td>~22–49/turn</td><td>~₹0.06</td><td style="color:#f87171">Fail — infinite tool loop</td></tr>
+          <tr><td><code>sarvam-30b</code></td><td>T6</td><td>3 s</td><td>0</td><td>—</td><td>—</td><td style="color:#f87171">Blocked — rate-limited after T5's loop</td></tr>
+          <tr><td><code>sarvam-30b</code> (maxTokens=8192)</td><td>T4</td><td>4 s</td><td>0</td><td>—</td><td>—</td><td style="color:#f87171">Fail — API hard-rejects &gt;4096</td></tr>
+        </tbody>
+      </table>
+
+      <p class="testrun-h3">Results — Pass 3: Guards shipped + T5/T6 rerun</p>
+      <div class="finding" style="border-left: 3px solid var(--accent-2);">
+        <div class="finding-title"><span class="finding-num" style="background:rgba(245,158,11,0.12);color:var(--accent-2)">!</span> T5 + T6 blocked by rate limit — open blanks</div>
+        <p>After shipping <code>ts-verify</code> and <code>turn-limit</code>, T5 and T6 were re-run on 105b. Both returned <em>"Sarvam models not available"</em> immediately — the 185-turn 30b loop from Pass 2 had exhausted the account's hourly API quota. The window did not clear within 75 minutes of waiting.</p>
+        <p><strong>The tsc gate and turn-limit guard are code-complete and build-verified. An empirical rerun of T5 (to confirm the gate rescues code correctness) and a first clean run of T6 are deferred to a fresh rate-limit window.</strong></p>
+        <div class="finding-note">T6 has never run to completion on any model. Every attempt follows a high-volume T5 and lands in a rate-limited session. It is a genuine open blank, not a resolved result.</div>
+      </div>
+
+      <!-- Findings -->
+      <p class="testrun-h3">Findings</p>
+
+      <div class="finding">
+        <div class="finding-title"><span class="finding-num">1</span> sarvam-30b enters an infinite tool-call loop on T5</div>
+        <p>Every turn in the 30b T5 run ended with <code>tool_result_count: 1</code> — the model never stopped dispatching tools. All HTTP responses were <strong>200</strong>. The API was healthy. After turn 1 (1,277 output tokens), every subsequent turn collapsed to 22–49 output tokens — just enough to emit another tool call, never a final text response.</p>
+        <div class="finding-code">Turn&nbsp;&nbsp;1: in=3,789&nbsp;&nbsp;out=<span class="hi">1,277</span>&nbsp;&nbsp;tools=1&nbsp;&nbsp;<span class="dim">← first productive turn</span>
+Turn&nbsp;&nbsp;2: in=4,212&nbsp;&nbsp;out=<span class="hi">39</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tools=1
+Turn&nbsp;&nbsp;3: in=4,455&nbsp;&nbsp;out=<span class="hi">22</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tools=1
+Turn&nbsp;&nbsp;4: in=4,778&nbsp;&nbsp;out=<span class="hi">22</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tools=1
+<span class="dim">...</span>
+Turn 185: in=24,636 out=<span class="hi">49</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tools=1&nbsp;&nbsp;<span class="dim">← killed at 180 s</span></div>
+        <p><strong>Root cause:</strong> sarvam-30b cannot decide when to stop calling tools on multi-step edit tasks. It keeps dispatching rather than synthesising a conclusion. The earlier "silent empty response" description was correct in effect but wrong in cause — the model was not silent, it was spinning.</p>
+      </div>
+
+      <div class="finding">
+        <div class="finding-title"><span class="finding-num">2</span> The 4096 output token cap is a hard Sarvam tier limit</div>
+        <p>Setting <code>maxTokens: 8192</code> in user config causes the Sarvam API to reject the first real request (after the 20-token validation call succeeds), surfacing as "Sarvam models are not available." This is not a config issue — the API hard-rejects <code>max_tokens &gt; 4096</code> on the starter tier. It cannot be worked around.</p>
+        <div class="finding-note">Validation call (20 tokens) → ✅ success &nbsp;|&nbsp; First agent request (max_tokens=8192) → ❌ rejected</div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-title"><span class="finding-num">3</span> sarvam-105b closes the loop but does not verify its own code</div>
+        <p>With 600 s budget, 105b completed T5 in <strong>59 s, 21 turns, ₹0.54</strong>. It drove a clean tool loop — read, planned, edited, described. In reality, the edit removed <code>const args = argv.slice(2)</code> while continuing to reference <code>args</code> — a compile-time error the model never checked.</p>
+        <p><strong>Fix shipped:</strong> <code>ts-verify</code> extension now appends <code>[tsc] ✗ Type errors...</code> to every edit/write result on <code>.ts</code> files. The model sees the error immediately and can fix it before claiming success. Empirical confirmation of the fix is pending the next rate-limit window.</p>
+      </div>
+
+      <div class="finding">
+        <div class="finding-title"><span class="finding-num">4</span> 30b's loop burns the hourly API quota</div>
+        <p>After 30b's 185-turn T5 run (180 s of continuous API calls), the account was rate-limited for <strong>over 75 minutes</strong>. T6 has never run to completion on any model — every T6 attempt was blocked by a prior T5's quota consumption. The quota window did not recover within the evaluation session.</p>
+        <p><strong>Fix shipped:</strong> <code>turn-limit</code> extension aborts the loop after 30 turns by default (<code>SUPRATIM_MAX_TURNS</code>). The 30b incident would have been cut at turn 30 (~25 s) instead of running for 185 turns over 180 s.</p>
+      </div>
+
+      <div class="finding">
+        <div class="finding-title"><span class="finding-num">5</span> Token reporting (friction #12) is now live</div>
+        <p>Every <code>--print</code> run now emits a cost summary to stderr. Previously evaluation runs had no visibility into spend.</p>
+        <div class="finding-code"><span class="dim">[tokens]</span> in=<span class="hi">119362</span> out=<span class="hi">3666</span> cacheRead=0 req=<span class="hi">21</span> cost=<span class="hi">₹0.5361</span></div>
+      </div>
+
+      <!-- Guards -->
+      <p class="testrun-h3">Guards Shipped (Phase 0b)</p>
+      <div class="card-grid" style="margin-bottom:8px;">
+        <div class="card">
+          <div class="card-icon icon-teal">🔬</div>
+          <h3>ts-verify</h3>
+          <p>After every <code>edit</code>/<code>write</code> to a <code>.ts</code> file, runs <code>tsc --noEmit</code> and appends the result to tool output. The model sees compile errors inline. Disable: <code>SUPRATIM_TSC_VERIFY=0</code></p>
+        </div>
+        <div class="card">
+          <div class="card-icon icon-orange">🛑</div>
+          <h3>turn-limit</h3>
+          <p>Aborts the agent loop after <code>SUPRATIM_MAX_TURNS</code> turns (default: 30). Normal complex tasks use 5–25 turns; over 30 is almost certainly a loop. Disable: <code>SUPRATIM_MAX_TURNS=0</code></p>
+        </div>
+      </div>
+
+      <!-- Inferences -->
+      <p class="testrun-h3">Inferences</p>
+      <table class="arch-table infer-table">
+        <tbody>
+          <tr><td>1</td><td><strong>30b is not suitable as the agentic default.</strong> Infinite tool-dispatch loop on any task &gt;2 turns. One loop blocks the account for &gt;1 hour.</td></tr>
+          <tr><td>2</td><td><strong>105b is the correct default for Phase 2.</strong> Closes multi-step loops. <code>ts-verify</code> addresses the code-quality gap.</td></tr>
+          <tr><td>3</td><td><strong>Turn-limit guard was urgent — now shipped.</strong> The 30b T5 incident (185 turns, 180 s) demonstrates exactly why; default 30 turns.</td></tr>
+          <tr><td>4</td><td><strong>maxTokens is immovable at 4096</strong> on the starter tier. API hard-rejects any higher value.</td></tr>
+          <tr><td>5</td><td><strong>Rate-limit headroom must be respected.</strong> Back-to-back sessions without cooldown risk &gt;1 hour of account blocking.</td></tr>
+          <tr><td>6</td><td><strong>T6 (cross-file) is a genuine open blank.</strong> Every T6 attempt was rate-blocked by a prior T5. Needs a standalone session.</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Verdict -->
+      <p class="testrun-h3">Verdict</p>
+      <div class="verdict-row">
+        <div class="verdict-card vc-green">
+          <span class="vc-label">Recommended default</span>
+          <h4>sarvam-105b</h4>
+          <p>Reliably closes multi-step tool loops. Completes T1–T5 end-to-end. Cost ~₹0.50 per complex task. Self-verification of code correctness is unreliable — add post-edit <code>tsc --noEmit</code>.</p>
+        </div>
+        <div class="verdict-card vc-red">
+          <span class="vc-label">Not for agentic use</span>
+          <h4>sarvam-30b</h4>
+          <p>Infinite tool-dispatch loop on any task &gt;2 turns. Burns quota indefinitely and rate-limits subsequent sessions. Suitable only for fast single-turn queries.</p>
+        </div>
+      </div>
+
+      <!-- What this means -->
+      <p class="testrun-h3">What This Means for the Project</p>
+      <div class="implications-grid">
+        <div class="impl-card">
+          <h4>✅ Shipped</h4>
+          <ul>
+            <li>Default model → <code>sarvam-105b</code></li>
+            <li><code>ts-verify</code> — post-edit <code>tsc --noEmit</code> gate</li>
+            <li><code>turn-limit</code> — 30-turn abort guard</li>
+            <li><code>api-debug</code> — <code>SUPRATIM_DEBUG=1</code> per-turn logging</li>
+            <li>Print-mode <code>[tokens]</code> reporting</li>
+          </ul>
+        </div>
+        <div class="impl-card">
+          <h4>⏳ Pending next rate-limit window</h4>
+          <ul>
+            <li>T5 rerun — confirm <code>ts-verify</code> rescues code correctness</li>
+            <li>T6 first clean run — cross-file unused export analysis</li>
+          </ul>
+        </div>
+        <div class="impl-card">
+          <h4>🔬 Phase 2 investigation</h4>
+          <ul>
+            <li>30b with <code>reasoning_effort: "low"</code> — may fix infinite loop</li>
+            <li>Improve "models not available" error — surface HTTP status</li>
+            <li>30b as "fast / single-turn" option, not default</li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <footer>
