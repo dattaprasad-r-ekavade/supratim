@@ -1,0 +1,24 @@
+﻿Ollama Cloud connected (qwen3-coder:480b, 15 tokens in validation call)
+[debug] logging to C:\Users\admin\Downloads\non-work\supratim\docs\eval-transcripts\debug-1781673695063.jsonl
+[tokens] in=5378 out=338 cacheRead=0 req=2 cost=$0.00000
+## Summary of src/cli.ts
+
+### What it does
+This is the command-line interface for the "Supratim" coding agent, a model-agnostic AI assistant. It handles authentication, configuration, and execution of the agent in either interactive or print mode.
+
+### Main Flow
+1. **Parse command arguments** (-p for print mode, --verify-key, --setup-key, -h for help)
+2. **Setup environment** (ensure agent directory exists, set environment variables)
+3. **Handle API key** (resolve from storage/env/file, verify validity, or run onboarding wizard)
+4. **Create agent session** with extensions and services
+5. **Run in selected mode** (interactive or print)
+
+### Key Functions
+- `resolveApiKey()`/`ensureApiKey()` - Get and validate API keys from various sources
+- `verifyExistingKey()` - Test API key connectivity with a validation call
+- `setupAgentEnvironment()` - Configure directories and environment variables
+- `createRuntime()` - Set up agent session with extensions (sarvam-compat, usage-hud, api-debug, ts-verify, turn-limit)
+- `main()` - Orchestrate the entire CLI flow based on arguments
+- `runOnboardingWizard()` - Interactive API key setup wizard
+
+The CLI supports both Ollama and Sarvam providers, with secure key storage and verification. Extensions enhance the agent's functionality for various tasks.

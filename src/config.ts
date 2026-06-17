@@ -18,7 +18,11 @@ function readPackageVersion(): string {
 export const APP_NAME = "supratim";
 export const VERSION = readPackageVersion();
 export const SARVAM_PROVIDER = "sarvam";
-export const DEFAULT_MODEL = process.env.SUPRATIM_MODEL ?? "sarvam-105b";
+export const OLLAMA_CLOUD_PROVIDER = "ollama-cloud";
+export const DEFAULT_PROVIDER = process.env.SUPRATIM_PROVIDER ?? SARVAM_PROVIDER;
+export const DEFAULT_MODEL =
+	process.env.SUPRATIM_MODEL ??
+	(DEFAULT_PROVIDER === OLLAMA_CLOUD_PROVIDER ? "qwen3-coder:480b" : "sarvam-105b");
 export const ENV_AGENT_DIR = "SUPRATIM_AGENT_DIR";
 
 export function expandTildePath(path: string): string {
@@ -64,21 +68,30 @@ export function ensureAgentDir(): void {
 	}
 }
 
-export function readLocalApiKeyFile(): string | undefined {
-	const candidates = [
-		join(packageRoot, "sarvamapi.txt"),
-		join(process.cwd(), "sarvamapi.txt"),
-	];
-
+function readKeyFromFile(candidates: string[], patterns: RegExp[]): string | undefined {
 	for (const candidate of candidates) {
 		if (!existsSync(candidate)) continue;
 		const content = readFileSync(candidate, "utf8");
-		// Support "key = sk_..." format
-		const kvMatch = content.match(/key\s*=\s*(sk_[^\s\r\n]+)/i);
-		if (kvMatch?.[1]) return kvMatch[1].trim();
-		// Support bare key on its own line
+		for (const pattern of patterns) {
+			const match = content.match(pattern);
+			if (match?.[1]) return match[1].trim();
+		}
 		const bare = content.trim();
-		if (/^sk_\S+$/.test(bare)) return bare;
+		if (bare && !bare.includes("=")) return bare;
 	}
 	return undefined;
+}
+
+export function readLocalApiKeyFile(): string | undefined {
+	return readKeyFromFile(
+		[join(packageRoot, "sarvamapi.txt"), join(process.cwd(), "sarvamapi.txt")],
+		[/key\s*=\s*(sk_[^\s\r\n]+)/i, /^(sk_\S+)$/m],
+	);
+}
+
+export function readOllamaApiKeyFile(): string | undefined {
+	return readKeyFromFile(
+		[join(packageRoot, "ollamakey.txt"), join(process.cwd(), "ollamakey.txt")],
+		[/key\s*=\s*([^\s\r\n]+)/i],
+	);
 }

@@ -1,0 +1,37 @@
+﻿Ollama Cloud connected (devstral-2:123b, 10 tokens in validation call)
+[debug] logging to C:\Users\admin\Downloads\non-work\supratim\docs\eval-transcripts\debug-1781674558175.jsonl
+[tokens] in=7900 out=418 cacheRead=0 req=4 cost=$0.00000
+The file has been updated with error handling for the `storeApiKey` function. Here is the final content of `src/secure-storage.ts`:
+
+```typescript
+import keytar from "keytar";
+
+const SERVICE_NAME = "supratim";
+const ACCOUNT_NAME = "sarvam-api-key";
+
+export async function getStoredApiKey(): Promise<string | undefined> {
+	try {
+		const key = await keytar.getPassword(SERVICE_NAME, ACCOUNT_NAME);
+		return key ?? undefined;
+	} catch {
+		return undefined;
+	}
+}
+
+export async function storeApiKey(apiKey: string): Promise<void> {
+	try {
+		await keytar.setPassword(SERVICE_NAME, ACCOUNT_NAME, apiKey);
+	} catch (error) {
+		throw new Error(`Failed to store API key: ${error instanceof Error ? error.message : String(error)}`);
+	}
+}
+
+export async function deleteStoredApiKey(): Promise<void> {
+	await keytar.deletePassword(SERVICE_NAME, ACCOUNT_NAME);
+}
+
+export async function hasStoredApiKey(): Promise<boolean> {
+	const key = await getStoredApiKey();
+	return Boolean(key);
+}
+```

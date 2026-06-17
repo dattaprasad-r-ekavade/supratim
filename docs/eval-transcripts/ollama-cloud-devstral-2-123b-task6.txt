@@ -1,0 +1,67 @@
+﻿Ollama Cloud connected (devstral-2:123b, 10 tokens in validation call)
+[debug] logging to C:\Users\admin\Downloads\non-work\supratim\docs\eval-transcripts\debug-1781675001947.jsonl
+(node:17152) MaxListenersExceededWarning: Possible EventTarget memory leak detected. 11 abort listeners added to [AbortSignal]. MaxListeners is 10. Use events.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+[tokens] in=163921 out=1392 cacheRead=0 req=21 cost=$0.00000
+Perfect! Now I have all the information I need. Let me analyze what's exported vs what's actually imported:
+
+## Analysis of Unused Exports
+
+### From `src/config.ts`:
+
+**Exported but unused:**
+1. `APP_NAME` - exported but never imported anywhere
+2. `expandTildePath` - exported but never imported anywhere  
+3. `getModelsPath` - exported but never imported anywhere
+4. `getAuthPath` - exported but never imported anywhere
+5. `getSettingsPath` - exported but never imported anywhere
+6. `getBundledConfigPath` - exported but never imported anywhere
+
+**Used exports:**
+- `VERSION`, `DEFAULT_MODEL`, `DEFAULT_PROVIDER`, `SARVAM_PROVIDER`, `OLLAMA_CLOUD_PROVIDER`, `ensureAgentDir`, `ENV_AGENT_DIR`, `getAgentDir`, `readLocalApiKeyFile`, `readOllamaApiKeyFile`
+
+### From `src/ollama-verify.ts`:
+
+**Exported but unused:**
+1. `OllamaVerifyResult` interface - exported but only used internally in the same file
+
+**Used exports:**
+- `verifyOllamaApiKey` function
+
+### From `src/sarvam-verify.ts`:
+
+**Exported but unused:**
+1. `SarvamVerifyResult` interface - exported but only used internally in the same file
+
+**Used exports:**
+- `verifySarvamApiKey` function
+
+### From `src/secure-storage.ts`:
+
+**Exported but unused:**
+1. `deleteStoredApiKey` - exported but never imported anywhere
+2. `hasStoredApiKey` - exported but never imported anywhere
+
+**Used exports:**
+- `getStoredApiKey`, `storeApiKey`
+
+### From other files:
+- `src/cli.ts`, `src/onboarding.ts`, `src/secure-storage.ts` - no exports
+- All extension files - only export default functions that are used
+
+## Summary of Unused Exports:
+
+| File | Export Name | Type | Likely Dead Code? |
+|------|-------------|------|-------------------|
+| config.ts | APP_NAME | const | Likely dead - never used |
+| config.ts | expandTildePath | function | Likely dead - never used |
+| config.ts | getModelsPath | function | Likely dead - never used |
+| config.ts | getAuthPath | function | Likely dead - never used |
+| config.ts | getSettingsPath | function | Likely dead - never used |
+| config.ts | getBundledConfigPath | function | Likely dead - never used |
+| ollama-verify.ts | OllamaVerifyResult | interface | Intentional - used internally |
+| sarvam-verify.ts | SarvamVerifyResult | interface | Intentional - used internally |
+| secure-storage.ts | deleteStoredApiKey | function | Likely dead - never used |
+| secure-storage.ts | hasStoredApiKey | function | Likely dead - never used |
+
+The interface exports (`OllamaVerifyResult` and `SarvamVerifyResult`) are likely intentionally public for type safety, even though they're only used internally. The other unused exports appear to be dead code that could potentially be removed.

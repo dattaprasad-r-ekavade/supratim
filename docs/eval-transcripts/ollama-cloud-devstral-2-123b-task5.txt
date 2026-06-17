@@ -1,0 +1,8 @@
+﻿Ollama Cloud connected (devstral-2:123b, 10 tokens in validation call)
+[debug] logging to C:\Users\admin\Downloads\non-work\supratim\docs\eval-transcripts\debug-1781674849596.jsonl
+(node:16424) MaxListenersExceededWarning: Possible EventTarget memory leak detected. 11 abort listeners added to [AbortSignal]. MaxListeners is 10. Use events.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+[turn-limit] Reached 30 turns (index 29) ΓÇö aborting loop.
+[turn-limit] Reached 30 turns (index 30) ΓÇö aborting loop.
+[tokens] in=266031 out=4896 cacheRead=0 req=31 cost=$0.00000
+Request was aborted.

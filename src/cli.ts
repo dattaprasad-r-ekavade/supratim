@@ -12,11 +12,13 @@ import {
 import chalk from "chalk";
 import {
 	DEFAULT_MODEL,
+	DEFAULT_PROVIDER,
 	ensureAgentDir,
 	ENV_AGENT_DIR,
 	getAgentDir,
+	OLLAMA_CLOUD_PROVIDER,
 	readLocalApiKeyFile,
-	SARVAM_PROVIDER,
+	readOllamaApiKeyFile,
 	VERSION,
 } from "./config.js";
 import { runOnboardingWizard } from "./onboarding.js";
@@ -26,35 +28,49 @@ import usageHudExtension from "./extensions/usage-hud.js";
 import apiDebugExtension from "./extensions/api-debug.js";
 import tsVerifyExtension from "./extensions/ts-verify.js";
 import turnLimitExtension from "./extensions/turn-limit.js";
+import { verifyOllamaApiKey } from "./ollama-verify.js";
 import { verifySarvamApiKey } from "./sarvam-verify.js";
+
+const activeProvider = DEFAULT_PROVIDER;
 
 function printBanner(): void {
 	console.log(chalk.bold.cyan(`Supratim v${VERSION}`));
-	console.log(chalk.dim("Model-agnostic coding agent — Sarvam showcased by default"));
+	console.log(chalk.dim(`Model-agnostic coding agent — provider: ${activeProvider}`));
 }
 
-async function resolveApiKey(): Promise<string | undefined> {
+async function resolveSarvamApiKey(): Promise<string | undefined> {
 	let apiKey = await getStoredApiKey();
 	if (apiKey) return apiKey;
-
 	apiKey = process.env.SARVAM_API_KEY;
 	if (apiKey) {
 		await storeApiKey(apiKey);
 		return apiKey;
 	}
-
 	apiKey = readLocalApiKeyFile();
 	if (apiKey) {
 		await storeApiKey(apiKey);
 		return apiKey;
 	}
-
 	return undefined;
 }
 
+function resolveOllamaApiKey(): string | undefined {
+	return process.env.OLLAMA_API_KEY ?? readOllamaApiKeyFile();
+}
+
+async function resolveApiKey(): Promise<string | undefined> {
+	if (activeProvider === OLLAMA_CLOUD_PROVIDER) return resolveOllamaApiKey();
+	return resolveSarvamApiKey();
+}
+
 async function ensureApiKey(interactive: boolean): Promise<string | undefined> {
-	let apiKey = await resolveApiKey();
+	const apiKey = await resolveApiKey();
 	if (apiKey) return apiKey;
+
+	if (activeProvider === OLLAMA_CLOUD_PROVIDER) {
+		console.error(chalk.red("No Ollama API key found. Set OLLAMA_API_KEY or add ollamakey.txt."));
+		process.exit(1);
+	}
 
 	if (!interactive || !process.stdin.isTTY) {
 		console.error(
@@ -75,6 +91,20 @@ async function ensureApiKey(interactive: boolean): Promise<string | undefined> {
 }
 
 async function verifyExistingKey(apiKey: string): Promise<boolean> {
+	if (activeProvider === OLLAMA_CLOUD_PROVIDER) {
+		const result = await verifyOllamaApiKey(apiKey, DEFAULT_MODEL);
+		if (!result.ok) {
+			console.error(chalk.red(`Ollama API validation failed: ${result.message}`));
+			return false;
+		}
+		console.log(
+			chalk.green(
+				`Ollama Cloud connected (${DEFAULT_MODEL}, ${result.usage?.totalTokens ?? 0} tokens in validation call)`,
+			),
+		);
+		return true;
+	}
+
 	const result = await verifySarvamApiKey(apiKey, DEFAULT_MODEL);
 	if (!result.ok) {
 		console.error(chalk.red(`Sarvam API key validation failed: ${result.message}`));
@@ -151,7 +181,7 @@ Config directory: ${getAgentDir()} (override with ${ENV_AGENT_DIR})
 	if (!apiKey) process.exit(1);
 
 	const authStorage = AuthStorage.create();
-	authStorage.setRuntimeApiKey(SARVAM_PROVIDER, apiKey);
+	authStorage.setRuntimeApiKey(activeProvider, apiKey);
 
 	const createRuntime: CreateAgentSessionRuntimeFactory = async ({
 		cwd: runtimeCwd,
@@ -169,25 +199,27 @@ Config directory: ${getAgentDir()} (override with ${ENV_AGENT_DIR})
 		});
 
 		const { modelRegistry, settingsManager } = services;
-		const available = await modelRegistry.getAvailable();
-		const sarvamModel =
-			available.find((m) => m.provider === SARVAM_PROVIDER && m.id === DEFAULT_MODEL) ??
-			available.find((m) => m.provider === SARVAM_PROVIDER);
+		const available = modelRegistry.getAvailable();
+		const selectedModel =
+			available.find((m) => m.provider === activeProvider && m.id === DEFAULT_MODEL) ??
+			available.find((m) => m.provider === activeProvider);
 
-		if (!sarvamModel) {
-			throw new Error("Sarvam models are not available. Check models.json and API key.");
+		if (!selectedModel) {
+			throw new Error(
+				`${activeProvider} models are not available. Check models.json and API key.`,
+			);
 		}
 
 		const created = await createAgentSessionFromServices({
 			services,
 			sessionManager,
 			sessionStartEvent,
-			model: sarvamModel,
+			model: selectedModel,
 			thinkingLevel: settingsManager.getDefaultThinkingLevel() ?? "medium",
 			scopedModels: [
-				{ model: sarvamModel, thinkingLevel: "medium" },
+				{ model: selectedModel, thinkingLevel: "medium" },
 				...(available
-					.filter((m) => m.provider === SARVAM_PROVIDER && m.id !== sarvamModel.id)
+					.filter((m) => m.provider === activeProvider && m.id !== selectedModel.id)
 					.map((m) => ({ model: m, thinkingLevel: "medium" as const })) ?? []),
 			],
 		});

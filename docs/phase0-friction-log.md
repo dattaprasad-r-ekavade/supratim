@@ -56,7 +56,8 @@
 
 ## Model reliability verdict
 
-Full test methodology, raw results, and project implications: [`docs/Testrun.md`](Testrun.md)
+Full test methodology, raw results, and project implications: [`docs/Testrun.md`](Testrun.md)  
+Ollama Cloud comparison (`qwen3-coder:480b`, `devstral-2:123b`): [`docs/Testrun-ollama.md`](Testrun-ollama.md)
 
 **Summary:**
 - `sarvam-105b` — reliable loop up to ~20 tool calls; use as default from Phase 2 onward

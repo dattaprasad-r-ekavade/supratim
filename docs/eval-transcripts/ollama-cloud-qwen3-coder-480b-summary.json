@@ -1,0 +1,50 @@
+﻿[
+    {
+        "Model":  "ollama-cloud-qwen3-coder-480b",
+        "Task":  1,
+        "Elapsed":  19,
+        "State":  "Completed",
+        "Completed":  "yes",
+        "Chars":  1542
+    },
+    {
+        "Model":  "ollama-cloud-qwen3-coder-480b",
+        "Task":  2,
+        "Elapsed":  29,
+        "State":  "Completed",
+        "Completed":  "yes",
+        "Chars":  768
+    },
+    {
+        "Model":  "ollama-cloud-qwen3-coder-480b",
+        "Task":  3,
+        "Elapsed":  54,
+        "State":  "Completed",
+        "Completed":  "yes",
+        "Chars":  1340
+    },
+    {
+        "Model":  "ollama-cloud-qwen3-coder-480b",
+        "Task":  4,
+        "Elapsed":  111,
+        "State":  "Completed",
+        "Completed":  "yes",
+        "Chars":  743
+    },
+    {
+        "Model":  "ollama-cloud-qwen3-coder-480b",
+        "Task":  5,
+        "Elapsed":  107,
+        "State":  "Completed",
+        "Completed":  "yes",
+        "Chars":  835
+    },
+    {
+        "Model":  "ollama-cloud-qwen3-coder-480b",
+        "Task":  6,
+        "Elapsed":  251,
+        "State":  "Completed",
+        "Completed":  "yes",
+        "Chars":  2060
+    }
+]

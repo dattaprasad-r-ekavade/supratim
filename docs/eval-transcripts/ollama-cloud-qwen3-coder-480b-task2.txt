@@ -1,0 +1,18 @@
+﻿Ollama Cloud connected (qwen3-coder:480b, 15 tokens in validation call)
+[debug] logging to C:\Users\admin\Downloads\non-work\supratim\docs\eval-transcripts\debug-1781673751389.jsonl
+[tokens] in=5608 out=298 cacheRead=0 req=3 cost=$0.00000
+I've searched all the TypeScript files under the src/ directory for lines containing TODO or FIXME comments, and found none. There are no TODO or FIXME comments in any of the following files:
+
+- src/cli.ts
+- src/config.ts
+- src/extensions/api-debug.ts
+- src/extensions/sarvam-compat.ts
+- src/extensions/ts-verify.ts
+- src/extensions/turn-limit.ts
+- src/extensions/usage-hud.ts
+- src/ollama-verify.ts
+- src/onboarding.ts
+- src/sarvam-verify.ts
+- src/secure-storage.ts
+
+The search completed successfully, but no matches were found.

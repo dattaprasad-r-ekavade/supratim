@@ -1,0 +1,29 @@
+﻿Ollama Cloud connected (devstral-2:123b, 10 tokens in validation call)
+[debug] logging to C:\Users\admin\Downloads\non-work\supratim\docs\eval-transcripts\debug-1781674461952.jsonl
+[tokens] in=5064 out=319 cacheRead=0 req=2 cost=$0.00000
+### Summary of `src/cli.ts`
+
+#### Purpose
+This file implements the CLI for the Supratim coding agent, handling argument parsing, API key management, and agent session initialization.
+
+#### Main Flow
+1. Parse CLI arguments (`-p/--print`, `--verify-key`, `--setup-key`, `--dry-run`, `-h/--help`).
+2. Set up the agent environment (directories, env vars).
+3. Resolve and validate the API key (Sarvam or Ollama Cloud).
+4. Initialize the agent runtime with extensions and selected model.
+5. Run in either print mode (non-interactive) or interactive mode.
+
+#### Key Functions
+- `printBanner()`: Displays the Supratim banner.
+- `resolveApiKey()`: Retrieves the API key from storage, env vars, or local files.
+- `ensureApiKey(interactive)`: Ensures an API key exists, prompting for setup if needed.
+- `verifyExistingKey(apiKey)`: Validates the API key with the provider.
+- `setupAgentEnvironment()`: Configures environment variables and directories.
+- `main(argv)`: Orchestrates the CLI flow.
+
+#### Extensions
+- `sarvamCompatExtension`, `usageHudExtension`, `apiDebugExtension`, `tsVerifyExtension`, `turnLimitExtension`.
+
+#### Modes
+- **Print Mode**: Non-interactive, single-shot execution.
+- **Interactive Mode**: Full agent session with user interaction.

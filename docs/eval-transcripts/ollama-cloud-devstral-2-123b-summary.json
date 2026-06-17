@@ -1,0 +1,18 @@
+﻿[
+    {
+        "Model":  "ollama-cloud-devstral-2-123b",
+        "Task":  5,
+        "Elapsed":  123,
+        "State":  "Completed",
+        "Completed":  "yes",
+        "Chars":  649
+    },
+    {
+        "Model":  "ollama-cloud-devstral-2-123b",
+        "Task":  6,
+        "Elapsed":  55,
+        "State":  "Completed",
+        "Completed":  "yes",
+        "Chars":  3179
+    }
+]

@@ -1,0 +1,35 @@
+﻿Ollama Cloud connected (qwen3-coder:480b, 15 tokens in validation call)
+[debug] logging to C:\Users\admin\Downloads\non-work\supratim\docs\eval-transcripts\debug-1781674161764.jsonl
+(node:10396) MaxListenersExceededWarning: Possible EventTarget memory leak detected. 11 abort listeners added to [AbortSignal]. MaxListeners is 10. Use events.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+[tokens] in=225464 out=2170 cacheRead=0 req=25 cost=$0.00000
+Now I can provide a definitive list of unused exports. Here's my analysis:
+
+# Unused Exports Analysis
+
+## Truly Unused Exports (Never Imported)
+| File | Export Name | Type | Assessment |
+|------|-------------|------|------------|
+| src/config.ts | getModelsPath | Function | Dead code |
+| src/config.ts | getAuthPath | Function | Dead code |
+| src/config.ts | getSettingsPath | Function | Dead code |
+| src/config.ts | getBundledConfigPath | Function | Dead code |
+| src/ollama-verify.ts | OllamaVerifyResult | Interface | Dead code |
+| src/sarvam-verify.ts | SarvamVerifyResult | Interface | Dead code |
+| src/secure-storage.ts | deleteStoredApiKey | Function | Dead code |
+| src/secure-storage.ts | hasStoredApiKey | Function | Dead code |
+
+## Exports Used Only Within Their Own Files
+| File | Export Name | Type | Assessment |
+|------|-------------|------|------------|
+| src/config.ts | expandTildePath | Function | Dead code (exported but only used internally) |
+
+## All Other Exports
+All other exports from src/ files are imported and used by other src/ files, so they are intentionally public.
+
+The unused exports appear to be either:
+1. Functions that were planned but never implemented (`getModelsPath`, `getAuthPath`, `getSettingsPath`, `getBundledConfigPath`)
+2. Type definitions that are exported but not used (`OllamaVerifyResult`, `SarvamVerifyResult`)
+3. Storage functions that aren't needed (`deleteStoredApiKey`, `hasStoredApiKey`)
+
+These unused exports could be safely removed without affecting the functionality of the application.

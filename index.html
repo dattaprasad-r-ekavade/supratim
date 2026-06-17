@@ -773,7 +773,7 @@
       gap: 16px;
       margin: 16px 0;
     }
-    @media (max-width: 600px) { .verdict-row { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .verdict-row { grid-template-columns: 1fr; } }
     .verdict-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -1129,7 +1129,8 @@
 │   ├── <span class="tr-file">models.json</span>        <span class="tr-dim">Sarvam provider + model definitions</span>
 │   └── <span class="tr-file">settings.json</span>      <span class="tr-dim">Default theme, thinking level</span>
 ├── <span class="tr-dir">docs/</span>
-│   ├── <span class="tr-file">Testrun.md</span>         <span class="tr-dim">Phase 0 model reliability test (→ <a href="#testrun" style="color:var(--teal);text-decoration:none">see above</a>)</span>
+│   ├── <span class="tr-file">Testrun.md</span>         <span class="tr-dim">Sarvam model eval (→ <a href="#testrun" style="color:var(--teal);text-decoration:none">see above</a>)</span>
+│   ├── <span class="tr-file">Testrun-ollama.md</span>  <span class="tr-dim">Ollama Cloud free tier comparison</span>
 │   └── <span class="tr-file">phase0-friction-log.md</span>
 └── <span class="tr-file">index.html</span>          <span class="tr-dim">This page</span></pre>
     </section>
@@ -1137,13 +1138,13 @@
     <!-- Test Run -->
     <section id="testrun">
       <h2>Phase 0 — Model Reliability Test</h2>
-      <p class="section-lead">Empirical go/no-go: can Sarvam models reliably drive Supratim's agentic tool loop? No simulation — real API calls, real transcripts.</p>
+      <p class="section-lead">Empirical go/no-go: can models reliably drive Supratim's agentic tool loop? Sarvam baseline + Ollama Cloud free tier — real API calls, real transcripts.</p>
 
       <div class="testrun-meta">
-        <span>📅 2026-06-16</span>
-        <span>💰 ~₹1.81 of ₹99 budget</span>
-        <span>🛠 6 tasks × 2 models · 3 passes</span>
-        <span class="meta-done">✅ Guards shipped · T6 queued</span>
+        <span>📅 2026-06-16 – 17</span>
+        <span>💰 Sarvam ~₹1.81 · Ollama free tier</span>
+        <span>🛠 6 tasks × 4 models</span>
+        <span class="meta-done">✅ Phase 0c complete</span>
       </div>
 
       <div class="testrun-why">
@@ -1229,6 +1230,26 @@
         </tbody>
       </table>
 
+      <p class="testrun-h3">Results — Phase 0c: Ollama Cloud free tier</p>
+      <div class="testrun-why" style="border-left-color: var(--teal);">
+        Same battery on <strong>Ollama Cloud free plan</strong> (<code>qwen3-coder:480b</code>, <code>devstral-2:123b</code>). <strong>Cost is not a variable here</strong> — we compared wall-clock time and whether the loop converges. Sarvam baseline included for timing only.
+      </div>
+      <table class="arch-table">
+        <thead><tr><th>Task</th><th>sarvam-105b</th><th>qwen3-coder:480b</th><th>devstral-2:123b</th></tr></thead>
+        <tbody>
+          <tr><td>T1</td><td>25 s</td><td style="color:var(--green)"><strong>19 s</strong></td><td>26 s</td></tr>
+          <tr><td>T2</td><td style="color:var(--green)"><strong>11 s</strong></td><td>29 s</td><td style="color:var(--green)"><strong>12 s</strong></td></tr>
+          <tr><td>T3</td><td style="color:var(--green)"><strong>12 s</strong></td><td>54 s</td><td style="color:var(--green)"><strong>15 s</strong></td></tr>
+          <tr><td>T4</td><td>41 s</td><td>111 s</td><td style="color:var(--green)"><strong>18 s</strong></td></tr>
+          <tr><td>T5</td><td style="color:var(--accent-2)">loop</td><td style="color:var(--green)"><strong>107 s ✓</strong></td><td style="color:var(--accent-2)">loop</td></tr>
+          <tr><td>T6</td><td style="color:#f87171">never done</td><td style="color:var(--green)">251 s ✓</td><td style="color:var(--green)"><strong>55 s ✓</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="finding" style="border-left: 3px solid var(--teal); margin-top: 16px;">
+        <div class="finding-title"><span class="finding-num" style="background:rgba(20,184,166,0.12);color:var(--teal)">★</span> Ollama free tier wins on hard tasks — not on price</div>
+        <p><strong>qwen3-coder:480b</strong> is the only model that completed all 6 tasks. <strong>devstral-2:123b</strong> finished T6 in 55 s (vs 251 s) but looped on T5 like Sarvam. Sarvam 105b never completed cross-file T6 in any pass. On Ollama free, the trade-off is <strong>speed vs loop reliability</strong>, not rupees.</p>
+      </div>
+
       <!-- Findings -->
       <p class="testrun-h3">Findings</p>
 
@@ -1300,22 +1321,34 @@ Turn 185: in=24,636 out=<span class="hi">49</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <tr><td>4</td><td><strong>tsc-verify gate causes brief recoveries but can't prevent the loop.</strong> Valuable for surfacing errors; insufficient alone for convergence.</td></tr>
           <tr><td>5</td><td><strong>maxTokens is immovable at 4096</strong> on the starter tier.</td></tr>
           <tr><td>6</td><td><strong>PowerShell UTF-8 BOM corrupts models.json silently.</strong> Use <code>UTF8NoBOM</code> for all harness writes.</td></tr>
-          <tr><td>7</td><td><strong>T6 (cross-file) needs structured exploration.</strong> 298K input tokens for 30 turns is unsustainable; requires a different approach.</td></tr>
+          <tr><td>7</td><td><strong>Ollama free tier solves T6; Sarvam doesn't.</strong> qwen3 completed all 6; devstral T6 in 55 s. Cost N/A on free — compare time and convergence.</td></tr>
         </tbody>
       </table>
 
       <!-- Verdict -->
       <p class="testrun-h3">Verdict</p>
-      <div class="verdict-row">
+      <div class="verdict-row" style="grid-template-columns: 1fr 1fr 1fr;">
         <div class="verdict-card vc-green">
-          <span class="vc-label">Recommended default</span>
+          <span class="vc-label">Sarvam default</span>
           <h4>sarvam-105b</h4>
-          <p>Makes productive turns on T1–T4. Also loops on T5/T6-class tasks but recovers briefly with tsc gate. Turn-limit guard essential. Cost ~₹0.90 per capped complex task.</p>
+          <p>Fast T1–T4. Loops on T5/T6. ₹ quota + rate-limit risk. Turn-limit guard essential.</p>
         </div>
-        <div class="verdict-card vc-red">
+        <div class="verdict-card vc-green" style="border-top-color: var(--teal);">
+          <span class="vc-label" style="background:rgba(20,184,166,0.1);color:var(--teal)">Ollama · reliability</span>
+          <h4>qwen3-coder:480b</h4>
+          <p>Only model to finish all 6 tasks on free tier. Slower on simple tasks; converges on hard ones.</p>
+        </div>
+        <div class="verdict-card vc-green" style="border-top-color: #60a5fa;">
+          <span class="vc-label" style="background:rgba(96,165,250,0.1);color:#60a5fa">Ollama · speed</span>
+          <h4>devstral-2:123b</h4>
+          <p>Fastest T2–T4 and T6 (55 s). Loops on T5. Best when task is read/analyse, not multi-file edit.</p>
+        </div>
+      </div>
+      <div class="verdict-row" style="margin-top: 0;">
+        <div class="verdict-card vc-red" style="grid-column: 1 / -1;">
           <span class="vc-label">Not for agentic use</span>
           <h4>sarvam-30b</h4>
-          <p>Infinite tool-dispatch loop on any task &gt;2 turns. Burns quota indefinitely and rate-limits subsequent sessions. Suitable only for fast single-turn queries.</p>
+          <p>Infinite tool-dispatch loop on any task &gt;2 turns. Suitable only for fast single-turn queries.</p>
         </div>
       </div>
 
@@ -1335,9 +1368,9 @@ Turn 185: in=24,636 out=<span class="hi">49</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div class="impl-card">
           <h4>🔧 Phase 2 scope</h4>
           <ul>
-            <li>Structured exploration for T6-class tasks (list files → grep → summarize, not open-ended loop)</li>
-            <li>System prompt: explicit "stop after N tool calls and report" instruction</li>
-            <li>30b as "fast / single-turn" option only, not default</li>
+            <li>BYOK: Sarvam default + Ollama Cloud as optional provider</li>
+            <li>Structured exploration for T6-class tasks</li>
+            <li>Turn-limit + tsc-verify on all providers</li>
           </ul>
         </div>
         <div class="impl-card">
