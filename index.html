@@ -819,6 +819,85 @@
     .impl-card li { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; padding: 3px 0 3px 14px; position: relative; }
     .impl-card li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; }
     .impl-card code { font-family: 'JetBrains Mono', monospace; font-size: 0.8em; background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 3px; }
+
+    /* ── TL;DR ── */
+    .tldr-section {
+      margin-bottom: 56px;
+      padding: 22px 26px;
+      background: linear-gradient(135deg, rgba(255,107,53,0.06) 0%, var(--bg-card) 45%, rgba(20,184,166,0.04) 100%);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-sm);
+    }
+    .tldr-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .tldr-top h2 {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0;
+    }
+    .tldr-updated {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .tldr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+    }
+    .tldr-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      font-size: 0.84rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+    .tldr-item strong { color: var(--text); font-weight: 600; }
+    .tldr-item code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78em;
+      background: rgba(255,255,255,0.06);
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: var(--teal);
+    }
+    .tldr-tag {
+      flex-shrink: 0;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 4px;
+      margin-top: 2px;
+    }
+    .tldr-tag.new  { background: rgba(255,107,53,0.15); color: var(--accent); }
+    .tldr-tag.ship { background: rgba(74,222,128,0.12); color: var(--green); }
+    .tldr-tag.eval { background: rgba(20,184,166,0.12); color: var(--teal); }
+    .tldr-foot {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+    .tldr-foot a { color: var(--teal); text-decoration: none; }
+    .tldr-foot a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -827,6 +906,7 @@
     <div class="nav-inner">
       <a href="#" class="nav-logo">⬡ <span>supratim</span></a>
       <ul class="nav-links">
+        <li><a href="#tldr">TL;DR</a></li>
         <li><a href="#overview" class="active">Overview</a></li>
         <li><a href="#architecture">Architecture</a></li>
         <li><a href="#roadmap">Roadmap</a></li>
@@ -865,7 +945,7 @@
       </div>
 
       <div class="chips">
-        <span class="chip"><i class="fas fa-code-branch"></i> v0.1.0</span>
+        <span class="chip"><i class="fas fa-code-branch"></i> v0.2.0</span>
         <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" class="chip">
           <i class="fab fa-npm"></i> npm
         </a>
@@ -875,6 +955,41 @@
         <span class="chip"><i class="fas fa-globe"></i> Windows · macOS · Linux</span>
       </div>
     </header>
+
+    <!-- TL;DR -->
+    <section id="tldr" class="tldr-section">
+      <div class="tldr-top">
+        <h2>TL;DR</h2>
+        <span class="tldr-updated">Updated 17 Jun 2026 · v0.2.0</span>
+      </div>
+      <div class="tldr-grid">
+        <div class="tldr-item">
+          <span class="tldr-tag new">New</span>
+          <span><strong>Ollama Cloud</strong> on free tier — <code>qwen3-coder:480b</code> &amp; <code>devstral-2:123b</code> via <code>SUPRATIM_PROVIDER=ollama-cloud</code></span>
+        </div>
+        <div class="tldr-item">
+          <span class="tldr-tag eval">Eval</span>
+          <span><strong>Phase 0c:</strong> qwen3 finished all 6 agent tasks; devstral did cross-file T6 in <strong>55 s</strong>. Sarvam 105b loops on T5/T6</span>
+        </div>
+        <div class="tldr-item">
+          <span class="tldr-tag ship">Shipped</span>
+          <span><code>ts-verify</code> post-edit tsc gate + <code>turn-limit</code> guard (30 turns) — stops infinite tool loops</span>
+        </div>
+        <div class="tldr-item">
+          <span class="tldr-tag ship">Shipped</span>
+          <span>On npm: <code>npx supratim</code> · Sarvam default <code>sarvam-105b</code> · INR usage HUD · secure key onboarding</span>
+        </div>
+        <div class="tldr-item">
+          <span class="tldr-tag eval">Takeaway</span>
+          <span>On Ollama <strong>free</strong>, cost isn't the variable — <strong>speed vs loop reliability</strong> is. Use Ollama for hard cross-file tasks; Sarvam for fast T1–T4</span>
+        </div>
+        <div class="tldr-item">
+          <span class="tldr-tag new">Next</span>
+          <span>Phase 2: MCP client, structured exploration for T6-class tasks, BYOK polish</span>
+        </div>
+      </div>
+      <p class="tldr-foot">Details → <a href="#testrun">Test Run</a> · <a href="https://github.com/dattaprasad-r-ekavade/supratim/blob/main/docs/Testrun-ollama.md" target="_blank" rel="noopener noreferrer">Ollama comparison doc</a></p>
+    </section>
 
     <!-- Overview -->
     <section id="overview">
