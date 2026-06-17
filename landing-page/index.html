@@ -1,123 +1,232 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agentic Coding Agent — Supratim</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <title>Home — Supratim</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="assets/js/tailwind-config.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/theme.css" />
 </head>
-<body>
-
-  <nav>
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">⬡ <span>supratim</span></a>
-      <ul class="nav-links">
-        <li><a href="index.html#tldr" class="active">TL;DR</a></li>
-        <li><a href="overview.html">Overview</a></li>
-        <li><a href="architecture.html">Architecture</a></li>
-        <li><a href="roadmap.html">Roadmap</a></li>
-        <li><a href="testrun.html">Test Run</a></li>
-        <li><a href="install.html">Install</a></li>
-        <li><a href="structure.html">Structure</a></li>
-      </ul>
-      <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="nav-cta">
-        <i class="fab fa-github"></i> GitHub
-      </a>
-    </div>
-  </nav>
-
-  <div class="wrap">
-    <header>
-      <div class="badge"><span class="badge-dot"></span> Phases 0 &amp; 1 Shipped</div>
-      <h1>Supratim</h1>
-      <p class="tagline">
-        Open-source, model-agnostic agentic coding agent.<br>
-        Built on <strong>Pi</strong> · Showcasing <strong style="color:var(--accent)">Sarvam AI</strong> by default.
-      </p>
-
-      <div style="margin-bottom: 28px;">
-        <div class="hero-install" onclick="copyHeroCmd(this)" title="Click to copy">
-          <span class="cmd-prefix">$</span>
-          <span class="cmd-text">npx <span class="cmd-pkg">supratim</span></span>
-          <button class="copy-btn" aria-label="Copy command"><i class="far fa-copy"></i></button>
-        </div>
-      </div>
-
-      <div class="hero-actions">
-        <a href="install.html" class="btn"><i class="fas fa-terminal"></i> Get Started</a>
-        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
-          <i class="fab fa-github"></i> View on GitHub
-        </a>
-      </div>
-
-      <div class="chips">
-        <span class="chip"><i class="fas fa-code-branch"></i> v0.2.0</span>
-        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" class="chip">
-          <i class="fab fa-npm"></i> npm
-        </a>
-        <span class="chip"><i class="fab fa-node-js"></i> Node ≥ 20.6</span>
-        <span class="chip"><i class="fab fa-js"></i> TypeScript</span>
-        <span class="chip"><i class="fas fa-shield-alt"></i> MIT</span>
-        <span class="chip"><i class="fas fa-globe"></i> Windows · macOS · Linux</span>
-      </div>
-    </header>
-
-    <!-- TL;DR -->
-    <section id="tldr" class="tldr-section">
-      <div class="tldr-top">
-        <h2>TL;DR</h2>
-        <span class="tldr-updated">Updated 17 Jun 2026 · v0.2.0</span>
-      </div>
-      <div class="tldr-grid">
-        <div class="tldr-item">
-          <span class="tldr-tag new">New</span>
-          <span><strong>Ollama Cloud</strong> on free tier — <code>qwen3-coder:480b</code> &amp; <code>devstral-2:123b</code> via <code>SUPRATIM_PROVIDER=ollama-cloud</code></span>
-        </div>
-        <div class="tldr-item">
-          <span class="tldr-tag eval">Eval</span>
-          <span><strong>Phase 0c:</strong> qwen3 finished all 6 agent tasks; devstral did cross-file T6 in <strong>55 s</strong>. Sarvam 105b loops on T5/T6</span>
-        </div>
-        <div class="tldr-item">
-          <span class="tldr-tag ship">Shipped</span>
-          <span><code>ts-verify</code> post-edit tsc gate + <code>turn-limit</code> guard (30 turns) — stops infinite tool loops</span>
-        </div>
-        <div class="tldr-item">
-          <span class="tldr-tag ship">Shipped</span>
-          <span>On npm: <code>npx supratim</code> · Sarvam default <code>sarvam-105b</code> · INR usage HUD · secure key onboarding</span>
-        </div>
-        <div class="tldr-item">
-          <span class="tldr-tag eval">Takeaway</span>
-          <span>On Ollama <strong>free</strong>, cost isn't the variable — <strong>speed vs loop reliability</strong> is. Use Ollama for hard cross-file tasks; Sarvam for fast T1–T4</span>
-        </div>
-        <div class="tldr-item">
-          <span class="tldr-tag new">Next</span>
-          <span>Phase 2: MCP client, structured exploration for T6-class tasks, BYOK polish</span>
-        </div>
-      </div>
-      <p class="tldr-foot">Details → <a href="testrun.html">Test Run</a> · <a href="https://github.com/dattaprasad-r-ekavade/supratim/blob/main/docs/Testrun-ollama.md" target="_blank" rel="noopener noreferrer">Ollama comparison doc</a></p>
-    </section>
-
-<footer>
-      <div class="footer-links">
-        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer">npm</a>
-        <a href="../LICENSE">MIT License</a>
-        <a href="../THIRD_PARTY_NOTICES.md">Third-party notices</a>
-        <a href="https://pi.dev" target="_blank" rel="noopener noreferrer">Built on Pi</a>
-        <a href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer">Sarvam AI</a>
-      </div>
-      <div class="footer-right">
-        <span style="color: var(--text-dim); font-size: 0.8rem;">© 2026 Dattaprasad Ekavade</span>
-        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-github"></i></a>
-        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-npm"></i></a>
-      </div>
-    </footer>
+<body class="selection:bg-primary-container selection:text-on-primary-fixed">
+<div class="ambient-layer" aria-hidden="true">
+  <div class="ambient-orb ambient-orb--coral"></div>
+  <div class="ambient-orb ambient-orb--teal"></div>
+  <div class="ambient-orb ambient-orb--warm"></div>
+</div>
+<div class="grain-overlay"></div>
+<header class="glass-nav fixed top-0 w-full z-50 h-20">
+  <div class="flex justify-between items-center w-full px-gutter max-w-[1280px] mx-auto h-full gap-4">
+    <a href="index.html" class="flex items-center gap-3 flex-shrink-0">
+      <span class="material-symbols-outlined text-primary text-2xl">terminal</span>
+      <span class="font-display text-xl font-bold text-on-surface tracking-tighter">Supratim</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-5 lg:gap-6 nav-scroll overflow-x-auto max-w-[58vw]">
+        <a class="text-primary font-bold active-nav-glow relative font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="index.html#tldr">TL;DR</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="overview.html">Overview</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="architecture.html">Architecture</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="roadmap.html">Roadmap</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="testrun.html">Test Run</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="install.html">Install</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="structure.html">Structure</a>
+    </nav>
+    <a href="install.html" class="bg-primary-container text-on-primary-fixed font-bold px-5 py-2.5 rounded-lg hover:brightness-110 transition-all active:scale-95 text-xs uppercase tracking-wider whitespace-nowrap flex-shrink-0">Get Started</a>
   </div>
-
-  <script src="assets/js/main.js"></script>
+</header>
+<main class="relative pt-32 pb-24 px-gutter max-w-[1280px] mx-auto">
+<!-- Hero Background Glow -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] hero-glow-layer pointer-events-none -z-10"></div>
+<!-- Hero Section -->
+<section class="text-center mb-24">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-chip mb-8">
+<div class="w-2 h-2 rounded-full bg-[#00FF9C] biological-pulse"></div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-[#00FF9C]">Phases 0 &amp; 1 Shipped</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-6 md:text-8xl">
+                Supratim
+            </h1>
+<p class="font-body-md text-headline-lg max-w-2xl mx-auto text-on-surface-variant font-light mb-8 italic">
+                Open-source, model-agnostic agentic coding agent.  
+                Built on <span class="text-primary font-semibold">Pi</span> · Showcasing <span class="text-primary font-semibold">Sarvam AI</span> by default.
+            </p>
+<!-- Command Bar -->
+<div class="max-w-md mx-auto mb-12">
+<div class="relative group">
+<div class="absolute -inset-1 bg-primary/20 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative flex items-center justify-between px-6 py-4 glass-command rounded-xl micro-chisel cursor-pointer" data-copy="npx supratim" role="button" tabindex="0">
+<div class="flex items-center gap-3">
+<span class="text-primary-container font-code-sm">$</span>
+<code class="font-code-sm text-on-surface">npx <span class="text-primary">supratim</span></code>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">content_copy</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center justify-center gap-4">
+<a href="install.html" class="w-full md:w-auto px-8 py-4 bg-primary text-on-primary-fixed font-bold rounded-xl flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform active:scale-95 micro-chisel no-underline">
+<span class="material-symbols-outlined">terminal</span>
+                    Get Started
+                </a>
+<a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="w-full md:w-auto px-8 py-4 glass-btn-ghost text-on-surface font-semibold rounded-xl flex items-center justify-center gap-2 active:scale-95 no-underline">
+<span class="material-symbols-outlined">code</span>
+                    View on GitHub
+                </a>
+</div>
+</section>
+<!-- Tech Badges -->
+<div class="flex flex-wrap justify-center gap-3 mb-32 opacity-70">
+<span class="glass-chip px-3 py-1 rounded-full font-label-caps text-[10px] text-on-surface-variant">v0.2.0</span>
+<span class="glass-chip px-3 py-1 rounded-full font-label-caps text-[10px] text-on-surface-variant">npm</span>
+<span class="glass-chip px-3 py-1 rounded-full font-label-caps text-[10px] text-on-surface-variant">Node ≥ 20.6</span>
+<span class="glass-chip px-3 py-1 rounded-full font-label-caps text-[10px] text-on-surface-variant">TypeScript</span>
+<span class="glass-chip px-3 py-1 rounded-full font-label-caps text-[10px] text-on-surface-variant">MIT</span>
+<span class="glass-chip px-3 py-1 rounded-full font-label-caps text-[10px] text-on-surface-variant uppercase">Windows · macOS · Linux</span>
+</div>
+<!-- TL;DR Bento Grid -->
+<section class="relative" id="tldr">
+<div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
+<div>
+<h2 class="font-label-caps text-label-caps text-primary tracking-[0.2em] uppercase mb-2">The Intelligence Brief</h2>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">TL;DR Status Report</h3>
+</div>
+<div class="text-right">
+<p class="font-code-sm text-on-surface-variant text-xs">Updated 17 Jun 2026 · v0.2.0</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-bento-gap">
+<!-- Ollama Cloud Card -->
+<div class="md:col-span-8 glass-card border border-resplendent-border rounded-xl p-8 micro-chisel relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4">
+<span class="px-2 py-0.5 rounded-sm bg-primary-container/20 text-primary-container font-label-caps text-[10px] uppercase">New</span>
+</div>
+<div class="relative z-10">
+<h4 class="font-headline-lg text-2xl text-on-surface mb-4">Ollama Cloud Integration</h4>
+<p class="text-on-surface-variant mb-6 leading-relaxed">
+                            Now available on free tier — <code class="bg-surface-container px-2 py-1 rounded text-primary">qwen3-coder:480b</code> &amp; <code class="bg-surface-container px-2 py-1 rounded text-primary">devstral-2:123b</code>
+</p>
+<div class="bg-surface-container-lowest p-4 rounded-lg font-code-sm border border-resplendent-border">
+<span class="text-on-surface-variant">SUPRATIM_PROVIDER=</span><span class="text-primary-container">ollama-cloud</span>
+</div>
+</div>
+</div>
+<!-- Phase 0c Card -->
+<div class="md:col-span-4 glass-card border border-resplendent-border rounded-xl p-8 micro-chisel relative group">
+<div class="absolute top-0 right-0 p-4">
+<span class="px-2 py-0.5 rounded-sm bg-tertiary-container/20 text-tertiary font-label-caps text-[10px] uppercase">Eval</span>
+</div>
+<h4 class="font-label-caps text-xs text-on-surface-variant mb-4 uppercase tracking-widest">Benchmark Results</h4>
+<div class="space-y-4">
+<div class="flex justify-between items-end border-b border-resplendent-border pb-2">
+<span class="text-sm opacity-60">Phase 0c Completion</span>
+<span class="font-bold text-primary">100%</span>
+</div>
+<p class="text-sm text-on-surface-variant">Devstral completed cross-file T6 in <span class="text-on-surface font-bold">55s</span>. Sarvam 105b dominant on T5/T6 loops.</p>
+</div>
+</div>
+<!-- Guards Card -->
+<div class="md:col-span-4 glass-card border border-resplendent-border rounded-xl p-8 micro-chisel relative group">
+<div class="absolute top-0 right-0 p-4">
+<span class="px-2 py-0.5 rounded-sm bg-green-900/20 text-[#00FF9C] font-label-caps text-[10px] uppercase">Shipped</span>
+</div>
+<span class="material-symbols-outlined text-primary mb-4">security</span>
+<h4 class="font-headline-lg text-xl text-on-surface mb-2">Safe Intelligence</h4>
+<p class="text-sm text-on-surface-variant mb-4">
+<code class="text-primary">ts-verify</code> post-edit gates and <code class="text-primary">turn-limit</code> (30) guards to prevent agent hallucinations and infinite loops.
+                    </p>
+</div>
+<!-- NPM Dashboard Card -->
+<div class="md:col-span-4 glass-card border border-resplendent-border rounded-xl p-8 micro-chisel relative group">
+<div class="absolute top-0 right-0 p-4">
+<span class="px-2 py-0.5 rounded-sm bg-green-900/20 text-[#00FF9C] font-label-caps text-[10px] uppercase">Shipped</span>
+</div>
+<h4 class="font-label-caps text-xs text-on-surface-variant mb-4 uppercase tracking-widest">Deployment</h4>
+<p class="text-sm text-on-surface-variant mb-6">Global availability on NPM. Featuring secure key onboarding and live INR usage HUD for monitoring Sarvam 105b costs.</p>
+<div class="flex items-center gap-2">
+<div class="h-1 flex-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-full shadow-[0_0_10px_rgba(255,122,69,0.5)]"></div>
+</div>
+<span class="text-[10px] font-code-sm opacity-50 uppercase">Optimal</span>
+</div>
+</div>
+<!-- Takeaway Card -->
+<div class="md:col-span-4 glass-card border border-resplendent-border rounded-xl p-8 micro-chisel relative group bg-gradient-to-br from-primary/5 to-transparent">
+<div class="absolute top-0 right-0 p-4">
+<span class="px-2 py-0.5 rounded-sm bg-blue-900/20 text-blue-300 font-label-caps text-[10px] uppercase">Takeaway</span>
+</div>
+<h4 class="font-headline-lg text-xl text-on-surface mb-2">Model Strategy</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                        Speed vs loop reliability. Use <span class="text-primary italic">Ollama</span> for heavy cross-file tasks; <span class="text-primary italic">Sarvam</span> for rapid T1–T4 iterations.
+                    </p>
+</div>
+<!-- Next Phase Card -->
+<div class="md:col-span-12 glass-card border border-resplendent-border rounded-xl p-8 micro-chisel relative flex flex-col md:flex-row items-center gap-8 group">
+<div class="absolute top-0 right-0 p-4">
+<span class="px-2 py-0.5 rounded-sm bg-on-surface-variant/10 text-on-surface-variant font-label-caps text-[10px] uppercase">Next</span>
+</div>
+<div class="flex-1">
+<h4 class="font-headline-lg text-2xl text-on-surface mb-2">Phase 2: The MCP Horizon</h4>
+<p class="text-on-surface-variant">MCP client implementation, structured exploration for T6-class tasks, and comprehensive BYOK polish.</p>
+</div>
+<div class="flex gap-4">
+<a class="flex items-center gap-2 text-primary font-bold hover:underline no-underline" href="testrun.html">
+                            Test Run <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<p class="mt-8 pt-4 border-t border-resplendent-border text-sm text-on-surface-variant font-sans text-center md:text-left px-2">
+Details → <a href="testrun.html" class="text-primary hover:underline">Test Run</a>
+· <a href="https://github.com/dattaprasad-r-ekavade/supratim/blob/main/docs/Testrun-ollama.md" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Ollama comparison doc</a>
+</p>
+</section>
+</main>
+<footer class="glass-footer mt-24">
+  <div class="max-w-[1280px] mx-auto px-gutter py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="material-symbols-outlined text-primary text-xl">terminal</span>
+          <span class="font-display text-2xl font-bold text-on-surface tracking-tighter">Supratim</span>
+        </div>
+        <p class="text-on-surface-variant text-sm max-w-sm mb-8 leading-relaxed">
+          Open-source, model-agnostic agentic coding agent. Built on Pi, showcasing Sarvam AI by default.
+        </p>
+        <div class="flex gap-4">
+          <a class="text-on-surface-variant hover:text-primary transition-colors" href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <span class="material-symbols-outlined">code</span>
+          </a>
+          <a class="text-on-surface-variant hover:text-primary transition-colors" href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" aria-label="npm">
+            <span class="material-symbols-outlined">package_2</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h5 class="font-sans text-[11px] text-primary uppercase tracking-wide mb-6">Pages</h5>
+        <ul class="space-y-3 text-sm">
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="overview.html">Overview</a></li>
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="roadmap.html">Roadmap</a></li>
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="testrun.html">Test Run</a></li>
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="install.html">Install</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-sans text-[11px] text-primary uppercase tracking-wide mb-6">Ecosystem</h5>
+        <ul class="space-y-3 text-sm">
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="https://pi.dev" target="_blank" rel="noopener noreferrer">Built on Pi</a></li>
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer">Sarvam AI</a></li>
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="../LICENSE">MIT License</a></li>
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="../THIRD_PARTY_NOTICES.md">Third-party notices</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-resplendent-border gap-4">
+      <p class="font-sans text-xs text-on-surface-variant">© 2026 Dattaprasad Ekavade</p>
+      <span class="font-sans text-xs text-on-surface-variant">v0.2.0</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

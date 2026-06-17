@@ -64,8 +64,9 @@ The project overview site loads these CDN resources (not npm dependencies):
 
 | Asset | License | Attribution |
 |-------|---------|-------------|
-| [DM Sans](https://fonts.google.com/specimen/DM+Sans), [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) via Google Fonts | [SIL Open Font License 1.1](https://scripts.sil.org/OFL) | See Google Fonts |
-| [Font Awesome 6](https://fontawesome.com) (CDN) | [Font Awesome Free License](https://fontawesome.com/license/free) | Icons by Font Awesome |
+| [Inter](https://fonts.google.com/specimen/Inter), [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) via Google Fonts | [SIL Open Font License 1.1](https://scripts.sil.org/OFL) | See Google Fonts |
+| [Material Symbols](https://fonts.google.com/icons) via Google Fonts | [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) | Google |
+| [Tailwind CSS](https://tailwindcss.com) (CDN) | [MIT](https://github.com/tailwindlabs/tailwindcss/blob/master/LICENSE) | Tailwind Labs |
 
 ## BSD-3-Clause and ISC
 

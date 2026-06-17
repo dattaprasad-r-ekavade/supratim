@@ -1,102 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Install — Supratim</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="assets/js/tailwind-config.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/theme.css" />
 </head>
-<body>
-
-  <nav>
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">⬡ <span>supratim</span></a>
-      <ul class="nav-links">
-        <li><a href="index.html#tldr">TL;DR</a></li>
-        <li><a href="overview.html">Overview</a></li>
-        <li><a href="architecture.html">Architecture</a></li>
-        <li><a href="roadmap.html">Roadmap</a></li>
-        <li><a href="testrun.html">Test Run</a></li>
-        <li><a href="install.html" class="active">Install</a></li>
-        <li><a href="structure.html">Structure</a></li>
-      </ul>
-      <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="nav-cta">
-        <i class="fab fa-github"></i> GitHub
-      </a>
-    </div>
-  </nav>
-
-  <div class="wrap">
-    <!-- Install -->
-    <section id="install">
-      <h2>Get Started</h2>
-      <p class="section-lead">You need a <a href="https://dashboard.sarvam.ai" target="_blank" style="color:var(--accent)">Sarvam API key</a> (<code>sk_…</code>) and Node.js ≥ 20.6.</p>
-
-      <div class="install-tabs">
-        <button class="install-tab active" onclick="switchTab(this, 'tab-npx')">npx</button>
-        <button class="install-tab" onclick="switchTab(this, 'tab-global')">Global install</button>
-        <button class="install-tab" onclick="switchTab(this, 'tab-source')">From source</button>
-      </div>
-
-      <div id="tab-npx" class="install-block active">
-        <button class="copy-block-btn" onclick="copyBlock('tab-npx')"><i class="far fa-copy"></i> Copy</button>
-        <div class="cmt"># Run instantly — no install step needed</div>
-        <div><span class="kw">$</span> <span class="cmd">npx <span class="pkg">supratim</span></span></div>
-        <br>
-        <div class="cmt"># One-shot print mode</div>
-        <div><span class="kw">$</span> <span class="cmd">npx supratim -p <span class="str">"Summarise this repo"</span></span></div>
-        <br>
-        <div class="cmt"># Validate your API key</div>
-        <div><span class="kw">$</span> <span class="cmd">npx supratim --verify-key</span></div>
-      </div>
-
-      <div id="tab-global" class="install-block">
-        <button class="copy-block-btn" onclick="copyBlock('tab-global')"><i class="far fa-copy"></i> Copy</button>
-        <div class="cmt"># Install once, run anywhere</div>
-        <div><span class="kw">$</span> <span class="cmd">npm install -g <span class="pkg">supratim</span></span></div>
-        <br>
-        <div class="cmt"># Then just</div>
-        <div><span class="kw">$</span> <span class="cmd">supratim</span>                 <span class="cmt"># interactive TUI</span></div>
-        <div><span class="kw">$</span> <span class="cmd">supratim --verify-key</span>    <span class="cmt"># validate key</span></div>
-        <div><span class="kw">$</span> <span class="cmd">supratim --setup-key</span>     <span class="cmt"># re-run wizard</span></div>
-        <div><span class="kw">$</span> <span class="cmd">supratim --help</span>          <span class="cmt"># all options</span></div>
-      </div>
-
-      <div id="tab-source" class="install-block">
-        <button class="copy-block-btn" onclick="copyBlock('tab-source')"><i class="far fa-copy"></i> Copy</button>
-        <div class="cmt"># Clone and build</div>
-        <div><span class="kw">$</span> <span class="cmd">git clone https://github.com/dattaprasad-r-ekavade/supratim.git</span></div>
-        <div><span class="kw">$</span> <span class="cmd">cd supratim</span></div>
-        <div><span class="kw">$</span> <span class="cmd">npm install</span></div>
-        <div><span class="kw">$</span> <span class="cmd">npm run build</span></div>
-        <br>
-        <div class="cmt"># Run</div>
-        <div><span class="kw">$</span> <span class="cmd">npm run dev</span>              <span class="cmt"># interactive TUI</span></div>
-        <div><span class="kw">$</span> <span class="cmd">npm run verify-key</span>       <span class="cmt"># validate key</span></div>
-      </div>
-    </section>
-
-<footer>
-      <div class="footer-links">
-        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer">npm</a>
-        <a href="../LICENSE">MIT License</a>
-        <a href="../THIRD_PARTY_NOTICES.md">Third-party notices</a>
-        <a href="https://pi.dev" target="_blank" rel="noopener noreferrer">Built on Pi</a>
-        <a href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer">Sarvam AI</a>
-      </div>
-      <div class="footer-right">
-        <span style="color: var(--text-dim); font-size: 0.8rem;">© 2026 Dattaprasad Ekavade</span>
-        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-github"></i></a>
-        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-npm"></i></a>
-      </div>
-    </footer>
+<body class="selection:bg-primary-container selection:text-on-primary-fixed">
+<div class="ambient-layer" aria-hidden="true">
+  <div class="ambient-orb ambient-orb--coral"></div>
+  <div class="ambient-orb ambient-orb--teal"></div>
+  <div class="ambient-orb ambient-orb--warm"></div>
+</div>
+<div class="grain-overlay"></div>
+<header class="glass-nav fixed top-0 w-full z-50 h-20">
+  <div class="flex justify-between items-center w-full px-gutter max-w-[1280px] mx-auto h-full gap-4">
+    <a href="index.html" class="flex items-center gap-3 flex-shrink-0">
+      <span class="material-symbols-outlined text-primary text-2xl">terminal</span>
+      <span class="font-display text-xl font-bold text-on-surface tracking-tighter">Supratim</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-5 lg:gap-6 nav-scroll overflow-x-auto max-w-[58vw]">
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="index.html#tldr">TL;DR</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="overview.html">Overview</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="architecture.html">Architecture</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="roadmap.html">Roadmap</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="testrun.html">Test Run</a>
+        <a class="text-primary font-bold active-nav-glow relative font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="install.html">Install</a>
+        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="structure.html">Structure</a>
+    </nav>
+    <a href="install.html" class="bg-primary-container text-on-primary-fixed font-bold px-5 py-2.5 rounded-lg hover:brightness-110 transition-all active:scale-95 text-xs uppercase tracking-wider whitespace-nowrap flex-shrink-0">Get Started</a>
   </div>
+</header>
+<main class="pt-32 pb-24 px-gutter max-w-[1280px] mx-auto">
+<section class="mb-12 glass-panel p-8 md:p-10">
+<h1 class="font-display text-5xl md:text-6xl mb-6 text-on-surface tracking-tight">Get Started</h1>
+<p class="section-lead text-lg">You need a <a href="https://dashboard.sarvam.ai" target="_blank" rel="noopener noreferrer">Sarvam API key</a> (<code>sk_…</code>) and Node.js ≥ 20.6.</p>
+</section>
 
-  <script src="assets/js/main.js"></script>
+<section class="content-section resplendent-card glass-card rounded-xl p-8" id="install">
+<div class="install-tabs">
+<button class="install-tab active" onclick="switchTab(this, 'tab-npx')">npx</button>
+<button class="install-tab" onclick="switchTab(this, 'tab-global')">Global install</button>
+<button class="install-tab" onclick="switchTab(this, 'tab-source')">From source</button>
+</div>
+
+<div id="tab-npx" class="install-block active">
+<button type="button" class="copy-block-btn" onclick="copyBlock('tab-npx')"><span class="material-symbols-outlined text-sm">content_copy</span> Copy</button>
+<div class="cmt"># Run instantly — no install step needed</div>
+<div data-line="npx supratim"><span class="kw">$</span> <span class="cmd">npx <span class="pkg">supratim</span></span></div>
+<div class="cmt"># One-shot print mode</div>
+<div data-line='npx supratim -p "Summarise this repo"'><span class="kw">$</span> <span class="cmd">npx supratim -p <span class="str">"Summarise this repo"</span></span></div>
+<div class="cmt"># Validate your API key</div>
+<div data-line="npx supratim --verify-key"><span class="kw">$</span> <span class="cmd">npx supratim --verify-key</span></div>
+</div>
+
+<div id="tab-global" class="install-block">
+<button type="button" class="copy-block-btn" onclick="copyBlock('tab-global')"><span class="material-symbols-outlined text-sm">content_copy</span> Copy</button>
+<div class="cmt"># Install once, run anywhere</div>
+<div data-line="npm install -g supratim"><span class="kw">$</span> <span class="cmd">npm install -g <span class="pkg">supratim</span></span></div>
+<div class="cmt"># Then just</div>
+<div data-line="supratim"><span class="kw">$</span> <span class="cmd">supratim</span>                 <span class="cmt"># interactive TUI</span></div>
+<div data-line="supratim --verify-key"><span class="kw">$</span> <span class="cmd">supratim --verify-key</span>    <span class="cmt"># validate key</span></div>
+<div data-line="supratim --setup-key"><span class="kw">$</span> <span class="cmd">supratim --setup-key</span>     <span class="cmt"># re-run wizard</span></div>
+<div data-line="supratim --help"><span class="kw">$</span> <span class="cmd">supratim --help</span>          <span class="cmt"># all options</span></div>
+</div>
+
+<div id="tab-source" class="install-block">
+<button type="button" class="copy-block-btn" onclick="copyBlock('tab-source')"><span class="material-symbols-outlined text-sm">content_copy</span> Copy</button>
+<div class="cmt"># Clone and build</div>
+<div data-line="git clone https://github.com/dattaprasad-r-ekavade/supratim.git"><span class="kw">$</span> <span class="cmd">git clone https://github.com/dattaprasad-r-ekavade/supratim.git</span></div>
+<div data-line="cd supratim"><span class="kw">$</span> <span class="cmd">cd supratim</span></div>
+<div data-line="npm install"><span class="kw">$</span> <span class="cmd">npm install</span></div>
+<div data-line="npm run build"><span class="kw">$</span> <span class="cmd">npm run build</span></div>
+<div class="cmt"># Run</div>
+<div data-line="npm run dev"><span class="kw">$</span> <span class="cmd">npm run dev</span>              <span class="cmt"># interactive TUI</span></div>
+<div data-line="npm run verify-key"><span class="kw">$</span> <span class="cmd">npm run verify-key</span>       <span class="cmt"># validate key</span></div>
+</div>
+</section>
+</main>
+<footer class="glass-footer mt-24">
+  <div class="max-w-[1280px] mx-auto px-gutter py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="material-symbols-outlined text-primary text-xl">terminal</span>
+          <span class="font-display text-2xl font-bold text-on-surface tracking-tighter">Supratim</span>
+        </div>
+        <p class="text-on-surface-variant text-sm max-w-sm mb-8 leading-relaxed">
+          Open-source, model-agnostic agentic coding agent. Built on Pi, showcasing Sarvam AI by default.
+        </p>
+        <div class="flex gap-4">
+          <a class="text-on-surface-variant hover:text-primary transition-colors" href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <span class="material-symbols-outlined">code</span>
+          </a>
+          <a class="text-on-surface-variant hover:text-primary transition-colors" href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" aria-label="npm">
+            <span class="material-symbols-outlined">package_2</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h5 class="font-sans text-[11px] text-primary uppercase tracking-wide mb-6">Pages</h5>
+        <ul class="space-y-3 text-sm">
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="overview.html">Overview</a></li>
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="roadmap.html">Roadmap</a></li>
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="testrun.html">Test Run</a></li>
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="install.html">Install</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-sans text-[11px] text-primary uppercase tracking-wide mb-6">Ecosystem</h5>
+        <ul class="space-y-3 text-sm">
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="https://pi.dev" target="_blank" rel="noopener noreferrer">Built on Pi</a></li>
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer">Sarvam AI</a></li>
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="../LICENSE">MIT License</a></li>
+          <li><a class="text-on-surface-variant hover:text-on-surface" href="../THIRD_PARTY_NOTICES.md">Third-party notices</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-resplendent-border gap-4">
+      <p class="font-sans text-xs text-on-surface-variant">© 2026 Dattaprasad Ekavade</p>
+      <span class="font-sans text-xs text-on-surface-variant">v0.2.0</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

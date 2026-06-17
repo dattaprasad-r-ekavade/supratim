@@ -1,48 +1,5 @@
-<!DOCTYPE html>
-<html class="dark" lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Phase 0 Test Run — Supratim</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script src="assets/js/tailwind-config.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/theme.css" />
-</head>
-<body class="selection:bg-primary-container selection:text-on-primary-fixed">
-<div class="ambient-layer" aria-hidden="true">
-  <div class="ambient-orb ambient-orb--coral"></div>
-  <div class="ambient-orb ambient-orb--teal"></div>
-  <div class="ambient-orb ambient-orb--warm"></div>
-</div>
-<div class="grain-overlay"></div>
-<header class="glass-nav fixed top-0 w-full z-50 h-20">
-  <div class="flex justify-between items-center w-full px-gutter max-w-[1280px] mx-auto h-full gap-4">
-    <a href="index.html" class="flex items-center gap-3 flex-shrink-0">
-      <span class="material-symbols-outlined text-primary text-2xl">terminal</span>
-      <span class="font-display text-xl font-bold text-on-surface tracking-tighter">Supratim</span>
-    </a>
-    <nav class="hidden md:flex items-center gap-5 lg:gap-6 nav-scroll overflow-x-auto max-w-[58vw]">
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="index.html#tldr">TL;DR</a>
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="overview.html">Overview</a>
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="architecture.html">Architecture</a>
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="roadmap.html">Roadmap</a>
-        <a class="text-primary font-bold active-nav-glow relative font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="testrun.html">Test Run</a>
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="install.html">Install</a>
-        <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-sans text-[11px] uppercase tracking-wide whitespace-nowrap" href="structure.html">Structure</a>
-    </nav>
-    <a href="install.html" class="bg-primary-container text-on-primary-fixed font-bold px-5 py-2.5 rounded-lg hover:brightness-110 transition-all active:scale-95 text-xs uppercase tracking-wider whitespace-nowrap flex-shrink-0">Get Started</a>
-  </div>
-</header>
-<main class="pt-32 pb-24 px-gutter max-w-[1280px] mx-auto">
-<section class="mb-10 glass-panel p-6 md:p-8">
-<div class="inline-flex items-center gap-2 px-3 py-1 glass-chip rounded-full text-primary mb-6">
-<span class="font-sans text-[10px] uppercase tracking-widest">Phase 0c complete</span>
-</div>
-<h1 class="font-display text-4xl md:text-5xl mb-4 text-on-surface tracking-tight">Model Reliability Test</h1>
-</section>
-<section id="testrun" class="content-section"><p class="section-lead">Empirical go/no-go: can models reliably drive Supratim's agentic tool loop? Sarvam baseline + Ollama Cloud free tier — real API calls, real transcripts.</p>
+<h2>Phase 0 — Model Reliability Test</h2>
+      <p class="section-lead">Empirical go/no-go: can models reliably drive Supratim's agentic tool loop? Sarvam baseline + Ollama Cloud free tier — real API calls, real transcripts.</p>
 
       <div class="testrun-meta">
         <span>📅 2026-06-16 – 17</span>
@@ -284,53 +241,4 @@ Turn 185: in=24,636 out=<span class="hi">49</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <li>Improve "models not available" error — surface root cause (BOM, rate limit, API rejection)</li>
           </ul>
         </div>
-      </div></section>
-</main>
-<footer class="glass-footer mt-24">
-  <div class="max-w-[1280px] mx-auto px-gutter py-12">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-      <div class="md:col-span-2">
-        <div class="flex items-center gap-3 mb-6">
-          <span class="material-symbols-outlined text-primary text-xl">terminal</span>
-          <span class="font-display text-2xl font-bold text-on-surface tracking-tighter">Supratim</span>
-        </div>
-        <p class="text-on-surface-variant text-sm max-w-sm mb-8 leading-relaxed">
-          Open-source, model-agnostic agentic coding agent. Built on Pi, showcasing Sarvam AI by default.
-        </p>
-        <div class="flex gap-4">
-          <a class="text-on-surface-variant hover:text-primary transition-colors" href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-            <span class="material-symbols-outlined">code</span>
-          </a>
-          <a class="text-on-surface-variant hover:text-primary transition-colors" href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" aria-label="npm">
-            <span class="material-symbols-outlined">package_2</span>
-          </a>
-        </div>
       </div>
-      <div>
-        <h5 class="font-sans text-[11px] text-primary uppercase tracking-wide mb-6">Pages</h5>
-        <ul class="space-y-3 text-sm">
-          <li><a class="text-on-surface-variant hover:text-on-surface" href="overview.html">Overview</a></li>
-          <li><a class="text-on-surface-variant hover:text-on-surface" href="roadmap.html">Roadmap</a></li>
-          <li><a class="text-on-surface-variant hover:text-on-surface" href="testrun.html">Test Run</a></li>
-          <li><a class="text-on-surface-variant hover:text-on-surface" href="install.html">Install</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5 class="font-sans text-[11px] text-primary uppercase tracking-wide mb-6">Ecosystem</h5>
-        <ul class="space-y-3 text-sm">
-          <li><a class="text-on-surface-variant hover:text-on-surface" href="https://pi.dev" target="_blank" rel="noopener noreferrer">Built on Pi</a></li>
-          <li><a class="text-on-surface-variant hover:text-on-surface" href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer">Sarvam AI</a></li>
-          <li><a class="text-on-surface-variant hover:text-on-surface" href="../LICENSE">MIT License</a></li>
-          <li><a class="text-on-surface-variant hover:text-on-surface" href="../THIRD_PARTY_NOTICES.md">Third-party notices</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-resplendent-border gap-4">
-      <p class="font-sans text-xs text-on-surface-variant">© 2026 Dattaprasad Ekavade</p>
-      <span class="font-sans text-xs text-on-surface-variant">v0.2.0</span>
-    </div>
-  </div>
-</footer>
-<script src="assets/js/main.js"></script>
-</body>
-</html>

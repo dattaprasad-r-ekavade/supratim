@@ -1,0 +1,46 @@
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        background: "#1c110d",
+        surface: "#1c110d",
+        "surface-dim": "#1c110d",
+        "surface-bright": "#443631",
+        "surface-container-lowest": "#160c08",
+        "surface-container-low": "#251915",
+        "surface-container": "#291d19",
+        "surface-container-high": "#342722",
+        "surface-container-highest": "#40322d",
+        "on-surface": "#f5ded6",
+        "on-surface-variant": "#dfc0b5",
+        primary: "#ffb59a",
+        "primary-container": "#ff7a45",
+        "on-primary": "#5b1b00",
+        "on-primary-fixed": "#380d00",
+        secondary: "#c6c6cc",
+        tertiary: "#c4c6ce",
+        outline: "#a78b81",
+        "outline-variant": "#58423a",
+        "hero-glow": "rgba(255, 122, 69, 0.15)",
+        "resplendent-border": "rgba(255, 255, 255, 0.12)",
+        "glass-surface": "rgba(10, 12, 16, 0.7)",
+      },
+      borderRadius: {
+        DEFAULT: "0.25rem",
+        lg: "0.5rem",
+        xl: "0.75rem",
+        full: "9999px",
+      },
+      spacing: {
+        gutter: "24px",
+        "bento-gap": "16px",
+      },
+      fontFamily: {
+        display: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
+      },
+    },
+  },
+};
