@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Structure — Supratim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">⬡ <span>supratim</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#tldr">TL;DR</a></li>
+        <li><a href="overview.html">Overview</a></li>
+        <li><a href="architecture.html">Architecture</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="testrun.html">Test Run</a></li>
+        <li><a href="install.html">Install</a></li>
+        <li><a href="structure.html" class="active">Structure</a></li>
+      </ul>
+      <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="nav-cta">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <!-- Structure -->
+    <section id="structure">
+      <h2>Project Structure</h2>
+      <p class="section-lead">Thin on custom code — we stand on Pi and extend cleanly.</p>
+
+      <pre class="tree"><span class="tr-dir">supratim/</span>
+├── <span class="tr-dir">src/</span>
+│   ├── <span class="tr-file">cli.ts</span>             <span class="tr-dim">Entry point, argument parsing, interactive + print modes</span>
+│   ├── <span class="tr-file">config.ts</span>          <span class="tr-dim">Agent dir, version, model constants</span>
+│   ├── <span class="tr-file">onboarding.ts</span>      <span class="tr-dim">TUI key wizard (first-run)</span>
+│   ├── <span class="tr-file">secure-storage.ts</span>  <span class="tr-dim">OS credential manager via keytar</span>
+│   ├── <span class="tr-file">sarvam-verify.ts</span>   <span class="tr-dim">Live API key validation</span>
+│   └── <span class="tr-dir">extensions/</span>
+│       ├── <span class="tr-file">sarvam-compat.ts</span>  <span class="tr-dim">Content block flattening for Sarvam</span>
+│       ├── <span class="tr-file">usage-hud.ts</span>      <span class="tr-dim">Live token / cost footer (INR)</span>
+│       └── <span class="tr-file">api-debug.ts</span>      <span class="tr-dim">Per-turn API logging (SUPRATIM_DEBUG=1)</span>
+├── <span class="tr-dir">config/</span>
+│   ├── <span class="tr-file">models.json</span>        <span class="tr-dim">Sarvam provider + model definitions</span>
+│   └── <span class="tr-file">settings.json</span>      <span class="tr-dim">Default theme, thinking level</span>
+├── <span class="tr-dir">docs/</span>
+│   ├── <span class="tr-file">Testrun.md</span>         <span class="tr-dim">Sarvam model eval (→ <a href="testrun.html" style="color:var(--teal);text-decoration:none">see above</a>)</span>
+│   ├── <span class="tr-file">Testrun-ollama.md</span>  <span class="tr-dim">Ollama Cloud free tier comparison</span>
+│   └── <span class="tr-file">phase0-friction-log.md</span>
+└── <span class="tr-dir">landing-page/</span>          <span class="tr-dim">Project overview site</span>
+    ├── <span class="tr-file">index.html</span>         <span class="tr-dim">Home + TL;DR</span>
+    ├── <span class="tr-file">overview.html</span>      <span class="tr-dim">Overview + features</span>
+    ├── <span class="tr-file">architecture.html</span>  <span class="tr-dim">Stack &amp; models</span>
+    ├── <span class="tr-file">roadmap.html</span>       <span class="tr-dim">Build phases</span>
+    ├── <span class="tr-file">testrun.html</span>       <span class="tr-dim">Phase 0 eval results</span>
+    ├── <span class="tr-file">install.html</span>       <span class="tr-dim">Get started</span>
+    ├── <span class="tr-file">structure.html</span>     <span class="tr-dim">This page</span>
+    └── <span class="tr-dir">assets/</span>              <span class="tr-dim">Shared CSS &amp; JS</span></pre>
+    </section>
+
+<footer>
+      <div class="footer-links">
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer">npm</a>
+        <a href="../LICENSE">MIT License</a>
+        <a href="../THIRD_PARTY_NOTICES.md">Third-party notices</a>
+        <a href="https://pi.dev" target="_blank" rel="noopener noreferrer">Built on Pi</a>
+        <a href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer">Sarvam AI</a>
+      </div>
+      <div class="footer-right">
+        <span style="color: var(--text-dim); font-size: 0.8rem;">© 2026 Dattaprasad Ekavade</span>
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-github"></i></a>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-npm"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

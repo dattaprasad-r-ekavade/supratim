@@ -11,7 +11,7 @@ Open-source, model-agnostic **agentic coding agent** — built on the [Pi](https
 
 Phases 0 & 1 are shipped: CLI, Sarvam provider, secure key onboarding, and live usage HUD in ₹. Phase 0 model reliability testing is complete — Sarvam baseline in [`docs/Testrun.md`](docs/Testrun.md), Ollama Cloud comparison in [`docs/Testrun-ollama.md`](docs/Testrun-ollama.md).
 
-> Full visual overview: open [`index.html`](index.html) in your browser.
+> Full visual overview: open [`landing-page/index.html`](landing-page/index.html) in your browser.
 
 ## What is Supratim?
 
@@ -156,7 +156,7 @@ supratim/
 │   ├── Testrun.md
 │   ├── Testrun-ollama.md
 │   └── eval-transcripts/
-├── index.html
+├── landing-page/          # Project overview site (multi-page)
 ├── THIRD_PARTY_NOTICES.md
 └── README.md
 ```
@@ -184,5 +184,5 @@ all permissive (MIT and similar). Transitive deps include Apache-2.0 packages (m
 
 **Sarvam AI** is an external API service — users need their own API key and must follow [Sarvam's terms](https://www.sarvam.ai).
 
-The [project overview page](index.html) uses [Google Fonts](https://fonts.google.com) (SIL OFL) and
+The [project overview site](landing-page/index.html) uses [Google Fonts](https://fonts.google.com) (SIL OFL) and
 [Font Awesome](https://fontawesome.com) (free license) via CDN.

@@ -58,9 +58,9 @@ these obligations because each user receives upstream packages directly from npm
 | [Sarvam AI API](https://www.sarvam.ai) | Default LLM provider; requires user API key; governed by Sarvam terms |
 | [Pi](https://pi.dev) | Upstream toolkit documentation and packages |
 
-## Web assets (`index.html`)
+## Web assets (`landing-page/`)
 
-The project overview page loads these CDN resources (not npm dependencies):
+The project overview site loads these CDN resources (not npm dependencies):
 
 | Asset | License | Attribution |
 |-------|---------|-------------|

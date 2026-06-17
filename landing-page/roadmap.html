@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roadmap — Supratim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">⬡ <span>supratim</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#tldr">TL;DR</a></li>
+        <li><a href="overview.html">Overview</a></li>
+        <li><a href="architecture.html">Architecture</a></li>
+        <li><a href="roadmap.html" class="active">Roadmap</a></li>
+        <li><a href="testrun.html">Test Run</a></li>
+        <li><a href="install.html">Install</a></li>
+        <li><a href="structure.html">Structure</a></li>
+      </ul>
+      <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="nav-cta">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <!-- Roadmap -->
+    <section id="roadmap">
+      <h2>Build Roadmap</h2>
+      <p class="section-lead">One shippable increment per phase. The sequence is the deliverable.</p>
+
+      <div class="timeline">
+        <div class="phase done">
+          <div class="phase-dot"><i class="fas fa-check"></i></div>
+          <div class="phase-body">
+            <div class="phase-header">
+              <span class="phase-title">Phase 0 — Spike &amp; Foundation</span>
+              <span class="tag shipped"><i class="fas fa-check"></i> Shipped</span>
+            </div>
+            <p class="phase-desc">Pi + Sarvam spike, friction log, model reliability test, tsc-verify + turn-limit guards · <a href="testrun.html" style="color:var(--teal);text-decoration:none">see test run ↓</a></p>
+          </div>
+        </div>
+
+        <div class="phase done">
+          <div class="phase-dot"><i class="fas fa-check"></i></div>
+          <div class="phase-body">
+            <div class="phase-header">
+              <span class="phase-title">Phase 1 — CLI + Provider + Usage + npm publish</span>
+              <span class="tag shipped"><i class="fas fa-check"></i> Shipped</span>
+            </div>
+            <p class="phase-desc">Secure key onboarding, live INR usage HUD, MIT CLI — published to npm</p>
+          </div>
+        </div>
+
+        <div class="phase active">
+          <div class="phase-dot"><i class="fas fa-code-branch"></i></div>
+          <div class="phase-body">
+            <div class="phase-header">
+              <span class="phase-title">Phase 2 — MCP &amp; Agentic Depth</span>
+              <span class="tag active"><i class="fas fa-circle" style="font-size:0.5em"></i> In progress</span>
+            </div>
+            <p class="phase-desc">MCP client layer, turn-limit guard, post-edit verification · informed by Phase 0 test results</p>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-dot"><i class="fas fa-layer-group"></i></div>
+          <div class="phase-body">
+            <div class="phase-header">
+              <span class="phase-title">Phase 3 — Compaction + CLI v1</span>
+              <span class="tag planned">Planned</span>
+            </div>
+            <p class="phase-desc">Context compaction, feature parity, OSS launch</p>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-dot"><i class="fas fa-desktop"></i></div>
+          <div class="phase-body">
+            <div class="phase-header">
+              <span class="phase-title">Phase 4–6 — GUI &amp; v1.0</span>
+              <span class="tag planned">Planned</span>
+            </div>
+            <p class="phase-desc">Tauri GUI, dual modes (Agent + Developer), packaging, docs site</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<footer>
+      <div class="footer-links">
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer">npm</a>
+        <a href="../LICENSE">MIT License</a>
+        <a href="../THIRD_PARTY_NOTICES.md">Third-party notices</a>
+        <a href="https://pi.dev" target="_blank" rel="noopener noreferrer">Built on Pi</a>
+        <a href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer">Sarvam AI</a>
+      </div>
+      <div class="footer-right">
+        <span style="color: var(--text-dim); font-size: 0.8rem;">© 2026 Dattaprasad Ekavade</span>
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-github"></i></a>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-npm"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

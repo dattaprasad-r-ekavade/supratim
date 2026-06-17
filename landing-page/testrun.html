@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phase 0 Test Run — Supratim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">⬡ <span>supratim</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#tldr">TL;DR</a></li>
+        <li><a href="overview.html">Overview</a></li>
+        <li><a href="architecture.html">Architecture</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="testrun.html" class="active">Test Run</a></li>
+        <li><a href="install.html">Install</a></li>
+        <li><a href="structure.html">Structure</a></li>
+      </ul>
+      <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="nav-cta">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <!-- Test Run -->
+    <section id="testrun">
+      <h2>Phase 0 — Model Reliability Test</h2>
+      <p class="section-lead">Empirical go/no-go: can models reliably drive Supratim's agentic tool loop? Sarvam baseline + Ollama Cloud free tier — real API calls, real transcripts.</p>
+
+      <div class="testrun-meta">
+        <span>📅 2026-06-16 – 17</span>
+        <span>💰 Sarvam ~₹1.81 · Ollama free tier</span>
+        <span>🛠 6 tasks × 4 models</span>
+        <span class="meta-done">✅ Phase 0c complete</span>
+      </div>
+
+      <div class="testrun-why">
+        Before building MCP integration and deeper agentic features, we needed ground truth on the models we ship with. A model that silently fails or loops indefinitely is worse than no model — it burns API quota, produces no output, and poisons downstream runs. This was <strong>not a benchmark</strong>; it was a <strong>go/no-go signal for Phase 2 defaults</strong>.
+      </div>
+
+      <!-- Methodology -->
+      <p class="testrun-h3">Methodology</p>
+      <table class="arch-table">
+        <thead><tr><th>Item</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>Tool</td><td><code>supratim --print "&lt;task&gt;"</code> — Pi print mode, one fresh session per task, no simulation</td></tr>
+          <tr><td>Harness</td><td><code>scripts/run-eval.ps1</code> — PowerShell job runner, per-task timeout, stdout/stderr capture</td></tr>
+          <tr><td>Debug</td><td><code>SUPRATIM_DEBUG=1</code> → <code>api-debug.ts</code> logs per-turn request shape, HTTP status, token counts to <code>debug-&lt;ts&gt;.jsonl</code></td></tr>
+          <tr><td>Token reporting</td><td><code>[tokens] in=X out=Y cost=₹Z</code> emitted to stderr after every run (friction #12 resolved)</td></tr>
+          <tr><td>Passes</td><td>Phase 0 initial (120 s timeout) + extended (105b: 600 s no-timeout; 30b: 180 s + debug logging)</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Task Battery -->
+      <p class="testrun-h3">Task Battery — 6 Escalating Tasks</p>
+      <table class="arch-table">
+        <thead><tr><th>#</th><th>Task</th><th>Capability probed</th></tr></thead>
+        <tbody>
+          <tr><td>T1</td><td>Read <code>src/cli.ts</code> and summarise it</td><td>Single <code>read</code> tool call</td></tr>
+          <tr><td>T2</td><td>Find every TODO/FIXME in <code>src/</code>, output as <code>file:line</code></td><td><code>read</code> + <code>bash</code>/grep chain</td></tr>
+          <tr><td>T3</td><td>Add error handling to <code>storeApiKey</code>; show final file</td><td><code>read</code> → <code>edit</code>, valid patch</td></tr>
+          <tr><td>T4</td><td>Run <code>npm run build</code>; fix if broken; report result</td><td><code>bash</code> → react → report</td></tr>
+          <tr><td>T5</td><td>Add <code>--dry-run</code> flag wired through parser, handler, and <code>--help</code></td><td>Multi-file coherent edit</td></tr>
+          <tr><td>T6</td><td>List every export from <code>src/</code> never imported anywhere</td><td>Cross-file reasoning, no obvious shortcut</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Results -->
+      <p class="testrun-h3">Results — Initial Pass (120 s timeout)</p>
+      <table class="arch-table">
+        <thead><tr><th>Model</th><th>T1</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>sarvam-105b</code></td>
+            <td style="color:var(--green)">✅ 25 s</td>
+            <td style="color:var(--green)">✅ 11 s</td>
+            <td style="color:var(--green)">✅ 12 s</td>
+            <td style="color:var(--green)">✅ 41 s</td>
+            <td style="color:var(--accent-2)">⏱ timeout</td>
+            <td style="color:var(--accent-2)">⏱ timeout</td>
+          </tr>
+          <tr>
+            <td><code>sarvam-30b</code></td>
+            <td style="color:var(--green)">✅ 9 s</td>
+            <td style="color:var(--green)">✅ 7 s</td>
+            <td style="color:var(--green)">✅ 11 s</td>
+            <td style="color:var(--accent-2)">⚠️ empty</td>
+            <td style="color:#f87171">❌ empty</td>
+            <td style="color:#f87171">❌ empty</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="testrun-h3">Results — Pass 2: Extended (105b: no timeout; 30b: debug logging)</p>
+      <table class="arch-table">
+        <thead><tr><th>Model</th><th>Task</th><th>Elapsed</th><th>Turns</th><th>Output tokens</th><th>Cost</th><th>Outcome</th></tr></thead>
+        <tbody>
+          <tr><td><code>sarvam-105b</code></td><td>T5</td><td>59 s</td><td>21</td><td>3,666</td><td>₹0.54</td><td style="color:var(--accent-2)">Partial — loop closed, code bug (no tsc check)</td></tr>
+          <tr><td><code>sarvam-105b</code></td><td>T6</td><td>6 s</td><td>0</td><td>—</td><td>—</td><td style="color:#f87171">Blocked — rate-limited after T5</td></tr>
+          <tr><td><code>sarvam-30b</code></td><td>T4</td><td>12 s</td><td>2</td><td>213</td><td>₹0.01</td><td style="color:var(--accent-2)">Partial — ran build, minimal report</td></tr>
+          <tr><td><code>sarvam-30b</code></td><td>T5</td><td>186 s (killed)</td><td>185+</td><td>~22–49/turn</td><td>~₹0.06</td><td style="color:#f87171">Fail — infinite tool loop</td></tr>
+          <tr><td><code>sarvam-30b</code></td><td>T6</td><td>3 s</td><td>0</td><td>—</td><td>—</td><td style="color:#f87171">Blocked — rate-limited after T5's loop</td></tr>
+          <tr><td><code>sarvam-30b</code> (maxTokens=8192)</td><td>T4</td><td>4 s</td><td>0</td><td>—</td><td>—</td><td style="color:#f87171">Fail — API hard-rejects &gt;4096</td></tr>
+        </tbody>
+      </table>
+
+      <p class="testrun-h3">Results — Pass 3: BOM fix + guards live</p>
+      <div class="finding" style="border-left: 3px solid var(--accent-2); margin-bottom: 8px;">
+        <div class="finding-title"><span class="finding-num" style="background:rgba(245,158,11,0.12);color:var(--accent-2)">!</span> Root cause of all prior retry failures: UTF-8 BOM</div>
+        <p>All T5/T6 retries after Pass 2 showed "models not available" — attributed to rate-limiting but actually caused by PowerShell's <code>Set-Content -Encoding UTF8</code> writing a BOM (<code>0xEF BB BF</code>) to <code>~/.supratim/models.json</code>. <code>JSON.parse</code> rejected the file silently. Fixed by using <code>[System.Text.UTF8Encoding]::new($false)</code> throughout the harness.</p>
+      </div>
+      <table class="arch-table">
+        <thead><tr><th>Model</th><th>Task</th><th>Elapsed</th><th>Turns</th><th>Output tokens</th><th>Cost</th><th>Outcome</th></tr></thead>
+        <tbody>
+          <tr><td><code>sarvam-105b</code> + guards</td><td>T5</td><td>99 s</td><td>30 (cut)</td><td>3,022</td><td>₹0.92</td><td style="color:var(--accent-2)">Cut by turn-limit — partial edit, loop</td></tr>
+          <tr><td><code>sarvam-105b</code> + guards</td><td>T6</td><td>55 s</td><td>30 (cut)</td><td>2,871</td><td>₹1.24</td><td style="color:var(--accent-2)">Cut by turn-limit — collapsed at turn 2</td></tr>
+        </tbody>
+      </table>
+
+      <p class="testrun-h3">Results — Phase 0c: Ollama Cloud free tier</p>
+      <div class="testrun-why" style="border-left-color: var(--teal);">
+        Same battery on <strong>Ollama Cloud free plan</strong> (<code>qwen3-coder:480b</code>, <code>devstral-2:123b</code>). <strong>Cost is not a variable here</strong> — we compared wall-clock time and whether the loop converges. Sarvam baseline included for timing only.
+      </div>
+      <table class="arch-table">
+        <thead><tr><th>Task</th><th>sarvam-105b</th><th>qwen3-coder:480b</th><th>devstral-2:123b</th></tr></thead>
+        <tbody>
+          <tr><td>T1</td><td>25 s</td><td style="color:var(--green)"><strong>19 s</strong></td><td>26 s</td></tr>
+          <tr><td>T2</td><td style="color:var(--green)"><strong>11 s</strong></td><td>29 s</td><td style="color:var(--green)"><strong>12 s</strong></td></tr>
+          <tr><td>T3</td><td style="color:var(--green)"><strong>12 s</strong></td><td>54 s</td><td style="color:var(--green)"><strong>15 s</strong></td></tr>
+          <tr><td>T4</td><td>41 s</td><td>111 s</td><td style="color:var(--green)"><strong>18 s</strong></td></tr>
+          <tr><td>T5</td><td style="color:var(--accent-2)">loop</td><td style="color:var(--green)"><strong>107 s ✓</strong></td><td style="color:var(--accent-2)">loop</td></tr>
+          <tr><td>T6</td><td style="color:#f87171">never done</td><td style="color:var(--green)">251 s ✓</td><td style="color:var(--green)"><strong>55 s ✓</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="finding" style="border-left: 3px solid var(--teal); margin-top: 16px;">
+        <div class="finding-title"><span class="finding-num" style="background:rgba(20,184,166,0.12);color:var(--teal)">★</span> Ollama free tier wins on hard tasks — not on price</div>
+        <p><strong>qwen3-coder:480b</strong> is the only model that completed all 6 tasks. <strong>devstral-2:123b</strong> finished T6 in 55 s (vs 251 s) but looped on T5 like Sarvam. Sarvam 105b never completed cross-file T6 in any pass. On Ollama free, the trade-off is <strong>speed vs loop reliability</strong>, not rupees.</p>
+      </div>
+
+      <!-- Findings -->
+      <p class="testrun-h3">Findings</p>
+
+      <div class="finding">
+        <div class="finding-title"><span class="finding-num">1</span> sarvam-30b enters an infinite tool-call loop on T5</div>
+        <p>Every turn in the 30b T5 run ended with <code>tool_result_count: 1</code> — the model never stopped dispatching tools. All HTTP responses were <strong>200</strong>. The API was healthy. After turn 1 (1,277 output tokens), every subsequent turn collapsed to 22–49 output tokens — just enough to emit another tool call, never a final text response.</p>
+        <div class="finding-code">Turn&nbsp;&nbsp;1: in=3,789&nbsp;&nbsp;out=<span class="hi">1,277</span>&nbsp;&nbsp;tools=1&nbsp;&nbsp;<span class="dim">← first productive turn</span>
+Turn&nbsp;&nbsp;2: in=4,212&nbsp;&nbsp;out=<span class="hi">39</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tools=1
+Turn&nbsp;&nbsp;3: in=4,455&nbsp;&nbsp;out=<span class="hi">22</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tools=1
+Turn&nbsp;&nbsp;4: in=4,778&nbsp;&nbsp;out=<span class="hi">22</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tools=1
+<span class="dim">...</span>
+Turn 185: in=24,636 out=<span class="hi">49</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tools=1&nbsp;&nbsp;<span class="dim">← killed at 180 s</span></div>
+        <p><strong>Root cause:</strong> sarvam-30b cannot decide when to stop calling tools on multi-step edit tasks. It keeps dispatching rather than synthesising a conclusion. The earlier "silent empty response" description was correct in effect but wrong in cause — the model was not silent, it was spinning.</p>
+      </div>
+
+      <div class="finding">
+        <div class="finding-title"><span class="finding-num">2</span> The 4096 output token cap is a hard Sarvam tier limit</div>
+        <p>Setting <code>maxTokens: 8192</code> in user config causes the Sarvam API to reject the first real request (after the 20-token validation call succeeds), surfacing as "Sarvam models are not available." This is not a config issue — the API hard-rejects <code>max_tokens &gt; 4096</code> on the starter tier. It cannot be worked around.</p>
+        <div class="finding-note">Validation call (20 tokens) → ✅ success &nbsp;|&nbsp; First agent request (max_tokens=8192) → ❌ rejected</div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-title"><span class="finding-num">3</span> sarvam-105b also loops — the pattern is not 30b-exclusive</div>
+        <p>Pass 3 showed 105b collapsing to 21-token tool calls on both T5 and T6 after 2–6 productive turns. The signature is identical to 30b's loop:</p>
+        <div class="finding-code">T1: out=<span class="hi">1,170</span>  tools=1   <span class="dim">← productive</span>\nT2: out=<span class="hi">300</span>    tools=1   <span class="dim">← productive</span>\nT3: out=<span class="hi">11</span>     tools=1   <span class="dim">← collapsing</span>\nT4: out=<span class="hi">330</span>    tools=1   <span class="dim">← brief recovery (tsc gate firing)</span>\nT6-T14: out=<span class="hi">21-22</span>  tools=1  <span class="dim">← loop (9 consecutive turns)</span>\nT15: out=<span class="hi">294</span>    tools=1   <span class="dim">← another brief recovery</span>\nT16-T30: out=<span class="hi">19-43</span>  tools=1  <span class="dim">← loop — cut by guard</span></div>
+        <p>105b makes more productive attempts and the tsc gate causes brief recoveries, but it cannot sustain convergence across 30 turns on multi-file tasks. T6 (cross-file) collapsed after turn 2 and produced 14–19 tokens per turn for 28 remaining turns.</p>
+        <p><strong>The turn-limit guard is essential for both models.</strong> Pass 3 confirmed: 105b T5 cost ₹0.92 at 30 turns; without the guard it would have run indefinitely.</p>
+      </div>
+
+      <div class="finding">
+        <div class="finding-title"><span class="finding-num">4</span> 30b's loop burns the hourly API quota</div>
+        <p>After 30b's 185-turn T5 run (180 s of continuous API calls), the account was rate-limited for over 75 minutes. All retry attempts failed during this window. The turn-limit guard would have cut the 30b loop at 30 turns (~25 s, ~₹0.06) instead of 185 turns.</p>
+      </div>
+
+      <div class="finding">
+        <div class="finding-title"><span class="finding-num">5</span> PowerShell UTF-8 BOM silently corrupts models.json</div>
+        <p>PowerShell 5.x <code>Set-Content -Encoding UTF8</code> writes a BOM (<code>0xEF 0xBB 0xBF</code>) prefix. The eval harness wrote it during the <code>MaxTokens</code> patch-and-restore step. <code>JSON.parse</code> failed with "Unexpected token '﻿'" — surfaced as "models not available." All harness writes now use <code>[System.Text.UTF8Encoding]::new($false)</code>.</p>
+        <div class="finding-note">This masked all retry failures for ~75 minutes as "rate-limiting" when they were actually a JSON parse error. The real rate limit cleared much sooner.</div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-title"><span class="finding-num">6</span> Token reporting (friction #12) is now live</div>
+        <p>Every <code>--print</code> run now emits a cost summary to stderr. Previously evaluation runs had no visibility into spend.</p>
+        <div class="finding-code"><span class="dim">[tokens]</span> in=<span class="hi">119362</span> out=<span class="hi">3666</span> cacheRead=0 req=<span class="hi">21</span> cost=<span class="hi">₹0.5361</span></div>
+      </div>
+
+      <!-- Guards -->
+      <p class="testrun-h3">Guards Shipped (Phase 0b)</p>
+      <div class="card-grid" style="margin-bottom:8px;">
+        <div class="card">
+          <div class="card-icon icon-teal">🔬</div>
+          <h3>ts-verify</h3>
+          <p>After every <code>edit</code>/<code>write</code> to a <code>.ts</code> file, runs <code>tsc --noEmit</code> and appends the result to tool output. The model sees compile errors inline. Disable: <code>SUPRATIM_TSC_VERIFY=0</code></p>
+        </div>
+        <div class="card">
+          <div class="card-icon icon-orange">🛑</div>
+          <h3>turn-limit</h3>
+          <p>Aborts the agent loop after <code>SUPRATIM_MAX_TURNS</code> turns (default: 30). Normal complex tasks use 5–25 turns; over 30 is almost certainly a loop. Disable: <code>SUPRATIM_MAX_TURNS=0</code></p>
+        </div>
+      </div>
+
+      <!-- Inferences -->
+      <p class="testrun-h3">Inferences</p>
+      <table class="arch-table infer-table">
+        <tbody>
+          <tr><td>1</td><td><strong>Both 30b and 105b loop on multi-file tasks.</strong> 105b collapses to 21-token calls after 2–6 productive turns; 30b from turn 2.</td></tr>
+          <tr><td>2</td><td><strong>105b remains the better default.</strong> Makes more productive turns, partially implements changes, recovers briefly when tsc gate fires.</td></tr>
+          <tr><td>3</td><td><strong>Turn-limit guard is essential for both models — now shipped.</strong> Pass 3 confirmed: cuts 105b loop at 30 turns (₹0.92) vs 185+ (₹4+).</td></tr>
+          <tr><td>4</td><td><strong>tsc-verify gate causes brief recoveries but can't prevent the loop.</strong> Valuable for surfacing errors; insufficient alone for convergence.</td></tr>
+          <tr><td>5</td><td><strong>maxTokens is immovable at 4096</strong> on the starter tier.</td></tr>
+          <tr><td>6</td><td><strong>PowerShell UTF-8 BOM corrupts models.json silently.</strong> Use <code>UTF8NoBOM</code> for all harness writes.</td></tr>
+          <tr><td>7</td><td><strong>Ollama free tier solves T6; Sarvam doesn't.</strong> qwen3 completed all 6; devstral T6 in 55 s. Cost N/A on free — compare time and convergence.</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Verdict -->
+      <p class="testrun-h3">Verdict</p>
+      <div class="verdict-row" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="verdict-card vc-green">
+          <span class="vc-label">Sarvam default</span>
+          <h4>sarvam-105b</h4>
+          <p>Fast T1–T4. Loops on T5/T6. ₹ quota + rate-limit risk. Turn-limit guard essential.</p>
+        </div>
+        <div class="verdict-card vc-green" style="border-top-color: var(--teal);">
+          <span class="vc-label" style="background:rgba(20,184,166,0.1);color:var(--teal)">Ollama · reliability</span>
+          <h4>qwen3-coder:480b</h4>
+          <p>Only model to finish all 6 tasks on free tier. Slower on simple tasks; converges on hard ones.</p>
+        </div>
+        <div class="verdict-card vc-green" style="border-top-color: #60a5fa;">
+          <span class="vc-label" style="background:rgba(96,165,250,0.1);color:#60a5fa">Ollama · speed</span>
+          <h4>devstral-2:123b</h4>
+          <p>Fastest T2–T4 and T6 (55 s). Loops on T5. Best when task is read/analyse, not multi-file edit.</p>
+        </div>
+      </div>
+      <div class="verdict-row" style="margin-top: 0;">
+        <div class="verdict-card vc-red" style="grid-column: 1 / -1;">
+          <span class="vc-label">Not for agentic use</span>
+          <h4>sarvam-30b</h4>
+          <p>Infinite tool-dispatch loop on any task &gt;2 turns. Suitable only for fast single-turn queries.</p>
+        </div>
+      </div>
+
+      <!-- What this means -->
+      <p class="testrun-h3">What This Means for the Project</p>
+      <div class="implications-grid">
+        <div class="impl-card">
+          <h4>✅ Shipped</h4>
+          <ul>
+            <li>Default model → <code>sarvam-105b</code></li>
+            <li><code>ts-verify</code> — post-edit <code>tsc --noEmit</code> gate</li>
+            <li><code>turn-limit</code> — 30-turn abort guard</li>
+            <li><code>api-debug</code> — <code>SUPRATIM_DEBUG=1</code> per-turn logging</li>
+            <li>Print-mode <code>[tokens]</code> reporting</li>
+          </ul>
+        </div>
+        <div class="impl-card">
+          <h4>🔧 Phase 2 scope</h4>
+          <ul>
+            <li>BYOK: Sarvam default + Ollama Cloud as optional provider</li>
+            <li>Structured exploration for T6-class tasks</li>
+            <li>Turn-limit + tsc-verify on all providers</li>
+          </ul>
+        </div>
+        <div class="impl-card">
+          <h4>🔬 Phase 2 investigation</h4>
+          <ul>
+            <li><code>reasoning_effort: "low"</code> for both models — may reduce loop</li>
+            <li>Improve "models not available" error — surface root cause (BOM, rate limit, API rejection)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+<footer>
+      <div class="footer-links">
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer">npm</a>
+        <a href="../LICENSE">MIT License</a>
+        <a href="../THIRD_PARTY_NOTICES.md">Third-party notices</a>
+        <a href="https://pi.dev" target="_blank" rel="noopener noreferrer">Built on Pi</a>
+        <a href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer">Sarvam AI</a>
+      </div>
+      <div class="footer-right">
+        <span style="color: var(--text-dim); font-size: 0.8rem;">© 2026 Dattaprasad Ekavade</span>
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-github"></i></a>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-npm"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

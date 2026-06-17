@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview — Supratim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">⬡ <span>supratim</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#tldr">TL;DR</a></li>
+        <li><a href="overview.html" class="active">Overview</a></li>
+        <li><a href="architecture.html">Architecture</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="testrun.html">Test Run</a></li>
+        <li><a href="install.html">Install</a></li>
+        <li><a href="structure.html">Structure</a></li>
+      </ul>
+      <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="nav-cta">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <!-- Overview -->
+    <section id="overview">
+      <h2>What is Supratim?</h2>
+      <p class="section-lead">
+        A terminal-first coding agent: read, write, edit, and run commands in your project — powered by Sarvam AI out of the box. Built on the open-source <strong>Pi</strong> toolkit so we can focus on what's unique: Sarvam integration, secure key onboarding, cost tracking in ₹.
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon icon-orange">🎯</div>
+          <h3>Dogfood-First</h3>
+          <p>Daily use in real repos is the only benchmark. Every phase ships something you'll actually use.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon icon-teal">🔌</div>
+          <h3>Model-Agnostic</h3>
+          <p>Sarvam showcased by default. Swap to any provider or local model — Pi is already BYOK.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon icon-blue">🧩</div>
+          <h3>Depend, Don't Fork</h3>
+          <p>Built on Pi packages. Stays aligned with upstream — we extend, not duplicate.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's ready -->
+    <section id="features">
+      <h2>What's Ready Today</h2>
+      <p class="section-lead">Phases 0 &amp; 1 are fully shipped and published.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon icon-teal">🔑</div>
+          <h3>Secure Key Onboarding</h3>
+          <p>TUI wizard on first run. Keys stored in Windows Credential Manager / macOS Keychain via <code>keytar</code> — never written to disk.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon icon-orange">📊</div>
+          <h3>Live Usage HUD</h3>
+          <p>Real-time token counts, running cost in ₹, context window %, current model — always visible in the footer.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon icon-blue">🛠️</div>
+          <h3>Core Tools</h3>
+          <p><code>read</code>, <code>write</code>, <code>edit</code>, <code>bash</code> — all scoped to your project directory via Pi.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon icon-green">⚡</div>
+          <h3>Sarvam Optimised</h3>
+          <p>Compat extension flattens Pi content blocks; handles Sarvam tier <code>max_tokens</code> limits automatically.</p>
+        </div>
+      </div>
+    </section>
+
+<footer>
+      <div class="footer-links">
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer">npm</a>
+        <a href="../LICENSE">MIT License</a>
+        <a href="../THIRD_PARTY_NOTICES.md">Third-party notices</a>
+        <a href="https://pi.dev" target="_blank" rel="noopener noreferrer">Built on Pi</a>
+        <a href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer">Sarvam AI</a>
+      </div>
+      <div class="footer-right">
+        <span style="color: var(--text-dim); font-size: 0.8rem;">© 2026 Dattaprasad Ekavade</span>
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-github"></i></a>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-npm"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

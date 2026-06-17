@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic Coding Agent — Supratim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">⬡ <span>supratim</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#tldr" class="active">TL;DR</a></li>
+        <li><a href="overview.html">Overview</a></li>
+        <li><a href="architecture.html">Architecture</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="testrun.html">Test Run</a></li>
+        <li><a href="install.html">Install</a></li>
+        <li><a href="structure.html">Structure</a></li>
+      </ul>
+      <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="nav-cta">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <header>
+      <div class="badge"><span class="badge-dot"></span> Phases 0 &amp; 1 Shipped</div>
+      <h1>Supratim</h1>
+      <p class="tagline">
+        Open-source, model-agnostic agentic coding agent.<br>
+        Built on <strong>Pi</strong> · Showcasing <strong style="color:var(--accent)">Sarvam AI</strong> by default.
+      </p>
+
+      <div style="margin-bottom: 28px;">
+        <div class="hero-install" onclick="copyHeroCmd(this)" title="Click to copy">
+          <span class="cmd-prefix">$</span>
+          <span class="cmd-text">npx <span class="cmd-pkg">supratim</span></span>
+          <button class="copy-btn" aria-label="Copy command"><i class="far fa-copy"></i></button>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="install.html" class="btn"><i class="fas fa-terminal"></i> Get Started</a>
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+          <i class="fab fa-github"></i> View on GitHub
+        </a>
+      </div>
+
+      <div class="chips">
+        <span class="chip"><i class="fas fa-code-branch"></i> v0.2.0</span>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" class="chip">
+          <i class="fab fa-npm"></i> npm
+        </a>
+        <span class="chip"><i class="fab fa-node-js"></i> Node ≥ 20.6</span>
+        <span class="chip"><i class="fab fa-js"></i> TypeScript</span>
+        <span class="chip"><i class="fas fa-shield-alt"></i> MIT</span>
+        <span class="chip"><i class="fas fa-globe"></i> Windows · macOS · Linux</span>
+      </div>
+    </header>
+
+    <!-- TL;DR -->
+    <section id="tldr" class="tldr-section">
+      <div class="tldr-top">
+        <h2>TL;DR</h2>
+        <span class="tldr-updated">Updated 17 Jun 2026 · v0.2.0</span>
+      </div>
+      <div class="tldr-grid">
+        <div class="tldr-item">
+          <span class="tldr-tag new">New</span>
+          <span><strong>Ollama Cloud</strong> on free tier — <code>qwen3-coder:480b</code> &amp; <code>devstral-2:123b</code> via <code>SUPRATIM_PROVIDER=ollama-cloud</code></span>
+        </div>
+        <div class="tldr-item">
+          <span class="tldr-tag eval">Eval</span>
+          <span><strong>Phase 0c:</strong> qwen3 finished all 6 agent tasks; devstral did cross-file T6 in <strong>55 s</strong>. Sarvam 105b loops on T5/T6</span>
+        </div>
+        <div class="tldr-item">
+          <span class="tldr-tag ship">Shipped</span>
+          <span><code>ts-verify</code> post-edit tsc gate + <code>turn-limit</code> guard (30 turns) — stops infinite tool loops</span>
+        </div>
+        <div class="tldr-item">
+          <span class="tldr-tag ship">Shipped</span>
+          <span>On npm: <code>npx supratim</code> · Sarvam default <code>sarvam-105b</code> · INR usage HUD · secure key onboarding</span>
+        </div>
+        <div class="tldr-item">
+          <span class="tldr-tag eval">Takeaway</span>
+          <span>On Ollama <strong>free</strong>, cost isn't the variable — <strong>speed vs loop reliability</strong> is. Use Ollama for hard cross-file tasks; Sarvam for fast T1–T4</span>
+        </div>
+        <div class="tldr-item">
+          <span class="tldr-tag new">Next</span>
+          <span>Phase 2: MCP client, structured exploration for T6-class tasks, BYOK polish</span>
+        </div>
+      </div>
+      <p class="tldr-foot">Details → <a href="testrun.html">Test Run</a> · <a href="https://github.com/dattaprasad-r-ekavade/supratim/blob/main/docs/Testrun-ollama.md" target="_blank" rel="noopener noreferrer">Ollama comparison doc</a></p>
+    </section>
+
+<footer>
+      <div class="footer-links">
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer">npm</a>
+        <a href="../LICENSE">MIT License</a>
+        <a href="../THIRD_PARTY_NOTICES.md">Third-party notices</a>
+        <a href="https://pi.dev" target="_blank" rel="noopener noreferrer">Built on Pi</a>
+        <a href="https://www.sarvam.ai" target="_blank" rel="noopener noreferrer">Sarvam AI</a>
+      </div>
+      <div class="footer-right">
+        <span style="color: var(--text-dim); font-size: 0.8rem;">© 2026 Dattaprasad Ekavade</span>
+        <a href="https://github.com/dattaprasad-r-ekavade/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-github"></i></a>
+        <a href="https://www.npmjs.com/package/supratim" target="_blank" rel="noopener noreferrer" class="footer-icon"><i class="fab fa-npm"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
